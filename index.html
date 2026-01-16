@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QULTURE — Drop 01</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background:#000; color:#fff; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+
+<body class="selection:bg-white selection:text-black">
+
+  <!-- TOP BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+
+      <!-- LOGO -->
+      <a href="#top" class="flex items-center gap-2 sm:gap-3 min-w-0">
+        <img
+          src="logo.png"
+          alt="QULTURE logo"
+          class="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-100"
+        >
+        <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate">
+          QULTURE
+        </span>
+      </a>
+
+      <!-- NAV (desktop only) -->
+      <nav class="hidden md:flex items-center gap-6 mono text-[11px] uppercase tracking-widest text-gray-400">
+        <a href="#products" class="hover:text-white transition-colors">Продукция</a>
+        <a href="#buyers" class="hover:text-white transition-colors">Покупателям</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </nav>
+
+      <!-- ACTIONS -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="https://wa.me/77471126137" target="_blank"
+           class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+          <span class="hidden sm:inline">WhatsApp</span>
+          <span class="sm:hidden">WA</span>
+        </a>
+
+        <a href="https://www.instagram.com/qulture.culture" target="_blank"
+           class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+          <span class="hidden sm:inline">Instagram</span>
+          <span class="sm:hidden">IG</span>
+        </a>
+
+        <button id="cartBtn"
+          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest border border-white/20 px-3 sm:px-4 py-2 hover:border-white transition whitespace-nowrap">
+          <span class="hidden sm:inline">Корзина</span>
+          <span class="sm:hidden">Корзина</span>
+          <span id="cartCount" class="text-gray-400">(0)</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="border border-white/10 rounded-2xl p-6 sm:p-8 md:p-12 bg-white/5">
+        <div class="mono text-[11px] uppercase tracking-widest text-gray-400 mb-5 sm:mb-6">
+          Drop 01 / Pre-order
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[0.95]">
+          YOU’RE GETTING <br class="hidden md:block"/> OUT OF TIME.
+        </h1>
+
+        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
+          <a href="#products"
+             class="inline-flex justify-center items-center bg-white text-black px-7 sm:px-8 py-4 font-bold uppercase tracking-widest">
+            Смотреть продукцию
+          </a>
+          <a href="https://wa.me/77471126137" target="_blank"
+             class="inline-flex justify-center items-center border border-white/20 px-7 sm:px-8 py-4 font-bold uppercase tracking-widest hover:border-white transition">
+            Предзаказ в WhatsApp
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="py-14 sm:py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-end justify-between gap-6 mb-7 sm:mb-8">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tighter">Продукция</h2>
+          <p class="text-gray-400 mt-2">Добавь в корзину — оформим предзаказ через WhatsApp.</p>
+        </div>
+        <div class="mono text-[11px] uppercase tracking-widest text-gray-500 hidden sm:block">
+          Drop 01
+        </div>
+      </div>
+
+      <!-- ONE PRODUCT, CENTERED -->
+      <div id="productGrid" class="grid grid-cols-1 place-items-center gap-6"></div>
+    </div>
+  </section>
+
+  <!-- BUYERS INFO -->
+  <section id="buyers" class="py-14 sm:py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8">Информация для покупателей</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
+          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Как заказать</div>
+          <ol class="text-sm text-gray-300 leading-relaxed list-decimal pl-5 space-y-2">
+            <li>Добавь товар в корзину</li>
+            <li>Нажми «Оформить в WhatsApp»</li>
+            <li>Мы уточним размер/доставку</li>
+          </ol>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
+          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Рассрочка/KASPI RED</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            Если хочешь рассрочку — напиши менеджеру. Подскажем условия и оформим вручную.
+          </p>
+          <a href="https://wa.me/77471126137" target="_blank"
+             class="inline-flex mt-4 mono text-[11px] uppercase tracking-widest border border-white/20 px-4 py-2 hover:border-white transition">
+            Написать в WhatsApp
+          </a>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
+          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Доставка</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            По Казахстану и СНГ. Стоимость и сроки зависят от города — уточняем при оформлении.
+          </p>
+        </div>
+
+        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
+          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Возврат и обмен</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            Возврат/обмен — в течение 14 дней при сохранении бирки и отсутствии следов носки. По вопросам — пишите в WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section id="contacts" class="py-14 sm:py-16 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
+        <div class="p-7 sm:p-8 rounded-2xl border border-white/10 bg-white/5">
+          <h3 class="text-2xl font-bold tracking-tighter">Контакты</h3>
+
+          <div class="mt-6 space-y-3 text-sm text-gray-300">
+            <div><span class="mono text-gray-500">Instagram:</span>
+              <a class="hover:text-white transition" target="_blank" href="https://www.instagram.com/qulture.culture"> @qulture.culture</a>
+            </div>
+            <div><span class="mono text-gray-500">WhatsApp:</span>
+              <a class="hover:text-white transition" target="_blank" href="https://wa.me/77471126137"> +7 747 112 6137</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-7 sm:p-8 rounded-2xl border border-white/10 bg-white/5">
+          <h3 class="text-2xl font-bold tracking-tighter">Оформить заказ</h3>
+          <p class="text-gray-400 mt-2 text-sm">
+            Нажми — и мы отправим тебе текст заявки в WhatsApp (можно отредактировать перед отправкой).
+          </p>
+
+          <button id="checkoutBtn"
+            class="mt-6 w-full bg-white text-black px-8 py-4 font-bold uppercase tracking-widest hover:opacity-90 transition">
+            Оформить в WhatsApp
+          </button>
+
+          <div class="mt-4 mono text-[11px] uppercase tracking-widest text-gray-500">
+            (Если корзина пустая — добавь товары выше)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<footer class="border-t border-white/10 relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6
+              py-6 md:py-0
+              md:h-24
+              flex flex-col md:flex-row items-center justify-between gap-4
+              mono text-[10px] uppercase tracking-widest text-gray-600 relative">
+
+    <div class="shrink-0">© 2026 QULTURE.KZ</div>
+
+    <!-- payments -->
+<div class="relative w-full md:flex-1 md:h-full flex items-center justify-center h-20 md:h-full">
+  <img
+    src="payments.png"
+    alt="Visa / MasterCard"
+    class="
+      absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
+      h-32 md:h-36
+      w-auto opacity-90 pointer-events-none
+    "
+  />
+</div>
+
+
+    <div class="shrink-0 flex flex-wrap justify-center md:justify-end items-center gap-2 text-center">
+      <a href="privacy.html" class="hover:text-white transition-colors">
+        Политика конфиденциальности
+      </a>
+      <span class="opacity-30 hidden md:inline">/</span>
+      <a href="offer.html" class="hover:text-white transition-colors">
+        Публичная оферта
+      </a>
+    </div>
+
+  </div>
+</footer>
+
+
+
+  <!-- CART DRAWER -->
+  <div id="drawer" class="fixed inset-0 z-[60] hidden">
+    <div id="drawerOverlay" class="absolute inset-0 bg-black/70"></div>
+    <div class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/10 p-6 overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <div class="text-xl font-bold tracking-tighter">Корзина</div>
+        <button id="closeDrawer" class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition">Закрыть</button>
+      </div>
+
+      <div id="cartItems" class="mt-6 space-y-4"></div>
+
+      <div class="mt-6 border-t border-white/10 pt-4">
+        <div class="flex items-center justify-between text-sm">
+          <span class="mono text-gray-500">Итого:</span>
+          <span id="cartTotal" class="font-bold">0 ₸</span>
+        </div>
+
+        <button id="drawerCheckout"
+          class="mt-4 w-full bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:opacity-90 transition">
+          Оформить в WhatsApp
+        </button>
+
+        <button id="clearCart"
+          class="mt-3 w-full border border-white/20 px-6 py-3 font-bold uppercase tracking-widest hover:border-white transition">
+          Очистить корзину
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === SETTINGS ===
+    const WHATSAPP_NUMBER = "77471126137"; // no + sign
+    const CURRENCY = "₸";
+
+    // === PRODUCTS (ONE ITEM) ===
+    const PRODUCTS = [
+      {
+        id: "q1",
+        name: 'T-SHIRT “YOU’RE GETTING OUT OF TIME”',
+        price: 24500,
+        note: "Oversize / Unisex",
+        image: "tshirt.png",
+        // старайся писать без лишних переносов строк — так на мобилке будет аккуратнее
+        description: `
+Характеристики:
+• Состав: 95% Хлопок / 5% Эластан (190 г/м²).
+• Принт: Износостойкая шелкография.
+• Крой: Авторский силуэт QULTURE (собственные лекала).
+• Размеры: Custom L / Custom XL
+
+Производство:
+Handmade in Kazakhstan. Это не масс-маркет. Каждая вещь кроится и шьется вручную в локальном цеху, а не заказывается готовыми бланками. Мы полностью контролируем процесс: от выбора нитей до финального шва.
+        `.trim(),
+      },
+    ];
+
+    // === CART ===
+    const key = "qulture_cart_v1";
+    const $ = (id) => document.getElementById(id);
+
+    function loadCart() {
+      try { return JSON.parse(localStorage.getItem(key)) || []; }
+      catch { return []; }
+    }
+    function saveCart(cart) {
+      localStorage.setItem(key, JSON.stringify(cart));
+      renderCartBadge();
+    }
+    function formatPrice(n) {
+      return new Intl.NumberFormat("ru-RU").format(n) + " " + CURRENCY;
+    }
+    function cartCount(cart) {
+      return cart.reduce((s, i) => s + i.qty, 0);
+    }
+    function cartTotal(cart) {
+      return cart.reduce((s, i) => s + i.price * i.qty, 0);
+    }
+
+    function addToCart(productId) {
+      const p = PRODUCTS.find(x => x.id === productId);
+      if (!p) return;
+
+      const cart = loadCart();
+      const existing = cart.find(x => x.id === p.id);
+      if (existing) existing.qty += 1;
+      else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
+
+      saveCart(cart);
+      openDrawer();
+      renderCart();
+    }
+
+    function removeFromCart(productId) {
+      const cart = loadCart().filter(x => x.id !== productId);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function changeQty(productId, delta) {
+      const cart = loadCart();
+      const item = cart.find(x => x.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) return removeFromCart(productId);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function clearCart() {
+      saveCart([]);
+      renderCart();
+    }
+
+    function buildWhatsappMessage() {
+      const cart = loadCart();
+      if (!cart.length) return null;
+
+      const lines = [];
+      lines.push("QULTURE — Заявка на предзаказ");
+      lines.push("");
+      cart.forEach((i, idx) => {
+        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
+      });
+      lines.push("");
+      lines.push(`Итого: ${formatPrice(cartTotal(cart))}`);
+      lines.push("");
+      lines.push("Размер(ы): ");
+      lines.push("Город: ");
+      lines.push("Доставка: ");
+      lines.push("Комментарий: ");
+
+      return encodeURIComponent(lines.join("\n"));
+    }
+
+    function goCheckout() {
+      const msg = buildWhatsappMessage();
+      if (!msg) {
+        alert("Корзина пустая. Добавь товары в разделе «Продукция».");
+        return;
+      }
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, "_blank");
+    }
+
+    // === RENDER PRODUCT (mobile-first) ===
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+
+    function prettyTextToHtml(text) {
+      // 1) экранируем HTML
+      let safe = escapeHtml(text);
+
+      // 2) делаем буллеты и абзацы аккуратнее:
+      //    - пустые строки -> двойной перенос
+      //    - одиночные переносы -> перенос строки
+      //    - "• " оставляем как есть
+      return safe
+        .replace(/\n{2,}/g, "\n\n") // нормализуем
+        .split("\n\n")
+        .map(block => `<p class="mb-3 last:mb-0">${block.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+    }
+
+    function renderProducts() {
+      const grid = $("productGrid");
+
+      grid.innerHTML = PRODUCTS.map(p => {
+        const desc = p.description ? prettyTextToHtml(p.description) : "";
+
+        return `
+          <div class="w-full max-w-5xl rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2">
+
+              <!-- IMAGE -->
+              <div class="bg-white border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-center">
+                <div class="w-full aspect-[4/3] sm:aspect-square overflow-hidden flex items-center justify-center">
+                  <img
+                    src="${p.image}"
+                    alt="${escapeHtml(p.name)}"
+                    class="w-full h-full object-contain p-5 sm:p-8 md:p-10 max-h-[520px]"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              <!-- INFO -->
+              <div class="p-5 sm:p-6 md:p-8">
+                <div class="flex items-start justify-between gap-4 sm:gap-6">
+                  <div class="min-w-0">
+                    <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
+                      ${escapeHtml(p.name)}
+                    </div>
+                    <div class="text-sm text-gray-400 mt-2">
+                      ${escapeHtml(p.note || "")}
+                    </div>
+                  </div>
+
+                  <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
+                    ${formatPrice(p.price)}
+                  </div>
+                </div>
+
+                ${p.description ? `
+                  <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/10 pt-4 sm:pt-5">
+                    ${desc}
+                  </div>
+                ` : ""}
+
+                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button onclick="addToCart('${p.id}')"
+                    class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
+                    В корзину
+                  </button>
+
+                  <a target="_blank"
+                     href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
+                     class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
+                    WhatsApp
+                  </a>
+                </div>
+
+                <div class="mt-4 mono text-[11px] uppercase tracking-widest text-gray-500">
+                  Pre-order only / Drop 01
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderCartBadge() {
+      const cart = loadCart();
+      $("cartCount").textContent = `(${cartCount(cart)})`;
+    }
+
+    function renderCart() {
+      const cart = loadCart();
+      const wrap = $("cartItems");
+
+      if (!cart.length) {
+        wrap.innerHTML = `
+          <div class="p-6 rounded-2xl border border-white/10 bg-white/5 text-gray-400">
+            Корзина пустая. Добавь товары в «Продукция».
+          </div>
+        `;
+      } else {
+        wrap.innerHTML = cart.map(i => `
+          <div class="p-5 rounded-2xl border border-white/10 bg-white/5">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="font-bold">${i.name}</div>
+                <div class="text-sm text-gray-400 mt-1">${formatPrice(i.price)} / шт.</div>
+              </div>
+              <button class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition"
+                onclick="removeFromCart('${i.id}')">Удалить</button>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <button class="border border-white/20 w-10 h-10 rounded-xl hover:border-white transition"
+                  onclick="changeQty('${i.id}', -1)">-</button>
+                <div class="mono text-[12px] uppercase tracking-widest text-gray-300 w-10 text-center">${i.qty}</div>
+                <button class="border border-white/20 w-10 h-10 rounded-xl hover:border-white transition"
+                  onclick="changeQty('${i.id}', 1)">+</button>
+              </div>
+              <div class="font-bold">${formatPrice(i.price * i.qty)}</div>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      $("cartTotal").textContent = formatPrice(cartTotal(cart));
+      renderCartBadge();
+    }
+
+    // === DRAWER ===
+    function openDrawer() {
+      $("drawer").classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeDrawer() {
+      $("drawer").classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    // === INIT ===
+    renderProducts();
+    renderCartBadge();
+    renderCart();
+
+    $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
+    $("closeDrawer").addEventListener("click", closeDrawer);
+    $("drawerOverlay").addEventListener("click", closeDrawer);
+    $("drawerCheckout").addEventListener("click", goCheckout);
+    $("checkoutBtn").addEventListener("click", goCheckout);
+    $("clearCart").addEventListener("click", clearCart);
+
+    // expose to inline onclick
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.changeQty = changeQty;
+  </script>
+
+</body>
+</html>
