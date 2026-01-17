@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Главная
+RewriteRule ^$ index.html [L]
+
+# Оферта
+RewriteRule ^offer/?$ offer.html [L]
+
+# Политика
+RewriteRule ^privacy/?$ privacy.html [L]
