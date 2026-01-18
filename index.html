@@ -107,7 +107,6 @@
       background: rgba(255,255,255,.06);
       overflow: hidden;
     }
-
     .bar:before{
       content:"";
       position:absolute;
@@ -119,12 +118,10 @@
       pointer-events:none;
       z-index: 0;
     }
-
     @keyframes scanMoveTrack{
       0%{ transform: translateX(-60%); }
       100%{ transform: translateX(140%); }
     }
-
     .bar > i{
       display:block;
       height:100%;
@@ -138,7 +135,6 @@
       will-change: filter, width;
       z-index: 1;
     }
-
     .bar > i:after{
       content:"";
       position:absolute;
@@ -149,20 +145,23 @@
       opacity:.55;
       pointer-events:none;
     }
-
     @keyframes scanMoveFill{
       0%{ transform: translateX(-60%); }
       100%{ transform: translateX(140%); }
     }
-
     @keyframes fillPulse{
       0%,100%{ filter: brightness(1); }
       50%{ filter: brightness(1.25); }
     }
 
-    /* smooth hint */
-    .fade{ transition: opacity 220ms ease, transform 220ms ease; }
-    .fade.hide{ opacity:0; transform: translateY(8px); pointer-events:none; }
+    /* smooth hint / button */
+    .fade{
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+    .fade.hide{
+      opacity:0; transform: translateY(8px);
+      pointer-events:none;
+    }
   </style>
 </head>
 
@@ -253,14 +252,14 @@
   <!-- MUSIC -->
   <audio id="bgMusic" src="track.mp3" loop playsinline preload="auto"></audio>
 
-  <!-- TAP HINT -->
-  <div id="tapHint"
+  <!-- SOUND BUTTON (iOS-safe) -->
+  <button id="soundBtn"
     class="fade fixed inset-x-0 bottom-4 mx-auto w-fit z-50
            mono text-[10px] uppercase tracking-widest
            border border-white/20 px-4 py-2
            bg-black/70 backdrop-blur text-gray-200">
-    Tap anywhere to enable sound
-  </div>
+    Sound: OFF — Tap to enable
+  </button>
 
   <script>
     // ====== SET RELEASE DATE HERE (Almaty time) ======
@@ -305,7 +304,7 @@
       setTick("m", pad(mins));
       setTick("s", pad(secs));
 
-      // progress: last 14 days before release (clamped)
+      // progress: last 14 days before release
       const WINDOW_DAYS = 14;
       const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
@@ -323,23 +322,13 @@
     tick();
     setInterval(tick, 1000);
 
-    // ===== MOBILE-SAFE MUSIC UNLOCK (FIXED) =====
+    // ===== iOS/Android SAFE SOUND (explicit button gesture) =====
     const audio = $("bgMusic");
-    const hint = $("tapHint");
-
+    const btn = $("soundBtn");
     let musicEnabled = false;
 
-    function showHint() {
-      if (!hint) return;
-      hint.classList.remove("hide");
-    }
-    function hideHint() {
-      if (!hint) return;
-      hint.classList.add("hide");
-    }
-
-    async function tryStartMusic() {
-      if (!audio || musicEnabled) return;
+    async function enableSound(){
+      if (!audio) return;
 
       audio.loop = true;
       audio.playsInline = true;
@@ -347,46 +336,31 @@
       audio.volume = 0.45;
 
       try {
-        // start muted -> play -> unmute (better on iOS/Android)
+        // iOS trick: start muted -> play -> unmute
         audio.muted = true;
         await audio.play();
         audio.muted = false;
 
         musicEnabled = true;
-        hideHint();
+        btn.textContent = "Sound: ON — Tap to mute";
       } catch (e) {
-        showHint();
+        btn.textContent = "Sound blocked — tap again";
       }
     }
 
-    function unlockHandler() {
-      tryStartMusic();
-      // НЕ снимаем listeners сразу — иногда нужен второй жест
-      // Снимем после успеха (внутри tryStartMusic).
-      if (musicEnabled) {
-        ["pointerdown","touchend","click","keydown"].forEach(evt =>
-          window.removeEventListener(evt, unlockHandler)
-        );
-      }
+    function disableSound(){
+      if (!audio) return;
+      audio.pause();
+      musicEnabled = false;
+      btn.textContent = "Sound: OFF — Tap to enable";
     }
 
-    ["pointerdown","touchend","click","keydown"].forEach(evt => {
-      window.addEventListener(evt, unlockHandler, { passive: true });
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!musicEnabled) await enableSound();
+      else disableSound();
     });
-
-    if (hint) {
-      hint.addEventListener("click", (e) => {
-        e.stopPropagation();
-        tryStartMusic();
-      });
-    }
-
-    // Desktop: попробуем, если заблокировано — останется hint
-    tryStartMusic();
-
-    setTimeout(() => {
-      if (!musicEnabled && hint) hint.style.opacity = "0.9";
-    }, 1500);
   </script>
+
 </body>
 </html>
