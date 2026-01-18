@@ -1,13 +1,12 @@
 RewriteEngine On
 
-# --- LOCK SHOP PAGE (до релиза) ---
-# запрещаем открыть магазин напрямую
-RewriteRule ^main\.html$ - [R=404,L]
-RewriteRule ^index\.html$ - [R=404,L]
-
 # Главная (заглушка)
 RewriteRule ^$ index.html [L]
 
 # Красивые ссылки
 RewriteRule ^offer/?$ offer.html [L]
 RewriteRule ^privacy/?$ privacy.html [L]
+
+# --- LOCK SHOP PAGE (до релиза) ---
+# запрещаем открыть магазин напрямую (main.html)
+RewriteRule ^main\.html$ - [R=404,L]
