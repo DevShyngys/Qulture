@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QULTURE — Drop 01</title>
+  <title>QULTURE — Drop 01 soon</title>
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
@@ -11,531 +11,392 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background:#000; color:#fff; }
+    :root{
+      --bg:#000;
+      --fg:#fff;
+      --card: rgba(255,255,255,.05);
+      --line: rgba(255,255,255,.10);
+      --muted: rgba(255,255,255,.55);
+      --muted2: rgba(255,255,255,.35);
+      --glow: rgba(255,255,255,.08);
+    }
+    body { font-family: 'Inter', sans-serif; background:var(--bg); color:var(--fg); }
     .mono { font-family: 'JetBrains Mono', monospace; }
+
+    /* soft vignette + subtle gradients */
+    .bgfx{
+      position: fixed; inset: 0; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(1200px 700px at 20% 15%, rgba(255,255,255,.06), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,.04), transparent 60%),
+        radial-gradient(1000px 800px at 50% 90%, rgba(255,255,255,.05), transparent 55%),
+        radial-gradient(60% 55% at 50% 40%, rgba(0,0,0,.0), rgba(0,0,0,.85) 85%),
+        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,1));
+      opacity: 1;
+    }
+
+    /* grain/noise overlay (super light) */
+    .grain{
+      position: fixed; inset: -40px; pointer-events:none; z-index:1;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: .12;
+      transform: translateZ(0);
+      animation: grainMove 9s steps(10) infinite;
+    }
+    @keyframes grainMove{
+      0% { transform: translate3d(0,0,0); }
+      10%{ transform: translate3d(-2%, -3%, 0); }
+      20%{ transform: translate3d(-4%, 2%, 0); }
+      30%{ transform: translate3d(3%, -2%, 0); }
+      40%{ transform: translate3d(2%, 4%, 0); }
+      50%{ transform: translate3d(-3%, 2%, 0); }
+      60%{ transform: translate3d(4%, 0%, 0); }
+      70%{ transform: translate3d(1%, -4%, 0); }
+      80%{ transform: translate3d(-2%, 3%, 0); }
+      90%{ transform: translate3d(3%, 1%, 0); }
+      100%{ transform: translate3d(0,0,0); }
+    }
+
+    /* premium card glow */
+    .premium-card{
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.04) inset,
+        0 30px 80px rgba(0,0,0,.65);
+    }
+    .premium-card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 260px at 18% 0%, rgba(255,255,255,.10), transparent 55%),
+        radial-gradient(650px 260px at 88% 8%, rgba(255,255,255,.07), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .premium-card:after{
+      content:"";
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent 30%, rgba(0,0,0,.2));
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    /* number flip-ish animation */
+    .tick{
+      display:inline-block;
+      transform-origin: 50% 70%;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+    .tick.pop{
+      transform: translateY(-1px) scale(1.06);
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
+    }
+
+/* ===== PROGRESS BAR (MOVING EVEN AT 0%) ===== */
+.bar{
+  position: relative;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.06);
+  overflow: hidden;
+}
+
+/* бегущий блик по всей полосе — виден даже при 0% */
+.bar:before{
+  content:"";
+  position:absolute;
+  inset:-60% -40%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,.22) 35%,
+    transparent 70%
+  );
+  transform: translateX(-60%);
+  animation: scanMoveTrack 1.35s linear infinite;
+  opacity:.35;
+  pointer-events:none;
+  z-index: 0;
+}
+
+@keyframes scanMoveTrack{
+  0%{ transform: translateX(-60%); }
+  100%{ transform: translateX(140%); }
+}
+
+/* fill */
+.bar > i{
+  display:block;
+  height:100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255,255,255,.20), rgba(255,255,255,.55));
+  box-shadow: 0 0 30px rgba(255,255,255,.18);
+  position: relative;
+  overflow: hidden;
+  animation: fillPulse 1.8s ease-in-out infinite;
+  will-change: filter, width;
+  z-index: 1;
+}
+
+/* сканер внутри заполненной части */
+.bar > i:after{
+  content:"";
+  position:absolute;
+  inset:-40% -30%;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255,255,255,.45) 35%,
+    transparent 70%
+  );
+  transform: translateX(-60%);
+  animation: scanMoveFill 1.1s linear infinite;
+  opacity:.55;
+  pointer-events:none;
+}
+
+@keyframes scanMoveFill{
+  0%{ transform: translateX(-60%); }
+  100%{ transform: translateX(140%); }
+}
+
+@keyframes fillPulse{
+  0%,100%{ filter: brightness(1); }
+  50%{ filter: brightness(1.25); }
+}
+
+
+    /* smooth hint */
+    .fade{
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+    .fade.hide{
+      opacity:0; transform: translateY(8px);
+      pointer-events:none;
+    }
   </style>
 </head>
 
-<body class="selection:bg-white selection:text-black">
+<body class="selection:bg-white selection:text-black min-h-screen overflow-x-hidden">
+  <div class="bgfx"></div>
+  <div class="grain"></div>
 
   <!-- TOP BAR -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
-
-      <!-- LOGO -->
-      <a href="#top" class="flex items-center gap-2 sm:gap-3 min-w-0">
-        <img
-          src="logo.png"
-          alt="QULTURE logo"
-          class="w-10 h-10 sm:w-12 sm:h-12 object-contain opacity-100"
-        >
-        <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate">
-          QULTURE
-        </span>
-      </a>
-
-      <!-- NAV (desktop only) -->
-      <nav class="hidden md:flex items-center gap-6 mono text-[11px] uppercase tracking-widest text-gray-400">
-        <a href="#products" class="hover:text-white transition-colors">Продукция</a>
-        <a href="#buyers" class="hover:text-white transition-colors">Покупателям</a>
-        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
-      </nav>
-
-      <!-- ACTIONS -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <a href="https://wa.me/77471126137" target="_blank"
-           class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-          <span class="hidden sm:inline">WhatsApp</span>
-          <span class="sm:hidden">WA</span>
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 relative z-10">
+      <div class="flex items-center justify-between gap-3">
+        <a href="/" class="flex items-center gap-2 min-w-0">
+          <img src="logo.png" alt="QULTURE logo" class="h-8 sm:h-10 w-auto object-contain">
+          <span class="text-base sm:text-xl md:text-2xl font-bold tracking-tighter truncate">
+            QULTURE
+          </span>
         </a>
 
-        <a href="https://www.instagram.com/qulture.culture" target="_blank"
-           class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-          <span class="hidden sm:inline">Instagram</span>
-          <span class="sm:hidden">IG</span>
-        </a>
-
-        <button id="cartBtn"
-          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest border border-white/20 px-3 sm:px-4 py-2 hover:border-white transition whitespace-nowrap">
-          <span class="hidden sm:inline">Корзина</span>
-          <span class="sm:hidden">Корзина</span>
-          <span id="cartCount" class="text-gray-400">(0)</span>
-        </button>
+        <div class="flex items-center gap-2 sm:gap-3 flex-nowrap shrink-0">
+          <a href="https://www.instagram.com/qulture.culture" target="_blank"
+             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest
+                    text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+            Instagram
+          </a>
+          <a href="https://wa.me/77471126137" target="_blank"
+             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest
+                    text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+            WhatsApp
+          </a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- HERO -->
-  <section id="top" class="pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="border border-white/10 rounded-2xl p-6 sm:p-8 md:p-12 bg-white/5">
-        <div class="mono text-[11px] uppercase tracking-widest text-gray-400 mb-5 sm:mb-6">
-          Drop 01 / Pre-order
+  <!-- CONTENT -->
+  <main class="pt-28 sm:pt-28 md:pt-32 pb-16 px-4 sm:px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-[560px] md:max-w-3xl mx-auto premium-card p-6 sm:p-8 md:p-12">
+        <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mb-5 sm:mb-6">
+          Drop 01 / Coming soon
         </div>
 
-        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[0.95]">
-          YOU’RE GETTING <br class="hidden md:block"/> OUT OF TIME.
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[1.02]">
+          OUT OF TIME.<br />
+          DROP 01 IS LOADING.
         </h1>
 
-        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
-          <a href="#products"
-             class="inline-flex justify-center items-center bg-white text-black px-7 sm:px-8 py-4 font-bold uppercase tracking-widest">
-            Смотреть продукцию
-          </a>
-          <a href="https://wa.me/77471126137" target="_blank"
-             class="inline-flex justify-center items-center border border-white/20 px-7 sm:px-8 py-4 font-bold uppercase tracking-widest hover:border-white transition">
-            Предзаказ в WhatsApp
-          </a>
-        </div>
+        <p class="text-sm sm:text-base text-gray-300/80 leading-relaxed mt-4 sm:mt-6 max-w-2xl">
+          Предзаказ скоро откроется.
+        </p>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- PRODUCTS -->
-  <section id="products" class="py-14 sm:py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="flex items-end justify-between gap-6 mb-7 sm:mb-8">
-        <div>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tighter">Продукция</h2>
-          <p class="text-gray-400 mt-2">Добавь в корзину — оформим предзаказ через WhatsApp.</p>
-        </div>
-        <div class="mono text-[11px] uppercase tracking-widest text-gray-500 hidden sm:block">
-          Drop 01
-        </div>
-      </div>
-
-      <!-- ONE PRODUCT, CENTERED -->
-      <div id="productGrid" class="grid grid-cols-1 place-items-center gap-6"></div>
-    </div>
-  </section>
-
-  <!-- BUYERS INFO -->
-  <section id="buyers" class="py-14 sm:py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8">Информация для покупателей</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
-          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Как заказать</div>
-          <ol class="text-sm text-gray-300 leading-relaxed list-decimal pl-5 space-y-2">
-            <li>Добавь товар в корзину</li>
-            <li>Нажми «Оформить в WhatsApp»</li>
-            <li>Мы уточним размер/доставку</li>
-          </ol>
-        </div>
-
-        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
-          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Рассрочка/KASPI RED</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            Если хочешь рассрочку — напиши менеджеру. Подскажем условия и оформим вручную.
-          </p>
-          <a href="https://wa.me/77471126137" target="_blank"
-             class="inline-flex mt-4 mono text-[11px] uppercase tracking-widest border border-white/20 px-4 py-2 hover:border-white transition">
-            Написать в WhatsApp
-          </a>
-        </div>
-
-        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
-          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Доставка</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            По Казахстану и СНГ. Стоимость и сроки зависят от города — уточняем при оформлении.
-          </p>
-        </div>
-
-        <div class="p-6 rounded-2xl border border-white/10 bg-white/5">
-          <div class="mono text-[11px] uppercase tracking-widest text-gray-500 mb-3">Возврат и обмен</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            Возврат/обмен — в течение 14 дней при сохранении бирки и отсутствии следов носки. По вопросам — пишите в WhatsApp.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACTS -->
-  <section id="contacts" class="py-14 sm:py-16 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
-        <div class="p-7 sm:p-8 rounded-2xl border border-white/10 bg-white/5">
-          <h3 class="text-2xl font-bold tracking-tighter">Контакты</h3>
-
-          <div class="mt-6 space-y-3 text-sm text-gray-300">
-            <div><span class="mono text-gray-500">Instagram:</span>
-              <a class="hover:text-white transition" target="_blank" href="https://www.instagram.com/qulture.culture"> @qulture.culture</a>
-            </div>
-            <div><span class="mono text-gray-500">WhatsApp:</span>
-              <a class="hover:text-white transition" target="_blank" href="https://wa.me/77471126137"> +7 747 112 6137</a>
-            </div>
+        <!-- Progress -->
+        <div class="mt-7 sm:mt-8">
+          <div class="flex items-center justify-between text-[11px] sm:text-xs mono uppercase tracking-widest text-gray-400">
+            <span>Progress</span>
+            <span id="pct">0%</span>
+          </div>
+          <div class="mt-2 bar">
+            <i id="barFill"></i>
           </div>
         </div>
 
-        <div class="p-7 sm:p-8 rounded-2xl border border-white/10 bg-white/5">
-          <h3 class="text-2xl font-bold tracking-tighter">Оформить заказ</h3>
-          <p class="text-gray-400 mt-2 text-sm">
-            Нажми — и мы отправим тебе текст заявки в WhatsApp (можно отредактировать перед отправкой).
-          </p>
-
-          <button id="checkoutBtn"
-            class="mt-6 w-full bg-white text-black px-8 py-4 font-bold uppercase tracking-widest hover:opacity-90 transition">
-            Оформить в WhatsApp
-          </button>
-
-          <div class="mt-4 mono text-[11px] uppercase tracking-widest text-gray-500">
-            (Если корзина пустая — добавь товары выше)
+        <!-- TIMER -->
+        <div class="mt-7 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="d" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">дней</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="h" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">часов</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="m" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">минут</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="s" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">секунд</div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
 
-<footer class="border-t border-white/10 relative overflow-hidden">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6
-              py-6 md:py-0
-              md:h-24
-              flex flex-col md:flex-row items-center justify-between gap-4
-              mono text-[10px] uppercase tracking-widest text-gray-600 relative">
-
-    <div class="shrink-0">© 2026 QULTURE.KZ</div>
-
-    <!-- payments -->
-<div class="relative w-full md:flex-1 md:h-full flex items-center justify-center h-20 md:h-full">
-  <img
-    src="payments.png"
-    alt="Visa / MasterCard"
-    class="
-      absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-      h-32 md:h-36
-      w-auto opacity-90 pointer-events-none
-    "
-  />
-</div>
-
-
-    <div class="shrink-0 flex flex-wrap justify-center md:justify-end items-center gap-2 text-center">
-      <a href="/privacy" class="hover:text-white transition-colors">
-        Политика конфиденциальности
-      </a>
-      <span class="opacity-30 hidden md:inline">/</span>
-      <a href="/offer" class="hover:text-white transition-colors">
-        Публичная оферта
-      </a>
-    </div>
-
-  </div>
-</footer>
-
-
-
-  <!-- CART DRAWER -->
-  <div id="drawer" class="fixed inset-0 z-[60] hidden">
-    <div id="drawerOverlay" class="absolute inset-0 bg-black/70"></div>
-    <div class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/10 p-6 overflow-y-auto">
-      <div class="flex items-center justify-between">
-        <div class="text-xl font-bold tracking-tighter">Корзина</div>
-        <button id="closeDrawer" class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition">Закрыть</button>
-      </div>
-
-      <div id="cartItems" class="mt-6 space-y-4"></div>
-
-      <div class="mt-6 border-t border-white/10 pt-4">
-        <div class="flex items-center justify-between text-sm">
-          <span class="mono text-gray-500">Итого:</span>
-          <span id="cartTotal" class="font-bold">0 ₸</span>
+        <!-- AFTER RELEASE -->
+        <div id="ready" class="hidden mt-6 sm:mt-8 p-5 rounded-xl border border-white/10 bg-white/5">
+          <div class="font-bold">Drop уже доступен.</div>
+          <div class="text-gray-400 text-sm mt-1">Ссылка будет обновлена на сайте.</div>
         </div>
 
-        <button id="drawerCheckout"
-          class="mt-4 w-full bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:opacity-90 transition">
-          Оформить в WhatsApp
-        </button>
 
-        <button id="clearCart"
-          class="mt-3 w-full border border-white/20 px-6 py-3 font-bold uppercase tracking-widest hover:border-white transition">
-          Очистить корзину
-        </button>
       </div>
     </div>
+  </main>
+
+  <!-- MUSIC -->
+  <audio id="bgMusic" src="track.mp3" loop playsinline preload="auto"></audio>
+
+  <!-- TAP HINT -->
+  <div id="tapHint"
+    class="fade fixed inset-x-0 bottom-4 mx-auto w-fit z-50
+           mono text-[10px] uppercase tracking-widest
+           border border-white/20 px-4 py-2
+           bg-black/70 backdrop-blur text-gray-200">
+    Tap anywhere to enable sound
   </div>
 
   <script>
-    // === SETTINGS ===
-    const WHATSAPP_NUMBER = "77471126137"; // no + sign
-    const CURRENCY = "₸";
+    // ====== SET RELEASE DATE HERE (Almaty time) ======
+    const RELEASE_AT = "2026-02-01T20:00:00+05:00";
 
-    // === PRODUCTS (ONE ITEM) ===
-    const PRODUCTS = [
-      {
-        id: "q1",
-        name: 'T-SHIRT “YOU’RE GETTING OUT OF TIME”',
-        price: 24500,
-        note: "Oversize / Unisex",
-        image: "tshirt.png",
-        // старайся писать без лишних переносов строк — так на мобилке будет аккуратнее
-        description: `
-Характеристики:
-• Состав: 95% Хлопок / 5% Эластан (190 г/м²).
-• Принт: Износостойкая шелкография.
-• Крой: Авторский силуэт QULTURE (собственные лекала).
-• Размеры: Custom L / Custom XL
-
-Производство:
-Handmade in Kazakhstan. Это не масс-маркет. Каждая вещь кроится и шьется вручную в локальном цеху, а не заказывается готовыми бланками. Мы полностью контролируем процесс: от выбора нитей до финального шва.
-        `.trim(),
-      },
-    ];
-
-    // === CART ===
-    const key = "qulture_cart_v1";
     const $ = (id) => document.getElementById(id);
+    const target = new Date(RELEASE_AT).getTime();
 
-    function loadCart() {
-      try { return JSON.parse(localStorage.getItem(key)) || []; }
-      catch { return []; }
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    const last = { d: null, h: null, m: null, s: null };
+    function pop(el){
+      el.classList.add("pop");
+      setTimeout(() => el.classList.remove("pop"), 190);
     }
-    function saveCart(cart) {
-      localStorage.setItem(key, JSON.stringify(cart));
-      renderCartBadge();
-    }
-    function formatPrice(n) {
-      return new Intl.NumberFormat("ru-RU").format(n) + " " + CURRENCY;
-    }
-    function cartCount(cart) {
-      return cart.reduce((s, i) => s + i.qty, 0);
-    }
-    function cartTotal(cart) {
-      return cart.reduce((s, i) => s + i.price * i.qty, 0);
-    }
-
-    function addToCart(productId) {
-      const p = PRODUCTS.find(x => x.id === productId);
-      if (!p) return;
-
-      const cart = loadCart();
-      const existing = cart.find(x => x.id === p.id);
-      if (existing) existing.qty += 1;
-      else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
-
-      saveCart(cart);
-      openDrawer();
-      renderCart();
-    }
-
-    function removeFromCart(productId) {
-      const cart = loadCart().filter(x => x.id !== productId);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function changeQty(productId, delta) {
-      const cart = loadCart();
-      const item = cart.find(x => x.id === productId);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) return removeFromCart(productId);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function clearCart() {
-      saveCart([]);
-      renderCart();
-    }
-
-    function buildWhatsappMessage() {
-      const cart = loadCart();
-      if (!cart.length) return null;
-
-      const lines = [];
-      lines.push("QULTURE — Заявка на предзаказ");
-      lines.push("");
-      cart.forEach((i, idx) => {
-        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
-      });
-      lines.push("");
-      lines.push(`Итого: ${formatPrice(cartTotal(cart))}`);
-      lines.push("");
-      lines.push("Размер(ы): ");
-      lines.push("Город: ");
-      lines.push("Доставка: ");
-      lines.push("Комментарий: ");
-
-      return encodeURIComponent(lines.join("\n"));
-    }
-
-    function goCheckout() {
-      const msg = buildWhatsappMessage();
-      if (!msg) {
-        alert("Корзина пустая. Добавь товары в разделе «Продукция».");
-        return;
+    function setTick(id, val){
+      const el = $(id);
+      if (last[id] !== val){
+        el.textContent = val;
+        pop(el);
+        last[id] = val;
       }
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-      window.open(url, "_blank");
     }
 
-    // === RENDER PRODUCT (mobile-first) ===
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+    // Progress baseline per user (first visit)
+    const firstSeenKey = "qulture_drop_firstSeen_v1";
+    let firstSeen = Number(localStorage.getItem(firstSeenKey));
+    if (!firstSeen || Number.isNaN(firstSeen)) {
+      firstSeen = Date.now();
+      localStorage.setItem(firstSeenKey, String(firstSeen));
+    }
+    if (firstSeen > target) firstSeen = target - 1000;
+
+    function tick() {
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const mins = Math.floor(diff / (1000 * 60));
+      diff -= mins * (1000 * 60);
+
+      const secs = Math.floor(diff / 1000);
+
+      setTick("d", pad(days));
+      setTick("h", pad(hours));
+      setTick("m", pad(mins));
+      setTick("s", pad(secs));
+
+// progress: last 14 days before release (always moving)
+const WINDOW_DAYS = 14;
+const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
+
+const windowStart = target - windowMs;
+const clampedNow = Math.max(windowStart, Math.min(target, now));
+
+const pct = Math.floor(((clampedNow - windowStart) / windowMs) * 100);
+
+$("pct").textContent = pct + "%";
+$("barFill").style.width = pct + "%";
+
+
+
+      if (target - now <= 0) $("ready").classList.remove("hidden");
     }
 
-    function prettyTextToHtml(text) {
-      // 1) экранируем HTML
-      let safe = escapeHtml(text);
+    tick();
+    setInterval(tick, 1000);
 
-      // 2) делаем буллеты и абзацы аккуратнее:
-      //    - пустые строки -> двойной перенос
-      //    - одиночные переносы -> перенос строки
-      //    - "• " оставляем как есть
-      return safe
-        .replace(/\n{2,}/g, "\n\n") // нормализуем
-        .split("\n\n")
-        .map(block => `<p class="mb-3 last:mb-0">${block.replace(/\n/g, "<br>")}</p>`)
-        .join("");
-    }
+    // ====== MUSIC: tap-anywhere unlock + nicer UX ======
+    const audio = $("bgMusic");
+    const hint = $("tapHint");
 
-    function renderProducts() {
-      const grid = $("productGrid");
+    let musicEnabled = false;
 
-      grid.innerHTML = PRODUCTS.map(p => {
-        const desc = p.description ? prettyTextToHtml(p.description) : "";
-
-        return `
-          <div class="w-full max-w-5xl rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2">
-
-              <!-- IMAGE -->
-              <div class="bg-white border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-center">
-                <div class="w-full aspect-[4/3] sm:aspect-square overflow-hidden flex items-center justify-center">
-                  <img
-                    src="${p.image}"
-                    alt="${escapeHtml(p.name)}"
-                    class="w-full h-full object-contain p-5 sm:p-8 md:p-10 max-h-[520px]"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-
-              <!-- INFO -->
-              <div class="p-5 sm:p-6 md:p-8">
-                <div class="flex items-start justify-between gap-4 sm:gap-6">
-                  <div class="min-w-0">
-                    <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
-                      ${escapeHtml(p.name)}
-                    </div>
-                    <div class="text-sm text-gray-400 mt-2">
-                      ${escapeHtml(p.note || "")}
-                    </div>
-                  </div>
-
-                  <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
-                    ${formatPrice(p.price)}
-                  </div>
-                </div>
-
-                ${p.description ? `
-                  <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/10 pt-4 sm:pt-5">
-                    ${desc}
-                  </div>
-                ` : ""}
-
-                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button onclick="addToCart('${p.id}')"
-                    class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
-                    В корзину
-                  </button>
-
-                  <a target="_blank"
-                     href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
-                     class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
-                    WhatsApp
-                  </a>
-                </div>
-
-                <div class="mt-4 mono text-[11px] uppercase tracking-widest text-gray-500">
-                  Pre-order only / Drop 01
-                </div>
-              </div>
-
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-
-    function renderCartBadge() {
-      const cart = loadCart();
-      $("cartCount").textContent = `(${cartCount(cart)})`;
-    }
-
-    function renderCart() {
-      const cart = loadCart();
-      const wrap = $("cartItems");
-
-      if (!cart.length) {
-        wrap.innerHTML = `
-          <div class="p-6 rounded-2xl border border-white/10 bg-white/5 text-gray-400">
-            Корзина пустая. Добавь товары в «Продукция».
-          </div>
-        `;
-      } else {
-        wrap.innerHTML = cart.map(i => `
-          <div class="p-5 rounded-2xl border border-white/10 bg-white/5">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <div class="font-bold">${i.name}</div>
-                <div class="text-sm text-gray-400 mt-1">${formatPrice(i.price)} / шт.</div>
-              </div>
-              <button class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition"
-                onclick="removeFromCart('${i.id}')">Удалить</button>
-            </div>
-
-            <div class="mt-4 flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <button class="border border-white/20 w-10 h-10 rounded-xl hover:border-white transition"
-                  onclick="changeQty('${i.id}', -1)">-</button>
-                <div class="mono text-[12px] uppercase tracking-widest text-gray-300 w-10 text-center">${i.qty}</div>
-                <button class="border border-white/20 w-10 h-10 rounded-xl hover:border-white transition"
-                  onclick="changeQty('${i.id}', 1)">+</button>
-              </div>
-              <div class="font-bold">${formatPrice(i.price * i.qty)}</div>
-            </div>
-          </div>
-        `).join("");
+    async function startMusic() {
+      audio.volume = 0.45;
+      try {
+        await audio.play();
+        musicEnabled = true;
+        hint.classList.add("hide");
+      } catch (e) {
+        // blocked until user interaction
       }
-
-      $("cartTotal").textContent = formatPrice(cartTotal(cart));
-      renderCartBadge();
     }
 
-    // === DRAWER ===
-    function openDrawer() {
-      $("drawer").classList.remove("hidden");
-      document.body.classList.add("overflow-hidden");
+    // try autoplay (desktop often ok)
+    startMusic();
+
+    function unlock() {
+      if (!musicEnabled) startMusic();
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("touchstart", unlock);
+      window.removeEventListener("keydown", unlock);
     }
-    function closeDrawer() {
-      $("drawer").classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
-    }
 
-    // === INIT ===
-    renderProducts();
-    renderCartBadge();
-    renderCart();
+    window.addEventListener("pointerdown", unlock, { once: true });
+    window.addEventListener("touchstart", unlock, { once: true });
+    window.addEventListener("keydown", unlock, { once: true });
 
-    $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
-    $("closeDrawer").addEventListener("click", closeDrawer);
-    $("drawerOverlay").addEventListener("click", closeDrawer);
-    $("drawerCheckout").addEventListener("click", goCheckout);
-    $("checkoutBtn").addEventListener("click", goCheckout);
-    $("clearCart").addEventListener("click", clearCart);
+    // Also allow tap on hint itself
+    hint.addEventListener("click", () => startMusic());
 
-    // expose to inline onclick
-    window.addToCart = addToCart;
-    window.removeFromCart = removeFromCart;
-    window.changeQty = changeQty;
+    // If user never taps, auto fade hint a bit after 6s (still visible)
+    setTimeout(() => {
+      if (!musicEnabled) hint.style.opacity = "0.85";
+    }, 6000);
   </script>
 
 </body>
