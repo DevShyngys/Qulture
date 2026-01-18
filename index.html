@@ -98,90 +98,71 @@
       filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
     }
 
-/* ===== PROGRESS BAR (MOVING EVEN AT 0%) ===== */
-.bar{
-  position: relative;
-  height: 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.06);
-  overflow: hidden;
-}
-
-/* бегущий блик по всей полосе — виден даже при 0% */
-.bar:before{
-  content:"";
-  position:absolute;
-  inset:-60% -40%;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    rgba(255,255,255,.22) 35%,
-    transparent 70%
-  );
-  transform: translateX(-60%);
-  animation: scanMoveTrack 1.35s linear infinite;
-  opacity:.35;
-  pointer-events:none;
-  z-index: 0;
-}
-
-@keyframes scanMoveTrack{
-  0%{ transform: translateX(-60%); }
-  100%{ transform: translateX(140%); }
-}
-
-/* fill */
-.bar > i{
-  display:block;
-  height:100%;
-  width: 0%;
-  border-radius: 999px;
-  background: linear-gradient(90deg, rgba(255,255,255,.20), rgba(255,255,255,.55));
-  box-shadow: 0 0 30px rgba(255,255,255,.18);
-  position: relative;
-  overflow: hidden;
-  animation: fillPulse 1.8s ease-in-out infinite;
-  will-change: filter, width;
-  z-index: 1;
-}
-
-/* сканер внутри заполненной части */
-.bar > i:after{
-  content:"";
-  position:absolute;
-  inset:-40% -30%;
-  background: linear-gradient(
-    110deg,
-    transparent 0%,
-    rgba(255,255,255,.45) 35%,
-    transparent 70%
-  );
-  transform: translateX(-60%);
-  animation: scanMoveFill 1.1s linear infinite;
-  opacity:.55;
-  pointer-events:none;
-}
-
-@keyframes scanMoveFill{
-  0%{ transform: translateX(-60%); }
-  100%{ transform: translateX(140%); }
-}
-
-@keyframes fillPulse{
-  0%,100%{ filter: brightness(1); }
-  50%{ filter: brightness(1.25); }
-}
-
-
-    /* smooth hint */
-    .fade{
-      transition: opacity 220ms ease, transform 220ms ease;
+    /* ===== PROGRESS BAR (MOVING EVEN AT 0%) ===== */
+    .bar{
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.06);
+      overflow: hidden;
     }
-    .fade.hide{
-      opacity:0; transform: translateY(8px);
+
+    .bar:before{
+      content:"";
+      position:absolute;
+      inset:-60% -40%;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.22) 35%, transparent 70%);
+      transform: translateX(-60%);
+      animation: scanMoveTrack 1.35s linear infinite;
+      opacity:.35;
+      pointer-events:none;
+      z-index: 0;
+    }
+
+    @keyframes scanMoveTrack{
+      0%{ transform: translateX(-60%); }
+      100%{ transform: translateX(140%); }
+    }
+
+    .bar > i{
+      display:block;
+      height:100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255,255,255,.20), rgba(255,255,255,.55));
+      box-shadow: 0 0 30px rgba(255,255,255,.18);
+      position: relative;
+      overflow: hidden;
+      animation: fillPulse 1.8s ease-in-out infinite;
+      will-change: filter, width;
+      z-index: 1;
+    }
+
+    .bar > i:after{
+      content:"";
+      position:absolute;
+      inset:-40% -30%;
+      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.45) 35%, transparent 70%);
+      transform: translateX(-60%);
+      animation: scanMoveFill 1.1s linear infinite;
+      opacity:.55;
       pointer-events:none;
     }
+
+    @keyframes scanMoveFill{
+      0%{ transform: translateX(-60%); }
+      100%{ transform: translateX(140%); }
+    }
+
+    @keyframes fillPulse{
+      0%,100%{ filter: brightness(1); }
+      50%{ filter: brightness(1.25); }
+    }
+
+    /* smooth hint */
+    .fade{ transition: opacity 220ms ease, transform 220ms ease; }
+    .fade.hide{ opacity:0; transform: translateY(8px); pointer-events:none; }
   </style>
 </head>
 
@@ -193,22 +174,18 @@
   <header class="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md border-b border-white/10">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 relative z-10">
       <div class="flex items-center justify-between gap-3">
-        <a href="/" class="flex items-center gap-2 min-w-0">
-          <img src="logo.png" alt="QULTURE logo" class="h-8 sm:h-10 w-auto object-contain">
-          <span class="text-base sm:text-xl md:text-2xl font-bold tracking-tighter truncate">
-            QULTURE
-          </span>
+        <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
+          <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
+          <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate">QULTURE</span>
         </a>
 
         <div class="flex items-center gap-2 sm:gap-3 flex-nowrap shrink-0">
           <a href="https://www.instagram.com/qulture.culture" target="_blank"
-             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest
-                    text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
             Instagram
           </a>
           <a href="https://wa.me/77471126137" target="_blank"
-             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest
-                    text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
             WhatsApp
           </a>
         </div>
@@ -225,8 +202,8 @@
         </div>
 
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[1.02]">
-          OUT OF TIME.<br />
-          DROP 01 IS LOADING.
+          YOU’RE GETTING OUT OF TIME.
+          DROP 01
         </h1>
 
         <p class="text-sm sm:text-base text-gray-300/80 leading-relaxed mt-4 sm:mt-6 max-w-2xl">
@@ -269,8 +246,6 @@
           <div class="font-bold">Drop уже доступен.</div>
           <div class="text-gray-400 text-sm mt-1">Ссылка будет обновлена на сайте.</div>
         </div>
-
-
       </div>
     </div>
   </main>
@@ -310,15 +285,6 @@
       }
     }
 
-    // Progress baseline per user (first visit)
-    const firstSeenKey = "qulture_drop_firstSeen_v1";
-    let firstSeen = Number(localStorage.getItem(firstSeenKey));
-    if (!firstSeen || Number.isNaN(firstSeen)) {
-      firstSeen = Date.now();
-      localStorage.setItem(firstSeenKey, String(firstSeen));
-    }
-    if (firstSeen > target) firstSeen = target - 1000;
-
     function tick() {
       const now = Date.now();
       let diff = Math.max(0, target - now);
@@ -339,19 +305,17 @@
       setTick("m", pad(mins));
       setTick("s", pad(secs));
 
-// progress: last 14 days before release (always moving)
-const WINDOW_DAYS = 14;
-const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
+      // progress: last 14 days before release (clamped)
+      const WINDOW_DAYS = 14;
+      const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
 
-const windowStart = target - windowMs;
-const clampedNow = Math.max(windowStart, Math.min(target, now));
+      const windowStart = target - windowMs;
+      const clampedNow = Math.max(windowStart, Math.min(target, now));
 
-const pct = Math.floor(((clampedNow - windowStart) / windowMs) * 100);
+      const pct = Math.floor(((clampedNow - windowStart) / windowMs) * 100);
 
-$("pct").textContent = pct + "%";
-$("barFill").style.width = pct + "%";
-
-
+      $("pct").textContent = pct + "%";
+      $("barFill").style.width = pct + "%";
 
       if (target - now <= 0) $("ready").classList.remove("hidden");
     }
@@ -359,45 +323,70 @@ $("barFill").style.width = pct + "%";
     tick();
     setInterval(tick, 1000);
 
-    // ====== MUSIC: tap-anywhere unlock + nicer UX ======
+    // ===== MOBILE-SAFE MUSIC UNLOCK (FIXED) =====
     const audio = $("bgMusic");
     const hint = $("tapHint");
 
     let musicEnabled = false;
 
-    async function startMusic() {
+    function showHint() {
+      if (!hint) return;
+      hint.classList.remove("hide");
+    }
+    function hideHint() {
+      if (!hint) return;
+      hint.classList.add("hide");
+    }
+
+    async function tryStartMusic() {
+      if (!audio || musicEnabled) return;
+
+      audio.loop = true;
+      audio.playsInline = true;
+      audio.preload = "auto";
       audio.volume = 0.45;
+
       try {
+        // start muted -> play -> unmute (better on iOS/Android)
+        audio.muted = true;
         await audio.play();
+        audio.muted = false;
+
         musicEnabled = true;
-        hint.classList.add("hide");
+        hideHint();
       } catch (e) {
-        // blocked until user interaction
+        showHint();
       }
     }
 
-    // try autoplay (desktop often ok)
-    startMusic();
-
-    function unlock() {
-      if (!musicEnabled) startMusic();
-      window.removeEventListener("pointerdown", unlock);
-      window.removeEventListener("touchstart", unlock);
-      window.removeEventListener("keydown", unlock);
+    function unlockHandler() {
+      tryStartMusic();
+      // НЕ снимаем listeners сразу — иногда нужен второй жест
+      // Снимем после успеха (внутри tryStartMusic).
+      if (musicEnabled) {
+        ["pointerdown","touchend","click","keydown"].forEach(evt =>
+          window.removeEventListener(evt, unlockHandler)
+        );
+      }
     }
 
-    window.addEventListener("pointerdown", unlock, { once: true });
-    window.addEventListener("touchstart", unlock, { once: true });
-    window.addEventListener("keydown", unlock, { once: true });
+    ["pointerdown","touchend","click","keydown"].forEach(evt => {
+      window.addEventListener(evt, unlockHandler, { passive: true });
+    });
 
-    // Also allow tap on hint itself
-    hint.addEventListener("click", () => startMusic());
+    if (hint) {
+      hint.addEventListener("click", (e) => {
+        e.stopPropagation();
+        tryStartMusic();
+      });
+    }
 
-    // If user never taps, auto fade hint a bit after 6s (still visible)
+    // Desktop: попробуем, если заблокировано — останется hint
+    tryStartMusic();
+
     setTimeout(() => {
-      if (!musicEnabled) hint.style.opacity = "0.85";
-    }, 6000);
+      if (!musicEnabled && hint) hint.style.opacity = "0.9";
+    }, 1500);
   </script>
-
 </body>
 </html>
