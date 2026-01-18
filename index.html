@@ -250,7 +250,10 @@
   </main>
 
   <!-- MUSIC -->
-  <audio id="bgMusic" src="track.mp3" loop playsinline preload="auto"></audio>
+<audio id="bgMusic" loop playsinline preload="auto">
+  <source src="track.m4a" type="audio/mp4">
+  <source src="track.mp3" type="audio/mpeg">
+</audio>
 
   <!-- SOUND BUTTON (iOS-safe) -->
   <button id="soundBtn"
