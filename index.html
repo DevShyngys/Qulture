@@ -1,368 +1,1323 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QULTURE — Drop 01 soon</title>
+  <title>QULTURE — Drop 01</title>
+  <meta name="description"
+    content="QULTURE Drop 01 — лимитированный pre-order. Handmade in Kazakhstan. Оформление через WhatsApp.">
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="apple-touch-icon" href="favicon.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
-    :root{
-      --bg:#000;
-      --fg:#fff;
-      --card: rgba(255,255,255,.05);
-      --line: rgba(255,255,255,.10);
-      --muted: rgba(255,255,255,.55);
-      --muted2: rgba(255,255,255,.35);
-      --glow: rgba(255,255,255,.08);
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
     }
-    body { font-family: 'Inter', sans-serif; background:var(--bg); color:var(--fg); }
+
     .mono { font-family: 'JetBrains Mono', monospace; }
 
-    /* soft vignette + subtle gradients */
-    .bgfx{
-      position: fixed; inset: 0; pointer-events:none; z-index:0;
-      background:
-        radial-gradient(1200px 700px at 20% 15%, rgba(255,255,255,.06), transparent 55%),
-        radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,.04), transparent 60%),
-        radial-gradient(1000px 800px at 50% 90%, rgba(255,255,255,.05), transparent 55%),
-        radial-gradient(60% 55% at 50% 40%, rgba(0,0,0,.0), rgba(0,0,0,.85) 85%),
-        linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,1));
-      opacity: 1;
+    :root { --ease: cubic-bezier(.2, .8, .2, 1); }
+
+    /* make everything sharp */
+    * { border-radius: 0 !important; }
+
+    /* kill glass/blur everywhere */
+    .backdrop-blur-md,
+    [class*="backdrop-blur"],
+    .backdrop-blur-sm {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
-    /* grain/noise overlay (super light) */
-    .grain{
-      position: fixed; inset: -40px; pointer-events:none; z-index:1;
-      background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity: .12;
-      transform: translateZ(0);
-      animation: grainMove 9s steps(10) infinite;
-    }
-    @keyframes grainMove{
-      0% { transform: translate3d(0,0,0); }
-      10%{ transform: translate3d(-2%, -3%, 0); }
-      20%{ transform: translate3d(-4%, 2%, 0); }
-      30%{ transform: translate3d(3%, -2%, 0); }
-      40%{ transform: translate3d(2%, 4%, 0); }
-      50%{ transform: translate3d(-3%, 2%, 0); }
-      60%{ transform: translate3d(4%, 0%, 0); }
-      70%{ transform: translate3d(1%, -4%, 0); }
-      80%{ transform: translate3d(-2%, 3%, 0); }
-      90%{ transform: translate3d(3%, 1%, 0); }
-      100%{ transform: translate3d(0,0,0); }
+    /* keep UI panels solid (NO glass), BUT don't break overlays */
+    .bg-white\/5,
+    .bg-white\/6,
+    .bg-black\/60,
+    .bg-black\/30,
+    .bg-black\/25,
+    .bg-black\/18,
+    .bg-black\/28,
+    .bg-black\/35 {
+      background: #000 !important;
     }
 
-    /* premium card glow */
-    .premium-card{
-      position: relative;
-      border: 1px solid var(--line);
-      background: var(--card);
-      border-radius: 18px;
+    /* IMPORTANT: overlays must stay translucent */
+    #drawerOverlay { background: rgba(0,0,0,.65) !important; }
+    #sizeOverlay   { background: rgba(0,0,0,.72) !important; }
+    #lbBackdrop    { background: rgba(0,0,0,.80) !important; }
+
+    /* sharp borders (no opacity on element) */
+    .border-white\/10 { border-color: rgba(255,255,255,.10) !important; }
+    .border-white\/12 { border-color: rgba(255,255,255,.12) !important; }
+    .border-white\/16 { border-color: rgba(255,255,255,.16) !important; }
+    .border-white\/18 { border-color: rgba(255,255,255,.18) !important; }
+    .border-white\/20 { border-color: rgba(255,255,255,.20) !important; }
+    .border-white\/22 { border-color: rgba(255,255,255,.22) !important; }
+    .border-white\/32 { border-color: rgba(255,255,255,.32) !important; }
+    .border-white\/35 { border-color: rgba(255,255,255,.35) !important; }
+    .border-white\/42 { border-color: rgba(255,255,255,.42) !important; }
+    .border-white\/45 { border-color: rgba(255,255,255,.45) !important; }
+
+    /* remove shadows (flat) */
+    .shadow,
+    .shadow-md,
+    .shadow-lg,
+    .shadow-xl { box-shadow: none !important; }
+
+    /* hard UI surfaces */
+    .modal-card,
+    .gallery-shell,
+    .lb-card,
+    .toast,
+    .lb-stage,
+    .thumb,
+    .lb-thumb {
+      box-shadow: none !important;
+      background: #000 !important;
+    }
+
+    a, button { border-radius: 0 !important; }
+
+    /* =========================
+       HELVETICA TYPO SYSTEM
+       ========================= */
+    .helv {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    .helv-bold { font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 700; }
+    .helv-reg  { font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 400; }
+
+    /* letter spacing presets (px, as you wrote) */
+    .ls--6 { letter-spacing: -6px; }
+    .ls--1 { letter-spacing: -1px; }
+    .ls-1_1 { letter-spacing: 1.1px; }
+
+    /* 1) HERO TITLE: Helvetica Bold, LS -6, LH 50 */
+    .hero-title {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      letter-spacing: -6px;
+      line-height: 50px;
+    }
+    /* keep it readable on small screens */
+    @media (max-width: 640px) {
+      .hero-title { line-height: 40px; letter-spacing: -4px; }
+    }
+
+    /* 2) BRAND "QULTURE": Helvetica Bold, LS -6 */
+    .brand-title {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      letter-spacing: -6px;
+    }
+    @media (max-width: 640px) {
+      .brand-title { letter-spacing: -4px; }
+    }
+
+    /* 3) DROP 01: Helvetica Bold, size 11, LS 1.1 */
+    .drop-11 {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 1.1px;
+    }
+
+    /* 4) CTA "Смотреть продукцию": Helvetica Bold, LS -1 */
+    .cta-helv {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    /* 5) Section title buyers: Helvetica Bold, LS -6 */
+    .section-helv {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      letter-spacing: -6px;
+    }
+    @media (max-width: 640px) {
+      .section-helv { letter-spacing: -4px; }
+    }
+
+    /* 10) Contacts: Helvetica Bold, LS -1 */
+    .contacts-helv {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    /* ====== MODALS ====== */
+    .modal { display: none; }
+    .modal.is-open { display: block; }
+
+    .modal-card {
+      border: 1px solid rgba(255,255,255,.18);
+      background: #000;
       overflow: hidden;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,.04) inset,
-        0 30px 80px rgba(0,0,0,.65);
-    }
-    .premium-card:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background:
-        radial-gradient(600px 260px at 18% 0%, rgba(255,255,255,.10), transparent 55%),
-        radial-gradient(650px 260px at 88% 8%, rgba(255,255,255,.07), transparent 60%);
-      opacity:.9;
-      pointer-events:none;
-    }
-    .premium-card:after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), transparent 30%, rgba(0,0,0,.2));
-      opacity:.35;
-      pointer-events:none;
     }
 
-    /* number flip-ish animation */
-    .tick{
-      display:inline-block;
-      transform-origin: 50% 70%;
-      transition: transform 180ms ease, filter 180ms ease;
-    }
-    .tick.pop{
-      transform: translateY(-1px) scale(1.06);
-      filter: drop-shadow(0 8px 16px rgba(0,0,0,.35));
+    .modal-shell {
+      max-height: calc(100dvh - 24px);
+      width: min(980px, calc(100vw - 24px));
     }
 
-    /* ===== PROGRESS BAR (MOVING EVEN AT 0%) ===== */
-    .bar{
-      position: relative;
-      height: 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
+    .modal-body {
+      max-height: calc(100dvh - 140px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .6s var(--ease), transform .6s var(--ease);
+      will-change: opacity, transform;
+    }
+    .reveal.is-in { opacity: 1; transform: translateY(0); }
+    .reveal.delay-1 { transition-delay: .08s; }
+    .reveal.delay-2 { transition-delay: .16s; }
+    .reveal.delay-3 { transition-delay: .24s; }
+
+    .product-card {
+      transition: border-color .25s var(--ease), transform .25s var(--ease);
+    }
+    .product-card:hover {
+      border-color: rgba(255,255,255,.35) !important;
+      transform: translateY(-2px);
+    }
+
+    /* badge */
+    .badge-pop {
+      animation: badgePop .22s var(--ease);
+      display: inline-block;
+      transform-origin: 50% 60%;
+    }
+    @keyframes badgePop {
+      0% { transform: translateY(0) scale(1); }
+      60% { transform: translateY(-1px) scale(1.12); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    /* toast */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(10px);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 80;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #000;
+      padding: 10px 14px;
+      transition: opacity .22s var(--ease), transform .22s var(--ease);
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .shake { animation: shake .35s var(--ease); }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-6px); }
+      50% { transform: translateX(6px); }
+      75% { transform: translateX(-4px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* gallery */
+    .gallery { border-right: 1px solid rgba(255,255,255,.18); background: #000; }
+
+    .gallery-shell {
+      border: 1px solid rgba(255,255,255,.18);
+      background: #000;
       overflow: hidden;
     }
-    .bar:before{
-      content:"";
-      position:absolute;
-      inset:-60% -40%;
-      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.22) 35%, transparent 70%);
-      transform: translateX(-60%);
-      animation: scanMoveTrack 1.35s linear infinite;
-      opacity:.35;
-      pointer-events:none;
-      z-index: 0;
-    }
-    @keyframes scanMoveTrack{
-      0%{ transform: translateX(-60%); }
-      100%{ transform: translateX(140%); }
-    }
-    .bar > i{
-      display:block;
-      height:100%;
-      width: 0%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(255,255,255,.20), rgba(255,255,255,.55));
-      box-shadow: 0 0 30px rgba(255,255,255,.18);
+
+    .gallery-stage {
       position: relative;
+      width: 100%;
+      aspect-ratio: 1/1;
       overflow: hidden;
-      animation: fillPulse 1.8s ease-in-out infinite;
-      will-change: filter, width;
-      z-index: 1;
-    }
-    .bar > i:after{
-      content:"";
-      position:absolute;
-      inset:-40% -30%;
-      background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.45) 35%, transparent 70%);
-      transform: translateX(-60%);
-      animation: scanMoveFill 1.1s linear infinite;
-      opacity:.55;
-      pointer-events:none;
-    }
-    @keyframes scanMoveFill{
-      0%{ transform: translateX(-60%); }
-      100%{ transform: translateX(140%); }
-    }
-    @keyframes fillPulse{
-      0%,100%{ filter: brightness(1); }
-      50%{ filter: brightness(1.25); }
+      background: #000;
+      border: 1px solid rgba(255,255,255,.18);
     }
 
-    /* smooth hint / button */
-    .fade{
-      transition: opacity 220ms ease, transform 220ms ease;
+    .gallery-main {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      padding: 0;
+      transform: scale(1);
+      transition: transform .6s var(--ease), opacity .2s var(--ease);
+      filter: none !important;
     }
-    .fade.hide{
-      opacity:0; transform: translateY(8px);
-      pointer-events:none;
+    .gallery-stage:hover .gallery-main { transform: scale(1.03); }
+
+    .gal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .gal-chip,
+    .gal-open {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #000;
+      color: rgba(255,255,255,.9);
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      transition: transform .2s var(--ease), opacity .2s var(--ease);
+    }
+
+    .gal-open:hover { transform: translateY(-1px); opacity: .95; }
+
+    .thumbrail {
+      display: flex;
+      gap: 10px;
+      overflow: auto;
+      padding: 2px 2px 6px;
+      scrollbar-width: none;
+      scroll-snap-type: x mandatory;
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .thumbrail::-webkit-scrollbar { display: none; }
+
+    .thumb {
+      width: 76px;
+      height: 76px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid rgba(255,255,255,.18);
+      transition: transform .22s var(--ease), border-color .22s var(--ease), opacity .22s var(--ease);
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      opacity: .7;
+    }
+    .thumb:hover { transform: translateY(-2px); opacity: .92; border-color: rgba(255,255,255,.35); }
+    .thumb.is-active { opacity: 1; border-color: rgba(255,255,255,.65); }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 12px;
+      filter: none !important;
+    }
+
+    /* lightbox */
+    .lb { position: fixed; inset: 0; z-index: 90; display: none; }
+    .lb.is-open { display: block; }
+
+    .lb-shell {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+    .lb-card {
+      width: fit-content;
+      max-width: calc(100vw - 24px);
+      height: auto;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #000;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lb-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+      background: #000;
+    }
+
+    .lb-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .lb-title b {
+      font-size: 14px;
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .lb-title span {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.6);
+    }
+
+    .lb-btn {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #000;
+      padding: 9px 12px;
+      color: rgba(255,255,255,.9);
+      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
+      user-select: none;
+    }
+    .lb-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.45); }
+
+    .lb-body { padding: 14px; }
+
+    .lb-stage {
+      position: relative;
+      width: fit-content;
+      max-width: calc(100vw - 52px);
+      background: #000;
+      border: 1px solid rgba(255,255,255,.18);
+      overflow: hidden;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lb-img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: calc(100vw - 90px);
+      max-height: 72dvh;
+      object-fit: contain;
+      transition: opacity .18s var(--ease);
+      user-select: none;
+      -webkit-user-drag: none;
+      filter: none !important;
+    }
+
+    .lb-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,.22);
+      background: #000;
+      color: #fff;
+      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
+      opacity: .9;
+    }
+    .lb-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; border-color: rgba(255,255,255,.45); }
+    .lb-prev { left: 14px; }
+    .lb-next { right: 14px; }
+
+    .lb-foot {
+      padding: 12px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,.18);
+      background: #000;
+    }
+
+    .lb-thumbrail {
+      display: flex;
+      gap: 10px;
+      overflow: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    }
+    .lb-thumbrail::-webkit-scrollbar { display: none; }
+
+    .lb-thumb {
+      width: 64px;
+      height: 64px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.18);
+      background: #000;
+      flex: 0 0 auto;
+      transition: transform .2s var(--ease), border-color .2s var(--ease), opacity .2s var(--ease);
+      opacity: .66;
+    }
+    .lb-thumb:hover { transform: translateY(-1px); opacity: .9; border-color: rgba(255,255,255,.35); }
+    .lb-thumb.is-active { opacity: 1; border-color: rgba(255,255,255,.65); }
+
+    .lb-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+      filter: none !important;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .product-card, .toast, .thumb, .gallery-main, .lb-img, .lb-btn, .lb-nav, .lb-thumb { transition: none; }
     }
   </style>
 </head>
 
-<body class="selection:bg-white selection:text-black min-h-screen overflow-x-hidden">
-  <div class="bgfx"></div>
-  <div class="grain"></div>
+<body class="selection:bg-white selection:text-black">
 
-  <!-- TOP BAR -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 relative z-10">
-      <div class="flex items-center justify-between gap-3">
-        <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
-          <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
-          <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate">QULTURE</span>
+  <!-- HEADER -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
+      <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
+        <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
+        <!-- 2) QULTURE Helvetica Bold, LS -6 -->
+        <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate brand-title">QULTURE</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-6 mono text-[11px] uppercase tracking-widest text-gray-400">
+        <a href="#products" class="hover:text-white transition-colors">Продукция</a>
+        <a href="#buyers" class="hover:text-white transition-colors">Покупателям</a>
+        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
+      </nav>
+
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer"
+          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+          <span class="hidden sm:inline">WhatsApp</span><span class="sm:hidden">WA</span>
         </a>
 
-        <div class="flex items-center gap-2 sm:gap-3 flex-nowrap shrink-0">
-          <a href="https://www.instagram.com/qulture.culture" target="_blank"
-             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-            Instagram
-          </a>
-          <a href="https://wa.me/77471126137" target="_blank"
-             class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-            WhatsApp
-          </a>
-        </div>
+        <a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer"
+          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+          <span class="hidden sm:inline">Instagram</span><span class="sm:hidden">IG</span>
+        </a>
+
+        <button id="cartBtn"
+          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest border border-white/20 px-3 sm:px-4 py-2 hover:border-white transition whitespace-nowrap">
+          <span>Корзина</span>
+          <span id="cartCount" class="text-gray-400">(0)</span>
+        </button>
       </div>
     </div>
   </header>
 
-  <!-- CONTENT -->
-  <main class="pt-28 sm:pt-28 md:pt-32 pb-16 px-4 sm:px-6 relative z-10">
-    <div class="max-w-6xl mx-auto">
-      <div class="max-w-[560px] md:max-w-3xl mx-auto premium-card p-6 sm:p-8 md:p-12">
-        <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mb-5 sm:mb-6">
-          Drop 01 / Coming soon
-        </div>
+  <section id="top" class="pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="border border-white/20 p-6 sm:p-8 md:p-12 bg-black reveal">
+        <!-- 3) DROP 01 Helvetica Bold, size 11, LS 1.1 -->
+        
 
-        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[1.02]">
-          YOU’RE RUNNING OUT OF TIME.
-          DROP 01
-        </h1>
+        <!-- 1) HERO Helvetica Bold, LS -6, LH 50 -->
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter hero-title">
+  YOU’RE RUNNING <br class="hidden md:block" /> OUT OF TIME.
+</h1>
 
-        <p class="text-sm sm:text-base text-gray-300/80 leading-relaxed mt-4 sm:mt-6 max-w-2xl">
-          Предзаказ скоро откроется.
-        </p>
+<div class="mono text-gray-400 mt-4 sm:mt-6 drop-11 uppercase">
+  Drop 01
+</div>
 
-        <!-- Progress -->
-        <div class="mt-7 sm:mt-8">
-          <div class="flex items-center justify-between text-[11px] sm:text-xs mono uppercase tracking-widest text-gray-400">
-            <span>Progress</span>
-            <span id="pct">0%</span>
-          </div>
-          <div class="mt-2 bar">
-            <i id="barFill"></i>
-          </div>
-        </div>
 
-        <!-- TIMER -->
-        <div class="mt-7 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
-            <div id="d" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">дней</div>
-          </div>
-          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
-            <div id="h" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">часов</div>
-          </div>
-          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
-            <div id="m" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">минут</div>
-          </div>
-          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
-            <div id="s" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">секунд</div>
-          </div>
-        </div>
-
-        <!-- AFTER RELEASE -->
-        <div id="ready" class="hidden mt-6 sm:mt-8 p-5 rounded-xl border border-white/10 bg-white/5">
-          <div class="font-bold">Drop уже доступен.</div>
-          <div class="text-gray-400 text-sm mt-1">Ссылка будет обновлена на сайте.</div>
+        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
+          <!-- 4) CTA Helvetica Bold, LS -1 -->
+          <a href="#products"
+            class="inline-flex justify-center items-center bg-white text-black px-7 sm:px-8 py-4 font-bold uppercase tracking-widest cta-helv">
+            Смотреть продукцию
+          </a>
         </div>
       </div>
     </div>
-  </main>
+  </section>
 
-  <!-- MUSIC -->
-<audio id="bgMusic" loop playsinline preload="auto">
-  <source src="track.m4a" type="audio/mp4">
-  <source src="track.mp3" type="audio/mpeg">
-</audio>
+  <section id="products" class="py-14 sm:py-16 border-t border-white/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="flex items-end justify-between gap-6 mb-7 sm:mb-8 reveal">
+        <div>
+          <h2 class="text-2xl md:text-3xl font-bold tracking-tighter">Продукция</h2>
+          <p class="text-gray-400 mt-2">Добавь в корзину — оформим заказ через WhatsApp.</p>
+        </div>
+        <div class="mono text-[11px] uppercase tracking-widest text-gray-500 hidden sm:block">Drop 01</div>
+      </div>
 
-  <!-- SOUND BUTTON (iOS-safe) -->
-  <button id="soundBtn"
-    class="fade fixed inset-x-0 bottom-4 mx-auto w-fit z-50
-           mono text-[10px] uppercase tracking-widest
-           border border-white/20 px-4 py-2
-           bg-black/70 backdrop-blur text-gray-200">
-    Sound: OFF — Tap to enable
-  </button>
+      <div id="productGrid" class="grid grid-cols-1 place-items-center gap-6"></div>
+    </div>
+  </section>
+
+  <section id="buyers" class="py-14 sm:py-16 border-t border-white/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- 5) Buyers title Helvetica Bold, LS -6 -->
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8 section-helv">Информация для покупателей</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+        <div class="p-6 border border-white/20 bg-black">
+          <!-- 6) Helvetica Regular -->
+          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Как заказать</div>
+          <ol class="text-sm text-gray-300 leading-relaxed list-decimal pl-5 space-y-2">
+            <li>Добавь товар в корзину</li>
+            <li>Нажми «Оформить в WhatsApp»</li>
+            <li>Мы уточним размер/доставку</li>
+          </ol>
+        </div>
+
+        <div class="p-6 border border-white/20 bg-black">
+          <!-- 7) Helvetica Regular -->
+          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Рассрочка/KASPI RED</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            Если хочешь рассрочку — напиши менеджеру. Подскажем условия и оформим вручную.
+          </p>
+        </div>
+
+        <div class="p-6 border border-white/20 bg-black">
+          <!-- 8) Helvetica Regular -->
+          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Доставка</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            По Казахстану и СНГ. Стоимость и сроки зависят от города — уточняем при оформлении.
+          </p>
+        </div>
+
+        <div class="p-6 border border-white/20 bg-black">
+          <!-- 9) Helvetica Regular -->
+          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Возврат и обмен</div>
+          <p class="text-sm text-gray-300 leading-relaxed">
+            Возврат/обмен — в течение 14 дней при сохранении бирки и отсутствии следов носки. По вопросам — пишите в
+            WhatsApp.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts" class="py-14 sm:py-16 border-t border-white/20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
+        <div class="md:col-span-2 p-7 sm:p-8 border border-white/20 bg-black">
+          <!-- 10) Contacts Helvetica Bold, LS -1 -->
+          <h3 class="text-2xl font-bold tracking-tighter contacts-helv">Контакты</h3>
+
+          <div class="mt-6 space-y-4 text-sm text-white">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-white helv-reg">Instagram:</span>
+              <!-- 15) Helvetica Regular -->
+              <a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer"
+                class="hover:opacity-80 transition helv-reg">
+                @qulture.culture
+              </a>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-white helv-reg">WhatsApp:</span>
+              <!-- 14) Helvetica Regular -->
+              <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer"
+                class="hover:opacity-80 transition helv-reg">
+                +7 747 112 61 37
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="border-t border-white/20 relative overflow-hidden">
+    <div
+      class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-0 md:h-24 flex flex-col md:flex-row items-center justify-between gap-4 mono text-[10px] uppercase tracking-widest text-gray-600 relative">
+      <!-- 13) Helvetica Regular -->
+      <div class="shrink-0 text-white helv-reg normal-case tracking-normal">© 2026 QULTURE.KZ</div>
+
+      <div class="relative w-full md:flex-1 md:h-full flex items-center justify-center h-20 md:h-full">
+        <img src="payments.png" alt="Visa / MasterCard"
+          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 md:h-36 w-auto opacity-90 pointer-events-none" />
+      </div>
+
+      <div class="shrink-0 flex flex-wrap justify-center md:justify-end items-center gap-2 text-center">
+        <!-- 11) Helvetica Regular -->
+        <a href="/privacy" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">Политика конфиденциальности</a>
+        <span class="opacity-40 hidden md:inline">/</span>
+        <!-- 12) Helvetica Regular -->
+        <a href="/offer" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">Публичная оферта</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="sizeModal" class="modal fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-labelledby="sizeTitle">
+    <div id="sizeOverlay" class="absolute inset-0 bg-black"></div>
+
+    <div class="relative h-full w-full flex items-center justify-center p-3 sm:p-6">
+      <div class="modal-card modal-shell">
+        <div
+          class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/20 bg-black sticky top-0 z-10">
+          <div>
+            <div id="sizeTitle" class="text-lg sm:text-xl font-bold tracking-tighter">Таблица размеров</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom L / Custom XL</div>
+          </div>
+
+          <button id="closeSize"
+            class="mono text-[11px] uppercase tracking-widest text-gray-300 border border-white/20 px-3 py-2 hover:border-white transition">
+            Закрыть
+          </button>
+        </div>
+
+        <div class="p-5 sm:p-6 modal-body">
+          <div class="border border-white/20 bg-black p-4 sm:p-5">
+            <div class="mono text-[11px] uppercase tracking-widest text-gray-400 mb-3">Measurements (cm)</div>
+
+            <div class="overflow-hidden border border-white/20">
+              <table class="w-full text-sm">
+                <thead class="bg-black">
+                  <tr class="text-left">
+                    <th class="py-3 px-3 text-gray-400 font-normal">Параметр</th>
+                    <th class="py-3 px-3 text-gray-200 font-normal">Custom L</th>
+                    <th class="py-3 px-3 text-gray-200 font-normal">Custom XL</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/20">
+                  <tr>
+                    <td class="py-3 px-3 text-gray-400">Ширина груди</td>
+                    <td class="py-3 px-3">59</td>
+                    <td class="py-3 px-3">63</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 text-gray-400">Длина изделия</td>
+                    <td class="py-3 px-3">67</td>
+                    <td class="py-3 px-3">70</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 text-gray-400">Ширина плеча</td>
+                    <td class="py-3 px-3">17</td>
+                    <td class="py-3 px-3">18</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 text-gray-400">Ширина низа</td>
+                    <td class="py-3 px-3">58</td>
+                    <td class="py-3 px-3">61</td>
+                  </tr>
+                  <tr>
+                    <td class="py-3 px-3 text-gray-400">Длина рукава</td>
+                    <td class="py-3 px-3">22</td>
+                    <td class="py-3 px-3">24</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="mt-4 text-xs text-gray-400 leading-relaxed">
+              * Допуск по ручному пошиву ±1–2 см. Если хочешь “как сидит” — напиши в WhatsApp, поможем подобрать.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="drawer" class="fixed inset-0 z-[60] hidden">
+    <div id="drawerOverlay" class="absolute inset-0 bg-black"></div>
+    <div class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/20 p-6 overflow-y-auto">
+      <div class="flex items-center justify-between">
+        <div class="text-xl font-bold tracking-tighter">Корзина</div>
+        <button id="closeDrawer"
+          class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition">Закрыть</button>
+      </div>
+
+      <div id="cartItems" class="mt-6 space-y-4"></div>
+
+      <div class="mt-6 border-t border-white/20 pt-4">
+        <div class="flex items-center justify-between text-sm">
+          <span class="mono text-gray-500">Итого:</span>
+          <span id="cartTotal" class="font-bold">0 ₸</span>
+        </div>
+
+        <button id="drawerCheckout"
+          class="mt-4 w-full bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:opacity-90 transition">
+          Оформить в WhatsApp
+        </button>
+
+        <button id="clearCart"
+          class="mt-3 w-full border border-white/20 px-6 py-3 font-bold uppercase tracking-widest hover:border-white transition">
+          Очистить корзину
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast mono text-[10px] uppercase tracking-widest text-gray-200">Added to cart</div>
+
+  <div id="lightbox" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+    <div id="lbBackdrop" class="lb-backdrop"></div>
+    <div class="lb-shell">
+      <div class="lb-card">
+        <div class="lb-head">
+          <div class="lb-title">
+            <b id="lbTitle">Gallery</b>
+            <span id="lbMeta">1 / 1</span>
+          </div>
+          <div class="lb-actions">
+            <button id="lbClose" class="lb-btn" type="button">Close</button>
+          </div>
+        </div>
+
+        <div class="lb-body">
+          <div id="lbStage" class="lb-stage">
+            <button id="lbPrev" class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
+            <img id="lbImg" class="lb-img" src="" alt="">
+            <button id="lbNext" class="lb-nav lb-next" type="button" aria-label="Next">›</button>
+          </div>
+        </div>
+
+        <div class="lb-foot">
+          <div id="lbThumbs" class="lb-thumbrail"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    // ====== SET RELEASE DATE HERE (Almaty time) ======
-    const RELEASE_AT = "2026-02-01T20:00:00+05:00";
+    const WHATSAPP_NUMBER = "77471126137";
+    const CURRENCY = "₸";
 
+    const PRODUCTS = [
+      {
+        id: "q1",
+        name: 'T-SHIRT “YOU’RE RUNNING OUT OF TIME”',
+        price: 20500,
+        // 17) Oversize / Unisex — Helvetica Regular
+        note: "Oversize  /  Unisex",
+        images: ["images/tshirttt.png", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png", "images/poster.png"],
+        description: `
+Характеристики:
+• Состав: 95% Хлопок / 5% Эластан (190 г/м²).
+• Принт: Износостойкая шелкография.
+• Крой: Авторский силуэт QULTURE (собственные лекала).
+• Размеры: Custom L / Custom XL
+
+Производство:
+Handmade in Kazakhstan. Каждая вещь кроится и шьется вручную в локальном цеху, а не заказывается готовыми бланками. Мы полностью контролируем процесс: от выбора нитей до финального шва.
+        `.trim(),
+      },
+    ];
+
+    const key = "qulture_cart_v1";
     const $ = (id) => document.getElementById(id);
-    const target = new Date(RELEASE_AT).getTime();
 
-    function pad(n) { return String(n).padStart(2, "0"); }
-
-    const last = { d: null, h: null, m: null, s: null };
-    function pop(el){
-      el.classList.add("pop");
-      setTimeout(() => el.classList.remove("pop"), 190);
+    function loadCart() {
+      try { return JSON.parse(localStorage.getItem(key)) || []; }
+      catch { return []; }
     }
-    function setTick(id, val){
-      const el = $(id);
-      if (last[id] !== val){
-        el.textContent = val;
-        pop(el);
-        last[id] = val;
+
+    function popBadge() {
+      const cc = $("cartCount");
+      if (!cc) return;
+      cc.classList.remove("badge-pop");
+      void cc.offsetWidth;
+      cc.classList.add("badge-pop");
+    }
+
+    const toastEl = $("toast");
+    let toastT = null;
+    function toast(msg) {
+      if (!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add("show");
+      clearTimeout(toastT);
+      toastT = setTimeout(() => toastEl.classList.remove("show"), 1200);
+    }
+
+    function renderCartBadge() {
+      const cart = loadCart();
+      $("cartCount").textContent = `(${cart.reduce((s, i) => s + i.qty, 0)})`;
+    }
+
+    function saveCart(cart) {
+      localStorage.setItem(key, JSON.stringify(cart));
+      renderCartBadge();
+      popBadge();
+    }
+
+    function formatPrice(n) {
+      return new Intl.NumberFormat("ru-RU").format(n) + " " + CURRENCY;
+    }
+
+    function cartTotal(cart) {
+      return cart.reduce((s, i) => s + i.price * i.qty, 0);
+    }
+
+    function addToCart(productId) {
+      const p = PRODUCTS.find(x => x.id === productId);
+      if (!p) return;
+
+      const cart = loadCart();
+      const existing = cart.find(x => x.id === p.id);
+      if (existing) existing.qty += 1;
+      else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
+
+      saveCart(cart);
+      openDrawer();
+      renderCart();
+      toast("Added to cart");
+    }
+
+    function removeFromCart(productId) {
+      const cart = loadCart().filter(x => x.id !== productId);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function changeQty(productId, delta) {
+      const cart = loadCart();
+      const item = cart.find(x => x.id === productId);
+      if (!item) return;
+      item.qty += delta;
+      if (item.qty <= 0) return removeFromCart(productId);
+      saveCart(cart);
+      renderCart();
+    }
+
+    function clearCart() {
+      saveCart([]);
+      renderCart();
+    }
+
+    function buildWhatsappMessage() {
+      const cart = loadCart();
+      if (!cart.length) return null;
+
+      const lines = [];
+      lines.push("QULTURE — Заявка на предзаказ");
+      lines.push("");
+      cart.forEach((i, idx) => {
+        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
+      });
+      lines.push("");
+      lines.push(`Итого: ${formatPrice(cartTotal(cart))}`);
+      lines.push("");
+      lines.push("Размер(ы): ");
+      lines.push("Город: ");
+      lines.push("Доставка: ");
+      lines.push("Комментарий: ");
+
+      return encodeURIComponent(lines.join("\n"));
+    }
+
+    function shakeCartBtn() {
+      const btn = $("cartBtn");
+      if (!btn) return;
+      btn.classList.remove("shake");
+      void btn.offsetWidth;
+      btn.classList.add("shake");
+    }
+
+    function goCheckout() {
+      const msg = buildWhatsappMessage();
+      if (!msg) {
+        shakeCartBtn();
+        alert("Корзина пустая. Добавь товары в разделе «Продукция».");
+        return;
       }
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
+      window.open(url, "_blank", "noopener,noreferrer");
     }
 
-    function tick() {
-      const now = Date.now();
-      let diff = Math.max(0, target - now);
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      diff -= days * (1000 * 60 * 60 * 24);
-
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      diff -= hours * (1000 * 60 * 60);
-
-      const mins = Math.floor(diff / (1000 * 60));
-      diff -= mins * (1000 * 60);
-
-      const secs = Math.floor(diff / 1000);
-
-      setTick("d", pad(days));
-      setTick("h", pad(hours));
-      setTick("m", pad(mins));
-      setTick("s", pad(secs));
-
-      // progress: last 14 days before release
-      const WINDOW_DAYS = 14;
-      const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
-
-      const windowStart = target - windowMs;
-      const clampedNow = Math.max(windowStart, Math.min(target, now));
-
-      const pct = Math.floor(((clampedNow - windowStart) / windowMs) * 100);
-
-      $("pct").textContent = pct + "%";
-      $("barFill").style.width = pct + "%";
-
-      if (target - now <= 0) $("ready").classList.remove("hidden");
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
     }
 
-    tick();
-    setInterval(tick, 1000);
+    function prettyTextToHtml(text) {
+      let safe = escapeHtml(text);
+      return safe
+        .replace(/\n{2,}/g, "\n\n")
+        .split("\n\n")
+        .map(block => `<p class="mb-3 last:mb-0">${block.replace(/\n/g, "<br>")}</p>`)
+        .join("");
+    }
 
-    // ===== iOS/Android SAFE SOUND (explicit button gesture) =====
-    const audio = $("bgMusic");
-    const btn = $("soundBtn");
-    let musicEnabled = false;
+    function renderProducts() {
+      const grid = $("productGrid");
 
-    async function enableSound(){
-      if (!audio) return;
+      grid.innerHTML = PRODUCTS.map(p => {
+        const desc = p.description ? prettyTextToHtml(p.description) : "";
+        const imgs = (p.images && p.images.length) ? p.images : [];
+        const first = imgs[0] || "";
 
-      audio.loop = true;
-      audio.playsInline = true;
-      audio.preload = "auto";
-      audio.volume = 0.45;
+        return `
+          <div class="w-full max-w-5xl border border-white/20 bg-black overflow-hidden product-card reveal">
+            <div class="grid grid-cols-1 md:grid-cols-2">
 
-      try {
-        // iOS trick: start muted -> play -> unmute
-        audio.muted = true;
-        await audio.play();
-        audio.muted = false;
+              <div class="gallery border-b md:border-b-0">
+                <div class="p-4 sm:p-6 md:p-8">
+                  <div class="gallery-shell">
+                    <div class="p-4 sm:p-5">
+                      <div class="gal-top">
+                        <span class="gal-chip">
+                          <span>Gallery</span>
+                          <span class="opacity-60">·</span>
+                          <span id="galCount-${p.id}">${imgs.length}</span>
+                        </span>
+                        <button type="button" class="gal-open" onclick="openLightbox('${p.id}', getCurrentIndex('${p.id}'))">Open</button>
+                      </div>
 
-        musicEnabled = true;
-        btn.textContent = "Sound: ON — Tap to mute";
-      } catch (e) {
-        btn.textContent = "Sound blocked — tap again";
+                      <button type="button" class="gallery-stage w-full aspect-square" onclick="openLightbox('${p.id}', getCurrentIndex('${p.id}'))" aria-label="Open gallery">
+                        <img
+                          id="mainImg-${p.id}"
+                          src="${first}"
+                          alt="${escapeHtml(p.name)}"
+                          class="gallery-main"
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </button>
+
+                      ${imgs.length > 1 ? `
+                        <div class="mt-4">
+                          <div id="thumbRail-${p.id}" class="thumbrail">
+                            ${imgs.map((img, idx) => `
+                              <button
+                                type="button"
+                                class="thumb ${idx === 0 ? "is-active" : ""}"
+                                onclick="setMainImg('${p.id}', ${idx}, this)"
+                                aria-label="Фото ${idx + 1}"
+                              >
+                                <img src="${img}" alt="" loading="lazy" decoding="async" />
+                              </button>
+                            `).join("")}
+                          </div>
+                        </div>
+                      ` : ""}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-5 sm:p-6 md:p-8">
+                <div class="flex items-start justify-between gap-4 sm:gap-6">
+                  <div class="min-w-0">
+                    <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
+                      ${escapeHtml(p.name)}
+                    </div>
+
+                    <div class="text-sm text-gray-400 mt-2 flex items-center gap-3 flex-wrap">
+                      <!-- 17) Oversize / Unisex Helvetica Regular -->
+                      <span class="helv-reg">${escapeHtml(p.note || "")}</span>
+
+                      <!-- 16) Size guide Helvetica Regular -->
+                      <button type="button" onclick="openSizeGuide()"
+                        class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition helv-reg">
+                        Size guide
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
+                    ${formatPrice(p.price)}
+                  </div>
+                </div>
+
+                ${p.description ? `
+                  <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-4 sm:pt-5">
+                    ${desc}
+                  </div>
+                ` : ""}
+
+                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button onclick="addToCart('${p.id}')"
+                    class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
+                    В корзину
+                  </button>
+
+                  <a target="_blank" rel="noopener noreferrer"
+                     href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
+                     class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
+                    WhatsApp
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderCart() {
+      const cart = loadCart();
+      const wrap = $("cartItems");
+
+      if (!cart.length) {
+        wrap.innerHTML = `
+          <div class="p-6 border border-white/20 bg-black text-gray-400">
+            Корзина пустая. Добавь товары в «Продукция».
+          </div>
+        `;
+      } else {
+        wrap.innerHTML = cart.map(i => `
+          <div class="p-5 border border-white/20 bg-black">
+            <div class="flex items-start justify-between gap-4">
+              <div>
+                <div class="font-bold">${i.name}</div>
+                <div class="text-sm text-gray-400 mt-1">${formatPrice(i.price)} / шт.</div>
+              </div>
+              <button class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition"
+                onclick="removeFromCart('${i.id}')">Удалить</button>
+            </div>
+
+            <div class="mt-4 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', -1)">-</button>
+                <div class="mono text-[12px] uppercase tracking-widest text-gray-300 w-10 text-center">${i.qty}</div>
+                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', 1)">+</button>
+              </div>
+              <div class="font-bold">${formatPrice(i.price * i.qty)}</div>
+            </div>
+          </div>
+        `).join("");
       }
+
+      $("cartTotal").textContent = formatPrice(cartTotal(cart));
+      renderCartBadge();
     }
 
-    function disableSound(){
-      if (!audio) return;
-      audio.pause();
-      musicEnabled = false;
-      btn.textContent = "Sound: OFF — Tap to enable";
+    function openDrawer() {
+      $("drawer").classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeDrawer() {
+      $("drawer").classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
     }
 
-    btn.addEventListener("click", async (e) => {
-      e.preventDefault();
-      if (!musicEnabled) await enableSound();
-      else disableSound();
+    const sizeModal = $("sizeModal");
+    const sizeOverlay = $("sizeOverlay");
+    const closeSize = $("closeSize");
+
+    function openSizeGuide() {
+      sizeModal.classList.add("is-open");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeSizeGuide() {
+      sizeModal.classList.remove("is-open");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    sizeOverlay.addEventListener("click", closeSizeGuide);
+    closeSize.addEventListener("click", closeSizeGuide);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && sizeModal.classList.contains("is-open")) closeSizeGuide();
     });
+
+    window.openSizeGuide = openSizeGuide;
+
+    function initReveal() {
+      const els = Array.from(document.querySelectorAll(".reveal"));
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(el => el.classList.add("is-in"));
+        return;
+      }
+
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      els.forEach((el, idx) => {
+        if (!el.classList.contains("delay-1") && !el.classList.contains("delay-2") && !el.classList.contains("delay-3")) {
+          const mod = idx % 4;
+          if (mod === 1) el.classList.add("delay-1");
+          if (mod === 2) el.classList.add("delay-2");
+          if (mod === 3) el.classList.add("delay-3");
+        }
+        io.observe(el);
+      });
+    }
+
+    const galleryState = new Map();
+
+    function getCurrentIndex(productId) {
+      const st = galleryState.get(productId);
+      return (st && Number.isFinite(st.idx)) ? st.idx : 0;
+    }
+
+    function setMainImg(productId, idx, btn) {
+      const p = PRODUCTS.find(x => x.id === productId);
+      if (!p || !p.images || !p.images.length) return;
+
+      const clamped = Math.max(0, Math.min(p.images.length - 1, idx));
+      galleryState.set(productId, { idx: clamped });
+
+      const img = document.getElementById(`mainImg-${productId}`);
+      if (!img) return;
+
+      img.style.opacity = "0";
+      setTimeout(() => {
+        img.src = p.images[clamped];
+        img.onload = () => { img.style.opacity = "1"; };
+        setActiveThumb(productId, clamped);
+      }, 90);
+
+      if (btn && btn.scrollIntoView) btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
+
+    function setActiveThumb(productId, idx) {
+      const rail = document.getElementById(`thumbRail-${productId}`);
+      if (!rail) return;
+      rail.querySelectorAll(".thumb").forEach((b, i) => b.classList.toggle("is-active", i === idx));
+    }
+
+    window.setMainImg = setMainImg;
+    window.getCurrentIndex = getCurrentIndex;
+
+    const lb = $("lightbox");
+    const lbBackdrop = $("lbBackdrop");
+    const lbClose = $("lbClose");
+    const lbPrev = $("lbPrev");
+    const lbNext = $("lbNext");
+    const lbImg = $("lbImg");
+    const lbTitle = $("lbTitle");
+    const lbMeta = $("lbMeta");
+    const lbThumbs = $("lbThumbs");
+    const lbStage = $("lbStage");
+
+    const lbState = { productId: null, idx: 0, startX: 0, dx: 0, dragging: false };
+
+    function openLightbox(productId, idx = 0) {
+      const p = PRODUCTS.find(x => x.id === productId);
+      if (!p || !p.images || !p.images.length) return;
+
+      lbState.productId = productId;
+      lbState.idx = Math.max(0, Math.min(p.images.length - 1, idx));
+
+      lbTitle.textContent = p.name;
+      renderLightboxThumbs(p);
+      setLightboxImage(p, lbState.idx, true);
+
+      lb.classList.add("is-open");
+      document.body.classList.add("overflow-hidden");
+    }
+
+    function closeLightbox() {
+      lb.classList.remove("is-open");
+      document.body.classList.remove("overflow-hidden");
+      lbState.productId = null;
+    }
+
+    function renderLightboxThumbs(p) {
+      lbThumbs.innerHTML = p.images.map((src, i) => `
+        <button type="button" class="lb-thumb ${i === lbState.idx ? "is-active" : ""}" onclick="lbGo(${i})" aria-label="Thumb ${i + 1}">
+          <img src="${src}" alt="" loading="lazy" decoding="async">
+        </button>
+      `).join("");
+    }
+
+    function setLightboxImage(p, idx, instant = false) {
+      const total = p.images.length;
+      const clamped = Math.max(0, Math.min(total - 1, idx));
+      lbState.idx = clamped;
+
+      const src = p.images[clamped];
+      lbMeta.textContent = `${clamped + 1} / ${total}`;
+
+      if (!instant) lbImg.style.opacity = "0";
+      setTimeout(() => {
+        lbImg.src = src;
+        lbImg.onload = () => { lbImg.style.opacity = "1"; };
+        Array.from(lbThumbs.children).forEach((el, i) => el.classList.toggle("is-active", i === clamped));
+        const active = lbThumbs.children[clamped];
+        if (active && active.scrollIntoView) active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      }, instant ? 0 : 90);
+
+      setMainImg(lbState.productId, clamped, null);
+    }
+
+    function lbStep(dir) {
+      const p = PRODUCTS.find(x => x.id === lbState.productId);
+      if (!p) return;
+      const next = (lbState.idx + dir + p.images.length) % p.images.length;
+      setLightboxImage(p, next);
+    }
+
+    function lbGo(i) {
+      const p = PRODUCTS.find(x => x.id === lbState.productId);
+      if (!p) return;
+      setLightboxImage(p, i);
+    }
+
+    window.openLightbox = openLightbox;
+    window.lbGo = lbGo;
+
+    function onKey(e) {
+      if (!lb.classList.contains("is-open")) return;
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") lbStep(-1);
+      if (e.key === "ArrowRight") lbStep(1);
+    }
+
+    function onTouchStart(e) {
+      if (!lb.classList.contains("is-open")) return;
+      const t = e.touches ? e.touches[0] : e;
+      lbState.startX = t.clientX;
+      lbState.dx = 0;
+      lbState.dragging = true;
+    }
+
+    function onTouchMove(e) {
+      if (!lbState.dragging) return;
+      const t = e.touches ? e.touches[0] : e;
+      lbState.dx = t.clientX - lbState.startX;
+      const damp = Math.max(-90, Math.min(90, lbState.dx));
+      lbImg.style.transform = `translateX(${damp}px) scale(0.995)`;
+      lbImg.style.opacity = `${Math.max(0.55, 1 - Math.abs(damp) / 160)}`;
+    }
+
+    function onTouchEnd() {
+      if (!lbState.dragging) return;
+      const dx = lbState.dx;
+      lbState.dragging = false;
+      lbImg.style.transform = "";
+      lbImg.style.opacity = "";
+      if (Math.abs(dx) > 55) lbStep(dx > 0 ? -1 : 1);
+    }
+
+    lbBackdrop.addEventListener("click", closeLightbox);
+    lbClose.addEventListener("click", closeLightbox);
+    lbPrev.addEventListener("click", () => lbStep(-1));
+    lbNext.addEventListener("click", () => lbStep(1));
+    window.addEventListener("keydown", onKey);
+
+    lbStage.addEventListener("touchstart", onTouchStart, { passive: true });
+    lbStage.addEventListener("touchmove", onTouchMove, { passive: true });
+    lbStage.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
+    $("closeDrawer").addEventListener("click", closeDrawer);
+    $("drawerOverlay").addEventListener("click", closeDrawer);
+    $("drawerCheckout").addEventListener("click", goCheckout);
+    $("clearCart").addEventListener("click", clearCart);
+
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.changeQty = changeQty;
+
+    renderProducts();
+    renderCartBadge();
+    renderCart();
+    initReveal();
   </script>
 
 </body>

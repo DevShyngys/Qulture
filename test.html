@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QULTURE — Drop 01 soon</title>
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
+
+    :root {
+      --bg: #000;
+      --fg: #fff;
+      --card: rgba(255, 255, 255, .05);
+      --line: rgba(255, 255, 255, .10);
+      --muted: rgba(255, 255, 255, .55);
+      --muted2: rgba(255, 255, 255, .35);
+      --glow: rgba(255, 255, 255, .08);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .bgfx {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(1200px 700px at 20% 15%, rgba(255, 255, 255, .06), transparent 55%),
+        radial-gradient(900px 600px at 80% 20%, rgba(255, 255, 255, .04), transparent 60%),
+        radial-gradient(1000px 800px at 50% 90%, rgba(255, 255, 255, .05), transparent 55%),
+        radial-gradient(60% 55% at 50% 40%, rgba(0, 0, 0, .0), rgba(0, 0, 0, .85) 85%),
+        linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, 1));
+      opacity: 1;
+    }
+
+    .grain {
+      position: fixed;
+      inset: -40px;
+      pointer-events: none;
+      z-index: 1;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: .12;
+      transform: translateZ(0);
+      animation: grainMove 9s steps(10) infinite;
+    }
+
+    @keyframes grainMove {
+      0% {
+        transform: translate3d(0, 0, 0);
+      }
+
+      10% {
+        transform: translate3d(-2%, -3%, 0);
+      }
+
+      20% {
+        transform: translate3d(-4%, 2%, 0);
+      }
+
+      30% {
+        transform: translate3d(3%, -2%, 0);
+      }
+
+      40% {
+        transform: translate3d(2%, 4%, 0);
+      }
+
+      50% {
+        transform: translate3d(-3%, 2%, 0);
+      }
+
+      60% {
+        transform: translate3d(4%, 0%, 0);
+      }
+
+      70% {
+        transform: translate3d(1%, -4%, 0);
+      }
+
+      80% {
+        transform: translate3d(-2%, 3%, 0);
+      }
+
+      90% {
+        transform: translate3d(3%, 1%, 0);
+      }
+
+      100% {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    .premium-card {
+      position: relative;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, .04) inset,
+        0 30px 80px rgba(0, 0, 0, .65);
+    }
+
+    .premium-card:before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        radial-gradient(600px 260px at 18% 0%, rgba(255, 255, 255, .10), transparent 55%),
+        radial-gradient(650px 260px at 88% 8%, rgba(255, 255, 255, .07), transparent 60%);
+      opacity: .9;
+      pointer-events: none;
+    }
+
+    .premium-card:after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255, 255, 255, .06), transparent 30%, rgba(0, 0, 0, .2));
+      opacity: .35;
+      pointer-events: none;
+    }
+
+    .tick {
+      display: inline-block;
+      transform-origin: 50% 70%;
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .tick.pop {
+      transform: translateY(-1px) scale(1.06);
+      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .35));
+    }
+
+    .bar {
+      position: relative;
+      height: 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, .10);
+      background: rgba(255, 255, 255, .06);
+      overflow: hidden;
+    }
+
+    .bar:before {
+      content: "";
+      position: absolute;
+      inset: -60% -40%;
+      background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, .22) 35%, transparent 70%);
+      transform: translateX(-60%);
+      animation: scanMoveTrack 1.35s linear infinite;
+      opacity: .35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes scanMoveTrack {
+      0% {
+        transform: translateX(-60%);
+      }
+
+      100% {
+        transform: translateX(140%);
+      }
+    }
+
+    .bar>i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(255, 255, 255, .20), rgba(255, 255, 255, .55));
+      box-shadow: 0 0 30px rgba(255, 255, 255, .18);
+      position: relative;
+      overflow: hidden;
+      animation: fillPulse 1.8s ease-in-out infinite;
+      will-change: filter, width;
+      z-index: 1;
+    }
+
+    .bar>i:after {
+      content: "";
+      position: absolute;
+      inset: -40% -30%;
+      background: linear-gradient(110deg, transparent 0%, rgba(255, 255, 255, .45) 35%, transparent 70%);
+      transform: translateX(-60%);
+      animation: scanMoveFill 1.1s linear infinite;
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    @keyframes scanMoveFill {
+      0% {
+        transform: translateX(-60%);
+      }
+
+      100% {
+        transform: translateX(140%);
+      }
+    }
+
+    @keyframes fillPulse {
+
+      0%,
+      100% {
+        filter: brightness(1);
+      }
+
+      50% {
+        filter: brightness(1.25);
+      }
+    }
+
+    .fade {
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .fade.hide {
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-white selection:text-black min-h-screen overflow-x-hidden">
+  <div class="bgfx"></div>
+  <div class="grain"></div>
+
+  <header class="fixed top-0 left-0 right-0 z-50 bg-black/55 backdrop-blur-md border-b border-white/10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 relative z-10">
+      <div class="flex items-center justify-between gap-3">
+        <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
+          <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
+          <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate">QULTURE</span>
+        </a>
+
+        <div class="flex items-center gap-2 sm:gap-3 flex-nowrap shrink-0">
+          <a href="https://www.instagram.com/qulture.culture" target="_blank"
+            class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+            Instagram
+          </a>
+          <a href="https://wa.me/77471126137" target="_blank"
+            class="mono text-[9px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-28 sm:pt-28 md:pt-32 pb-16 px-4 sm:px-6 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-[560px] md:max-w-3xl mx-auto premium-card p-6 sm:p-8 md:p-12">
+        <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mb-5 sm:mb-6">
+          Drop 01 / Coming soon
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter leading-[1.02]">
+          YOU’RE RUNNING OUT OF TIME.
+          DROP 01
+        </h1>
+
+        <p class="text-sm sm:text-base text-gray-300/80 leading-relaxed mt-4 sm:mt-6 max-w-2xl">
+          Предзаказ скоро откроется.
+        </p>
+
+        <div class="mt-7 sm:mt-8">
+          <div
+            class="flex items-center justify-between text-[11px] sm:text-xs mono uppercase tracking-widest text-gray-400">
+            <span>Progress</span>
+            <span id="pct">0%</span>
+          </div>
+          <div class="mt-2 bar">
+            <i id="barFill"></i>
+          </div>
+        </div>
+
+        <div class="mt-7 sm:mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="d" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">дней</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="h" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">часов</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="m" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">минут</div>
+          </div>
+          <div class="p-4 sm:p-5 rounded-xl border border-white/10 text-center bg-black/20">
+            <div id="s" class="tick text-3xl sm:text-4xl font-bold tabular-nums">00</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mt-1">секунд</div>
+          </div>
+        </div>
+
+        <div id="ready" class="hidden mt-6 sm:mt-8 p-5 rounded-xl border border-white/10 bg-white/5">
+          <div class="font-bold">Drop уже доступен.</div>
+          <div class="text-gray-400 text-sm mt-1">Ссылка будет обновлена на сайте.</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <audio id="bgMusic" loop playsinline preload="auto">
+    <source src="track.m4a" type="audio/mp4">
+    <source src="track.mp3" type="audio/mpeg">
+  </audio>
+
+  <button id="soundBtn" class="fade fixed inset-x-0 bottom-4 mx-auto w-fit z-50
+           mono text-[10px] uppercase tracking-widest
+           border border-white/20 px-4 py-2
+           bg-black/70 backdrop-blur text-gray-200">
+    Sound: OFF — Tap to enable
+  </button>
+
+  <script>
+    const RELEASE_AT = "2026-02-01T20:00:00+05:00";
+
+    const $ = (id) => document.getElementById(id);
+    const target = new Date(RELEASE_AT).getTime();
+
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    const last = { d: null, h: null, m: null, s: null };
+    function pop(el) {
+      el.classList.add("pop");
+      setTimeout(() => el.classList.remove("pop"), 190);
+    }
+    function setTick(id, val) {
+      const el = $(id);
+      if (last[id] !== val) {
+        el.textContent = val;
+        pop(el);
+        last[id] = val;
+      }
+    }
+
+    function tick() {
+      const now = Date.now();
+      let diff = Math.max(0, target - now);
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      diff -= days * (1000 * 60 * 60 * 24);
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      diff -= hours * (1000 * 60 * 60);
+
+      const mins = Math.floor(diff / (1000 * 60));
+      diff -= mins * (1000 * 60);
+
+      const secs = Math.floor(diff / 1000);
+
+      setTick("d", pad(days));
+      setTick("h", pad(hours));
+      setTick("m", pad(mins));
+      setTick("s", pad(secs));
+
+      const WINDOW_DAYS = 14;
+      const windowMs = WINDOW_DAYS * 24 * 60 * 60 * 1000;
+
+      const windowStart = target - windowMs;
+      const clampedNow = Math.max(windowStart, Math.min(target, now));
+
+      const pct = Math.floor(((clampedNow - windowStart) / windowMs) * 100);
+
+      $("pct").textContent = pct + "%";
+      $("barFill").style.width = pct + "%";
+
+      if (target - now <= 0) $("ready").classList.remove("hidden");
+    }
+
+    tick();
+    setInterval(tick, 1000);
+
+    const audio = $("bgMusic");
+    const btn = $("soundBtn");
+    let musicEnabled = false;
+
+    async function enableSound() {
+      if (!audio) return;
+
+      audio.loop = true;
+      audio.playsInline = true;
+      audio.preload = "auto";
+      audio.volume = 0.45;
+
+      try {
+        audio.muted = true;
+        await audio.play();
+        audio.muted = false;
+
+        musicEnabled = true;
+        btn.textContent = "Sound: ON — Tap to mute";
+      } catch (e) {
+        btn.textContent = "Sound blocked — tap again";
+      }
+    }
+
+    function disableSound() {
+      if (!audio) return;
+      audio.pause();
+      musicEnabled = false;
+      btn.textContent = "Sound: OFF — Tap to enable";
+    }
+
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (!musicEnabled) await enableSound();
+      else disableSound();
+    });
+  </script>
+
+</body>
+
+</html>
