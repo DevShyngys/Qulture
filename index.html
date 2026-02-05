@@ -14,117 +14,134 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
-    html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
+    /* ===== Global font: Helvetica across the page ===== */
     body {
-      font-family: 'Inter', sans-serif;
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: #000;
       color: #fff;
     }
 
-    .mono { font-family: 'JetBrains Mono', monospace; }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
 
-    :root { --ease: cubic-bezier(.2, .8, .2, 1); }
+    :root {
+      --ease: cubic-bezier(.2, .8, .2, 1);
+    }
 
     /* make everything sharp */
-    * { border-radius: 0 !important; }
-
-    /* kill glass/blur everywhere */
-    .backdrop-blur-md,
-    [class*="backdrop-blur"],
-    .backdrop-blur-sm {
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+    * {
+      border-radius: 0 !important;
     }
-
-    /* keep UI panels solid (NO glass), BUT don't break overlays */
-    .bg-white\/5,
-    .bg-white\/6,
-    .bg-black\/60,
-    .bg-black\/30,
-    .bg-black\/25,
-    .bg-black\/18,
-    .bg-black\/28,
-    .bg-black\/35 {
-      background: #000 !important;
-    }
-
-    /* IMPORTANT: overlays must stay translucent */
-    #drawerOverlay { background: rgba(0,0,0,.65) !important; }
-    #sizeOverlay   { background: rgba(0,0,0,.72) !important; }
-    #lbBackdrop    { background: rgba(0,0,0,.80) !important; }
-
-    /* sharp borders (no opacity on element) */
-    .border-white\/10 { border-color: rgba(255,255,255,.10) !important; }
-    .border-white\/12 { border-color: rgba(255,255,255,.12) !important; }
-    .border-white\/16 { border-color: rgba(255,255,255,.16) !important; }
-    .border-white\/18 { border-color: rgba(255,255,255,.18) !important; }
-    .border-white\/20 { border-color: rgba(255,255,255,.20) !important; }
-    .border-white\/22 { border-color: rgba(255,255,255,.22) !important; }
-    .border-white\/32 { border-color: rgba(255,255,255,.32) !important; }
-    .border-white\/35 { border-color: rgba(255,255,255,.35) !important; }
-    .border-white\/42 { border-color: rgba(255,255,255,.42) !important; }
-    .border-white\/45 { border-color: rgba(255,255,255,.45) !important; }
 
     /* remove shadows (flat) */
     .shadow,
     .shadow-md,
     .shadow-lg,
-    .shadow-xl { box-shadow: none !important; }
-
-    /* hard UI surfaces */
-    .modal-card,
-    .gallery-shell,
-    .lb-card,
-    .toast,
-    .lb-stage,
-    .thumb,
-    .lb-thumb {
+    .shadow-xl {
       box-shadow: none !important;
-      background: #000 !important;
     }
 
-    a, button { border-radius: 0 !important; }
+    /* sharp borders (no opacity on element) */
+    .border-white\/10 {
+      border-color: rgba(255, 255, 255, .10) !important;
+    }
 
-    /* =========================
-       HELVETICA TYPO SYSTEM
-       ========================= */
+    .border-white\/12 {
+      border-color: rgba(255, 255, 255, .12) !important;
+    }
+
+    .border-white\/16 {
+      border-color: rgba(255, 255, 255, .16) !important;
+    }
+
+    .border-white\/18 {
+      border-color: rgba(255, 255, 255, .18) !important;
+    }
+
+    .border-white\/20 {
+      border-color: rgba(255, 255, 255, .20) !important;
+    }
+
+    .border-white\/22 {
+      border-color: rgba(255, 255, 255, .22) !important;
+    }
+
+    .border-white\/32 {
+      border-color: rgba(255, 255, 255, .32) !important;
+    }
+
+    .border-white\/35 {
+      border-color: rgba(255, 255, 255, .35) !important;
+    }
+
+    .border-white\/42 {
+      border-color: rgba(255, 255, 255, .42) !important;
+    }
+
+    .border-white\/45 {
+      border-color: rgba(255, 255, 255, .45) !important;
+    }
+
+    /* overlays must stay translucent */
+    #drawerOverlay {
+      background: rgba(0, 0, 0, .65) !important;
+    }
+
+    #sizeOverlay {
+      background: rgba(0, 0, 0, .72) !important;
+    }
+
+    /* TYPO SYSTEM */
     .helv {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     }
-    .helv-bold { font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 700; }
-    .helv-reg  { font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-weight: 400; }
 
-    /* letter spacing presets (px, as you wrote) */
-    .ls--6 { letter-spacing: -6px; }
-    .ls--1 { letter-spacing: -1px; }
-    .ls-1_1 { letter-spacing: 1.1px; }
+    .helv-bold {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 700;
+    }
 
-    /* 1) HERO TITLE: Helvetica Bold, LS -6, LH 50 */
+    .helv-reg {
+      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      font-weight: 400;
+    }
+
+    /* HERO TITLE: Helvetica Bold, LS -6, LH 50 */
     .hero-title {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
       letter-spacing: -6px;
       line-height: 50px;
     }
-    /* keep it readable on small screens */
+
     @media (max-width: 640px) {
-      .hero-title { line-height: 40px; letter-spacing: -4px; }
+      .hero-title {
+        line-height: 40px;
+        letter-spacing: -4px;
+      }
     }
 
-    /* 2) BRAND "QULTURE": Helvetica Bold, LS -6 */
+    /* BRAND "QULTURE": Helvetica Bold, LS -6 */
     .brand-title {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
       letter-spacing: -6px;
     }
+
     @media (max-width: 640px) {
-      .brand-title { letter-spacing: -4px; }
+      .brand-title {
+        letter-spacing: -4px;
+      }
     }
 
-    /* 3) DROP 01: Helvetica Bold, size 11, LS 1.1 */
+    /* DROP 01: Helvetica Bold, size 11, LS 1.1 */
     .drop-11 {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
@@ -132,24 +149,25 @@
       letter-spacing: 1.1px;
     }
 
-    /* 4) CTA "Смотреть продукцию": Helvetica Bold, LS -1 */
+    /* CTA */
     .cta-helv {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
       letter-spacing: -1px;
     }
 
-    /* 5) Section title buyers: Helvetica Bold, LS -6 */
     .section-helv {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
       letter-spacing: -6px;
     }
+
     @media (max-width: 640px) {
-      .section-helv { letter-spacing: -4px; }
+      .section-helv {
+        letter-spacing: -4px;
+      }
     }
 
-    /* 10) Contacts: Helvetica Bold, LS -1 */
     .contacts-helv {
       font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       font-weight: 700;
@@ -157,11 +175,16 @@
     }
 
     /* ====== MODALS ====== */
-    .modal { display: none; }
-    .modal.is-open { display: block; }
+    .modal {
+      display: none;
+    }
+
+    .modal.is-open {
+      display: block;
+    }
 
     .modal-card {
-      border: 1px solid rgba(255,255,255,.18);
+      border: 1px solid rgba(255, 255, 255, .18);
       background: #000;
       overflow: hidden;
     }
@@ -184,29 +207,31 @@
       transition: opacity .6s var(--ease), transform .6s var(--ease);
       will-change: opacity, transform;
     }
-    .reveal.is-in { opacity: 1; transform: translateY(0); }
-    .reveal.delay-1 { transition-delay: .08s; }
-    .reveal.delay-2 { transition-delay: .16s; }
-    .reveal.delay-3 { transition-delay: .24s; }
+
+    .reveal.is-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal.delay-1 {
+      transition-delay: .08s;
+    }
+
+    .reveal.delay-2 {
+      transition-delay: .16s;
+    }
+
+    .reveal.delay-3 {
+      transition-delay: .24s;
+    }
 
     .product-card {
       transition: border-color .25s var(--ease), transform .25s var(--ease);
     }
-    .product-card:hover {
-      border-color: rgba(255,255,255,.35) !important;
-      transform: translateY(-2px);
-    }
 
-    /* badge */
-    .badge-pop {
-      animation: badgePop .22s var(--ease);
-      display: inline-block;
-      transform-origin: 50% 60%;
-    }
-    @keyframes badgePop {
-      0% { transform: translateY(0) scale(1); }
-      60% { transform: translateY(-1px) scale(1.12); }
-      100% { transform: translateY(0) scale(1); }
+    .product-card:hover {
+      border-color: rgba(255, 255, 255, .35) !important;
+      transform: translateY(-2px);
     }
 
     /* toast */
@@ -218,262 +243,167 @@
       opacity: 0;
       pointer-events: none;
       z-index: 80;
-      border: 1px solid rgba(255,255,255,.22);
+      border: 1px solid rgba(255, 255, 255, .22);
       background: #000;
       padding: 10px 14px;
       transition: opacity .22s var(--ease), transform .22s var(--ease);
     }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-    .shake { animation: shake .35s var(--ease); }
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .shake {
+      animation: shake .35s var(--ease);
+    }
+
     @keyframes shake {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      50% { transform: translateX(6px); }
-      75% { transform: translateX(-4px); }
-      100% { transform: translateX(0); }
+      0% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-6px);
+      }
+
+      50% {
+        transform: translateX(6px);
+      }
+
+      75% {
+        transform: translateX(-4px);
+      }
+
+      100% {
+        transform: translateX(0);
+      }
     }
 
-    /* gallery */
-    .gallery { border-right: 1px solid rgba(255,255,255,.18); background: #000; }
-
-    .gallery-shell {
-      border: 1px solid rgba(255,255,255,.18);
-      background: #000;
-      overflow: hidden;
-    }
-
-    .gallery-stage {
+    /* =========================
+   FULL-BLEED SWIPE (NO peek, NO counter, NO dots) + arrows
+   ========================= */
+    .carousel {
       position: relative;
       width: 100%;
-      aspect-ratio: 1/1;
-      overflow: hidden;
+      height: 100%;
       background: #000;
-      border: 1px solid rgba(255,255,255,.18);
     }
 
-    .gallery-main {
+    /* важное: без padding, без gap, чисто full */
+    .carousel-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      overscroll-behavior-x: contain;
+      gap: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-slide {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      height: 100%;
+    }
+
+    /* картинка во всю, без рамок */
+    .carousel-slide img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      padding: 0;
-      transform: scale(1);
-      transition: transform .6s var(--ease), opacity .2s var(--ease);
-      filter: none !important;
-    }
-    .gallery-stage:hover .gallery-main { transform: scale(1.03); }
-
-    .gal-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-
-    .gal-chip,
-    .gal-open {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      border: 1px solid rgba(255,255,255,.22);
-      background: #000;
-      color: rgba(255,255,255,.9);
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      font-family: 'JetBrains Mono', monospace;
-      transition: transform .2s var(--ease), opacity .2s var(--ease);
-    }
-
-    .gal-open:hover { transform: translateY(-1px); opacity: .95; }
-
-    .thumbrail {
-      display: flex;
-      gap: 10px;
-      overflow: auto;
-      padding: 2px 2px 6px;
-      scrollbar-width: none;
-      scroll-snap-type: x mandatory;
-      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-    }
-    .thumbrail::-webkit-scrollbar { display: none; }
-
-    .thumb {
-      width: 76px;
-      height: 76px;
-      overflow: hidden;
-      background: #000;
-      border: 1px solid rgba(255,255,255,.18);
-      transition: transform .22s var(--ease), border-color .22s var(--ease), opacity .22s var(--ease);
-      flex: 0 0 auto;
-      scroll-snap-align: start;
-      opacity: .7;
-    }
-    .thumb:hover { transform: translateY(-2px); opacity: .92; border-color: rgba(255,255,255,.35); }
-    .thumb.is-active { opacity: 1; border-color: rgba(255,255,255,.65); }
-
-    .thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 12px;
-      filter: none !important;
-    }
-
-    /* lightbox */
-    .lb { position: fixed; inset: 0; z-index: 90; display: none; }
-    .lb.is-open { display: block; }
-
-    .lb-shell {
-      position: relative;
-      height: 100%;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-    }
-
-    .lb-card {
-      width: fit-content;
-      max-width: calc(100vw - 24px);
-      height: auto;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.18);
-      background: #000;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .lb-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(255,255,255,.18);
-      background: #000;
-    }
-
-    .lb-title { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-    .lb-title b {
-      font-size: 14px;
-      letter-spacing: -0.02em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .lb-title span {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .22em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,.6);
-    }
-
-    .lb-btn {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      border: 1px solid rgba(255,255,255,.22);
-      background: #000;
-      padding: 9px 12px;
-      color: rgba(255,255,255,.9);
-      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
-      user-select: none;
-    }
-    .lb-btn:hover { transform: translateY(-1px); border-color: rgba(255,255,255,.45); }
-
-    .lb-body { padding: 14px; }
-
-    .lb-stage {
-      position: relative;
-      width: fit-content;
-      max-width: calc(100vw - 52px);
-      background: #000;
-      border: 1px solid rgba(255,255,255,.18);
-      overflow: hidden;
-      padding: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .lb-img {
       display: block;
-      width: auto;
-      height: auto;
-      max-width: calc(100vw - 90px);
-      max-height: 72dvh;
-      object-fit: contain;
-      transition: opacity .18s var(--ease);
       user-select: none;
       -webkit-user-drag: none;
-      filter: none !important;
     }
 
-    .lb-nav {
+    /* стрелки */
+    .carousel-arrow {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      width: 46px;
-      height: 46px;
+      width: 44px;
+      height: 44px;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(255,255,255,.22);
-      background: #000;
+      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(0, 0, 0, .55);
       color: #fff;
-      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
       opacity: .9;
-    }
-    .lb-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; border-color: rgba(255,255,255,.45); }
-    .lb-prev { left: 14px; }
-    .lb-next { right: 14px; }
-
-    .lb-foot {
-      padding: 12px 14px 14px;
-      border-top: 1px solid rgba(255,255,255,.18);
-      background: #000;
+      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
+      user-select: none;
+      z-index: 5;
     }
 
-    .lb-thumbrail {
+    .carousel-arrow:hover {
+      transform: translateY(-50%) scale(1.04);
+      opacity: 1;
+      border-color: rgba(255, 255, 255, .45);
+    }
+
+    .carousel-prev {
+      left: 12px;
+    }
+
+    .carousel-next {
+      right: 12px;
+    }
+
+
+    @media (max-width: 768px) {
+      .carousel-arrow {
+        display: none;
+      }
+
+      /* если хочешь скрывать стрелки на мобилке */
+      .carousel-track {
+        padding-right: 0;
+      }
+
+      .carousel-slide {
+        flex-basis: 100%;
+      }
+    }
+
+    /* pagination dots */
+    .carousel-dots {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      transform: translateX(-50%);
       display: flex;
-      gap: 10px;
-      overflow: auto;
-      scrollbar-width: none;
-      padding-bottom: 2px;
-      mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
-    }
-    .lb-thumbrail::-webkit-scrollbar { display: none; }
-
-    .lb-thumb {
-      width: 64px;
-      height: 64px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.18);
-      background: #000;
-      flex: 0 0 auto;
-      transition: transform .2s var(--ease), border-color .2s var(--ease), opacity .2s var(--ease);
-      opacity: .66;
-    }
-    .lb-thumb:hover { transform: translateY(-1px); opacity: .9; border-color: rgba(255,255,255,.35); }
-    .lb-thumb.is-active { opacity: 1; border-color: rgba(255,255,255,.65); }
-
-    .lb-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      padding: 10px;
-      filter: none !important;
+      gap: 6px;
+      z-index: 6;
+      padding: 6px 10px;
+      background: rgba(0, 0, 0, .25);
+      border: 1px solid rgba(255, 255, 255, .12);
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .product-card, .toast, .thumb, .gallery-main, .lb-img, .lb-btn, .lb-nav, .lb-thumb { transition: none; }
+    .carousel-dot {
+      width: 18px;
+      /* “черточки”, не кружки */
+      height: 2px;
+      background: rgba(255, 255, 255, .25);
+      transition: background .2s var(--ease), transform .2s var(--ease);
+    }
+
+    .carousel-dot.is-active {
+      background: rgba(255, 255, 255, .85);
+      transform: scaleX(1.08);
+    }
+
+    /* на десктопе можно оставить, но если хочешь — только на мобилке: */
+    @media (min-width: 769px) {
+      .carousel-dots {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -485,7 +415,6 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
       <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
         <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
-        <!-- 2) QULTURE Helvetica Bold, LS -6 -->
         <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate brand-title">QULTURE</span>
       </a>
 
@@ -515,24 +444,19 @@
     </div>
   </header>
 
+  <!-- HERO -->
   <section id="top" class="pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="border border-white/20 p-6 sm:p-8 md:p-12 bg-black reveal">
-        <!-- 3) DROP 01 Helvetica Bold, size 11, LS 1.1 -->
-        
-
-        <!-- 1) HERO Helvetica Bold, LS -6, LH 50 -->
         <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter hero-title">
-  YOU’RE RUNNING <br class="hidden md:block" /> OUT OF TIME.
-</h1>
+          YOU’RE RUNNING <br class="hidden md:block" /> OUT OF TIME.
+        </h1>
 
-<div class="mono text-gray-400 mt-4 sm:mt-6 drop-11 uppercase">
-  Drop 01
-</div>
-
+        <div class="mono text-gray-400 mt-4 sm:mt-6 drop-11 uppercase">
+          Drop 01
+        </div>
 
         <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
-          <!-- 4) CTA Helvetica Bold, LS -1 -->
           <a href="#products"
             class="inline-flex justify-center items-center bg-white text-black px-7 sm:px-8 py-4 font-bold uppercase tracking-widest cta-helv">
             Смотреть продукцию
@@ -542,6 +466,7 @@
     </div>
   </section>
 
+  <!-- PRODUCTS -->
   <section id="products" class="py-14 sm:py-16 border-t border-white/20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="flex items-end justify-between gap-6 mb-7 sm:mb-8 reveal">
@@ -556,14 +481,15 @@
     </div>
   </section>
 
+  <!-- BUYERS -->
   <section id="buyers" class="py-14 sm:py-16 border-t border-white/20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <!-- 5) Buyers title Helvetica Bold, LS -6 -->
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8 section-helv">Информация для покупателей</h2>
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8 section-helv">
+        Информация для покупателей
+      </h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
         <div class="p-6 border border-white/20 bg-black">
-          <!-- 6) Helvetica Regular -->
           <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Как заказать</div>
           <ol class="text-sm text-gray-300 leading-relaxed list-decimal pl-5 space-y-2">
             <li>Добавь товар в корзину</li>
@@ -573,7 +499,6 @@
         </div>
 
         <div class="p-6 border border-white/20 bg-black">
-          <!-- 7) Helvetica Regular -->
           <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Рассрочка/KASPI RED</div>
           <p class="text-sm text-gray-300 leading-relaxed">
             Если хочешь рассрочку — напиши менеджеру. Подскажем условия и оформим вручную.
@@ -581,7 +506,6 @@
         </div>
 
         <div class="p-6 border border-white/20 bg-black">
-          <!-- 8) Helvetica Regular -->
           <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Доставка</div>
           <p class="text-sm text-gray-300 leading-relaxed">
             По Казахстану и СНГ. Стоимость и сроки зависят от города — уточняем при оформлении.
@@ -589,7 +513,6 @@
         </div>
 
         <div class="p-6 border border-white/20 bg-black">
-          <!-- 9) Helvetica Regular -->
           <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Возврат и обмен</div>
           <p class="text-sm text-gray-300 leading-relaxed">
             Возврат/обмен — в течение 14 дней при сохранении бирки и отсутствии следов носки. По вопросам — пишите в
@@ -600,17 +523,16 @@
     </div>
   </section>
 
+  <!-- CONTACTS -->
   <section id="contacts" class="py-14 sm:py-16 border-t border-white/20">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
         <div class="md:col-span-2 p-7 sm:p-8 border border-white/20 bg-black">
-          <!-- 10) Contacts Helvetica Bold, LS -1 -->
           <h3 class="text-2xl font-bold tracking-tighter contacts-helv">Контакты</h3>
 
           <div class="mt-6 space-y-4 text-sm text-white">
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-white helv-reg">Instagram:</span>
-              <!-- 15) Helvetica Regular -->
               <a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer"
                 class="hover:opacity-80 transition helv-reg">
                 @qulture.culture
@@ -619,7 +541,6 @@
 
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-white helv-reg">WhatsApp:</span>
-              <!-- 14) Helvetica Regular -->
               <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer"
                 class="hover:opacity-80 transition helv-reg">
                 +7 747 112 61 37
@@ -631,10 +552,10 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer class="border-t border-white/20 relative overflow-hidden">
     <div
       class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-0 md:h-24 flex flex-col md:flex-row items-center justify-between gap-4 mono text-[10px] uppercase tracking-widest text-gray-600 relative">
-      <!-- 13) Helvetica Regular -->
       <div class="shrink-0 text-white helv-reg normal-case tracking-normal">© 2026 QULTURE.KZ</div>
 
       <div class="relative w-full md:flex-1 md:h-full flex items-center justify-center h-20 md:h-full">
@@ -643,15 +564,18 @@
       </div>
 
       <div class="shrink-0 flex flex-wrap justify-center md:justify-end items-center gap-2 text-center">
-        <!-- 11) Helvetica Regular -->
-        <a href="/privacy" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">Политика конфиденциальности</a>
+        <a href="/privacy" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">
+          Политика конфиденциальности
+        </a>
         <span class="opacity-40 hidden md:inline">/</span>
-        <!-- 12) Helvetica Regular -->
-        <a href="/offer" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">Публичная оферта</a>
+        <a href="/offer" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">
+          Публичная оферта
+        </a>
       </div>
     </div>
   </footer>
 
+  <!-- SIZE MODAL -->
   <div id="sizeModal" class="modal fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-labelledby="sizeTitle">
     <div id="sizeOverlay" class="absolute inset-0 bg-black"></div>
 
@@ -661,7 +585,8 @@
           class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/20 bg-black sticky top-0 z-10">
           <div>
             <div id="sizeTitle" class="text-lg sm:text-xl font-bold tracking-tighter">Таблица размеров</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom L / Custom XL</div>
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom L / Custom
+              XL</div>
           </div>
 
           <button id="closeSize"
@@ -722,9 +647,11 @@
     </div>
   </div>
 
+  <!-- CART DRAWER -->
   <div id="drawer" class="fixed inset-0 z-[60] hidden">
     <div id="drawerOverlay" class="absolute inset-0 bg-black"></div>
-    <div class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/20 p-6 overflow-y-auto">
+    <div
+      class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/20 p-6 overflow-y-auto">
       <div class="flex items-center justify-between">
         <div class="text-xl font-bold tracking-tighter">Корзина</div>
         <button id="closeDrawer"
@@ -754,35 +681,6 @@
 
   <div id="toast" class="toast mono text-[10px] uppercase tracking-widest text-gray-200">Added to cart</div>
 
-  <div id="lightbox" class="lb" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
-    <div id="lbBackdrop" class="lb-backdrop"></div>
-    <div class="lb-shell">
-      <div class="lb-card">
-        <div class="lb-head">
-          <div class="lb-title">
-            <b id="lbTitle">Gallery</b>
-            <span id="lbMeta">1 / 1</span>
-          </div>
-          <div class="lb-actions">
-            <button id="lbClose" class="lb-btn" type="button">Close</button>
-          </div>
-        </div>
-
-        <div class="lb-body">
-          <div id="lbStage" class="lb-stage">
-            <button id="lbPrev" class="lb-nav lb-prev" type="button" aria-label="Previous">‹</button>
-            <img id="lbImg" class="lb-img" src="" alt="">
-            <button id="lbNext" class="lb-nav lb-next" type="button" aria-label="Next">›</button>
-          </div>
-        </div>
-
-        <div class="lb-foot">
-          <div id="lbThumbs" class="lb-thumbrail"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <script>
     const WHATSAPP_NUMBER = "77471126137";
     const CURRENCY = "₸";
@@ -792,9 +690,8 @@
         id: "q1",
         name: 'T-SHIRT “YOU’RE RUNNING OUT OF TIME”',
         price: 20500,
-        // 17) Oversize / Unisex — Helvetica Regular
         note: "Oversize  /  Unisex",
-        images: ["images/tshirttt.png", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png", "images/poster.png"],
+        images: ["images/tshirttt.png", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
         description: `
 Характеристики:
 • Состав: 95% Хлопок / 5% Эластан (190 г/м²).
@@ -816,14 +713,6 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       catch { return []; }
     }
 
-    function popBadge() {
-      const cc = $("cartCount");
-      if (!cc) return;
-      cc.classList.remove("badge-pop");
-      void cc.offsetWidth;
-      cc.classList.add("badge-pop");
-    }
-
     const toastEl = $("toast");
     let toastT = null;
     function toast(msg) {
@@ -842,7 +731,6 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
     function saveCart(cart) {
       localStorage.setItem(key, JSON.stringify(cart));
       renderCartBadge();
-      popBadge();
     }
 
     function formatPrice(n) {
@@ -951,105 +839,166 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       grid.innerHTML = PRODUCTS.map(p => {
         const desc = p.description ? prettyTextToHtml(p.description) : "";
         const imgs = (p.images && p.images.length) ? p.images : [];
-        const first = imgs[0] || "";
 
         return `
-          <div class="w-full max-w-5xl border border-white/20 bg-black overflow-hidden product-card reveal">
-            <div class="grid grid-cols-1 md:grid-cols-2">
+  <div class="w-full max-w-5xl border border-white/20 bg-black overflow-hidden product-card reveal">
+    <div class="grid grid-cols-1 md:grid-cols-2 md:min-h-[560px]">
 
-              <div class="gallery border-b md:border-b-0">
-                <div class="p-4 sm:p-6 md:p-8">
-                  <div class="gallery-shell">
-                    <div class="p-4 sm:p-5">
-                      <div class="gal-top">
-                        <span class="gal-chip">
-                          <span>Gallery</span>
-                          <span class="opacity-60">·</span>
-                          <span id="galCount-${p.id}">${imgs.length}</span>
-                        </span>
-                        <button type="button" class="gal-open" onclick="openLightbox('${p.id}', getCurrentIndex('${p.id}'))">Open</button>
-                      </div>
+      <!-- LEFT: FULL-BLEED CAROUSEL -->
+      <div class="bg-black md:h-[560px] overflow-hidden">
+        <div class="carousel h-full">
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous" data-id="${p.id}">‹</button>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Next" data-id="${p.id}">›</button>
 
-                      <button type="button" class="gallery-stage w-full aspect-square" onclick="openLightbox('${p.id}', getCurrentIndex('${p.id}'))" aria-label="Open gallery">
-                        <img
-                          id="mainImg-${p.id}"
-                          src="${first}"
-                          alt="${escapeHtml(p.name)}"
-                          class="gallery-main"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </button>
-
-                      ${imgs.length > 1 ? `
-                        <div class="mt-4">
-                          <div id="thumbRail-${p.id}" class="thumbrail">
-                            ${imgs.map((img, idx) => `
-                              <button
-                                type="button"
-                                class="thumb ${idx === 0 ? "is-active" : ""}"
-                                onclick="setMainImg('${p.id}', ${idx}, this)"
-                                aria-label="Фото ${idx + 1}"
-                              >
-                                <img src="${img}" alt="" loading="lazy" decoding="async" />
-                              </button>
-                            `).join("")}
-                          </div>
-                        </div>
-                      ` : ""}
-                    </div>
-                  </div>
-                </div>
+          <div class="carousel-track h-full" id="track-${p.id}" aria-label="Product images">
+            ${imgs.map((img, idx) => `
+              <div class="carousel-slide h-full">
+                <img
+                  src="${img}"
+                  alt="${escapeHtml(p.name)} — ${idx + 1}"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
+            `).join("")}
+          </div>
+          ${imgs.length > 1 ? `
+  <div class="carousel-dots" id="dots-${p.id}" aria-label="Pagination">
+    ${imgs.map((_, i) => `
+      <button type="button"
+        class="carousel-dot ${i === 0 ? "is-active" : ""}"
+        aria-label="Go to image ${i + 1}"
+        data-id="${p.id}"
+        data-idx="${i}">
+      </button>
+    `).join("")}
+  </div>
+` : ""}
 
-              <div class="p-5 sm:p-6 md:p-8">
-                <div class="flex items-start justify-between gap-4 sm:gap-6">
-                  <div class="min-w-0">
-                    <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
-                      ${escapeHtml(p.name)}
-                    </div>
+        </div>
+      </div>
 
-                    <div class="text-sm text-gray-400 mt-2 flex items-center gap-3 flex-wrap">
-                      <!-- 17) Oversize / Unisex Helvetica Regular -->
-                      <span class="helv-reg">${escapeHtml(p.note || "")}</span>
+      <!-- RIGHT: INFO -->
+      <div class="p-5 sm:p-6 md:p-8">
+        <div class="flex items-start justify-between gap-4 sm:gap-6">
+          <div class="min-w-0">
+            <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
+              ${escapeHtml(p.name)}
+            </div>
 
-                      <!-- 16) Size guide Helvetica Regular -->
-                      <button type="button" onclick="openSizeGuide()"
-                        class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition helv-reg">
-                        Size guide
-                      </button>
-                    </div>
-                  </div>
+            <div class="text-sm text-gray-400 mt-2 flex items-center gap-3 flex-wrap">
+              <span class="helv-reg">${escapeHtml(p.note || "")}</span>
 
-                  <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
-                    ${formatPrice(p.price)}
-                  </div>
-                </div>
-
-                ${p.description ? `
-                  <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-4 sm:pt-5">
-                    ${desc}
-                  </div>
-                ` : ""}
-
-                <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <button onclick="addToCart('${p.id}')"
-                    class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
-                    В корзину
-                  </button>
-
-                  <a target="_blank" rel="noopener noreferrer"
-                     href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
-                     class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
-                    WhatsApp
-                  </a>
-                </div>
-              </div>
-
+              <button type="button" onclick="openSizeGuide()"
+                class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition helv-reg">
+                Size guide
+              </button>
             </div>
           </div>
-        `;
+
+          <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
+            ${formatPrice(p.price)}
+          </div>
+        </div>
+
+        ${p.description ? `
+          <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-4 sm:pt-5">
+            ${desc}
+          </div>
+        ` : ""}
+
+        <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button onclick="addToCart('${p.id}')"
+            class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
+            В корзину
+          </button>
+
+          <a target="_blank" rel="noopener noreferrer"
+             href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
+             class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
+            WhatsApp
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+`;
+
       }).join("");
+    }
+
+    function initCarousels() {
+      PRODUCTS.forEach(p => {
+        const track = document.getElementById(`track-${p.id}`);
+        if (!track) return;
+
+        const prevBtn = document.querySelector(`.carousel-prev[data-id="${p.id}"]`);
+        const nextBtn = document.querySelector(`.carousel-next[data-id="${p.id}"]`);
+        const total = (p.images && p.images.length) ? p.images.length : 1;
+        const dotsWrap = document.getElementById(`dots-${p.id}`);
+
+
+        function slideW() {
+          return track.clientWidth || 1;
+        }
+        function idx() {
+          const w = slideW();
+          return Math.max(0, Math.min(total - 1, Math.round(track.scrollLeft / w)));
+        }
+        function updateArrows() {
+          const i = idx();
+          if (prevBtn) prevBtn.style.display = (i <= 0) ? "none" : "";
+          if (nextBtn) nextBtn.style.display = (i >= total - 1) ? "none" : "";
+          updateDots();
+        }
+        function updateDots() {
+          if (!dotsWrap) return;
+          const i = idx();
+          dotsWrap.querySelectorAll(".carousel-dot").forEach((d, k) => {
+            d.classList.toggle("is-active", k === i);
+          });
+        }
+        function go(i) {
+          const w = slideW();
+          const clamped = Math.max(0, Math.min(total - 1, i));
+          track.scrollTo({ left: clamped * w, behavior: "smooth" });
+          setTimeout(updateArrows, 300);
+        }
+
+        // если одна фотка — прячем обе стрелки
+        if (total <= 1) {
+          if (prevBtn) prevBtn.style.display = "none";
+          if (nextBtn) nextBtn.style.display = "none";
+          return;
+        }
+
+        if (prevBtn) prevBtn.addEventListener("click", () => go(idx() - 1));
+        if (nextBtn) nextBtn.addEventListener("click", () => go(idx() + 1));
+
+        track.addEventListener("scroll", () => {
+          window.requestAnimationFrame(updateArrows);
+        }, { passive: true });
+
+        window.addEventListener("resize", () => {
+          const i = idx();
+          track.scrollTo({ left: i * slideW(), behavior: "auto" });
+          updateArrows();
+        });
+        
+        if (dotsWrap) {
+          dotsWrap.addEventListener("click", (e) => {
+            const btn = e.target.closest(".carousel-dot");
+            if (!btn) return;
+            const to = Number(btn.dataset.idx);
+            if (!Number.isFinite(to)) return;
+            go(to);
+          });
+        }
+
+
+        updateArrows();
+      });
     }
 
     function renderCart() {
@@ -1117,7 +1066,6 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && sizeModal.classList.contains("is-open")) closeSizeGuide();
     });
-
     window.openSizeGuide = openSizeGuide;
 
     function initReveal() {
@@ -1147,163 +1095,6 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       });
     }
 
-    const galleryState = new Map();
-
-    function getCurrentIndex(productId) {
-      const st = galleryState.get(productId);
-      return (st && Number.isFinite(st.idx)) ? st.idx : 0;
-    }
-
-    function setMainImg(productId, idx, btn) {
-      const p = PRODUCTS.find(x => x.id === productId);
-      if (!p || !p.images || !p.images.length) return;
-
-      const clamped = Math.max(0, Math.min(p.images.length - 1, idx));
-      galleryState.set(productId, { idx: clamped });
-
-      const img = document.getElementById(`mainImg-${productId}`);
-      if (!img) return;
-
-      img.style.opacity = "0";
-      setTimeout(() => {
-        img.src = p.images[clamped];
-        img.onload = () => { img.style.opacity = "1"; };
-        setActiveThumb(productId, clamped);
-      }, 90);
-
-      if (btn && btn.scrollIntoView) btn.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-    }
-
-    function setActiveThumb(productId, idx) {
-      const rail = document.getElementById(`thumbRail-${productId}`);
-      if (!rail) return;
-      rail.querySelectorAll(".thumb").forEach((b, i) => b.classList.toggle("is-active", i === idx));
-    }
-
-    window.setMainImg = setMainImg;
-    window.getCurrentIndex = getCurrentIndex;
-
-    const lb = $("lightbox");
-    const lbBackdrop = $("lbBackdrop");
-    const lbClose = $("lbClose");
-    const lbPrev = $("lbPrev");
-    const lbNext = $("lbNext");
-    const lbImg = $("lbImg");
-    const lbTitle = $("lbTitle");
-    const lbMeta = $("lbMeta");
-    const lbThumbs = $("lbThumbs");
-    const lbStage = $("lbStage");
-
-    const lbState = { productId: null, idx: 0, startX: 0, dx: 0, dragging: false };
-
-    function openLightbox(productId, idx = 0) {
-      const p = PRODUCTS.find(x => x.id === productId);
-      if (!p || !p.images || !p.images.length) return;
-
-      lbState.productId = productId;
-      lbState.idx = Math.max(0, Math.min(p.images.length - 1, idx));
-
-      lbTitle.textContent = p.name;
-      renderLightboxThumbs(p);
-      setLightboxImage(p, lbState.idx, true);
-
-      lb.classList.add("is-open");
-      document.body.classList.add("overflow-hidden");
-    }
-
-    function closeLightbox() {
-      lb.classList.remove("is-open");
-      document.body.classList.remove("overflow-hidden");
-      lbState.productId = null;
-    }
-
-    function renderLightboxThumbs(p) {
-      lbThumbs.innerHTML = p.images.map((src, i) => `
-        <button type="button" class="lb-thumb ${i === lbState.idx ? "is-active" : ""}" onclick="lbGo(${i})" aria-label="Thumb ${i + 1}">
-          <img src="${src}" alt="" loading="lazy" decoding="async">
-        </button>
-      `).join("");
-    }
-
-    function setLightboxImage(p, idx, instant = false) {
-      const total = p.images.length;
-      const clamped = Math.max(0, Math.min(total - 1, idx));
-      lbState.idx = clamped;
-
-      const src = p.images[clamped];
-      lbMeta.textContent = `${clamped + 1} / ${total}`;
-
-      if (!instant) lbImg.style.opacity = "0";
-      setTimeout(() => {
-        lbImg.src = src;
-        lbImg.onload = () => { lbImg.style.opacity = "1"; };
-        Array.from(lbThumbs.children).forEach((el, i) => el.classList.toggle("is-active", i === clamped));
-        const active = lbThumbs.children[clamped];
-        if (active && active.scrollIntoView) active.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      }, instant ? 0 : 90);
-
-      setMainImg(lbState.productId, clamped, null);
-    }
-
-    function lbStep(dir) {
-      const p = PRODUCTS.find(x => x.id === lbState.productId);
-      if (!p) return;
-      const next = (lbState.idx + dir + p.images.length) % p.images.length;
-      setLightboxImage(p, next);
-    }
-
-    function lbGo(i) {
-      const p = PRODUCTS.find(x => x.id === lbState.productId);
-      if (!p) return;
-      setLightboxImage(p, i);
-    }
-
-    window.openLightbox = openLightbox;
-    window.lbGo = lbGo;
-
-    function onKey(e) {
-      if (!lb.classList.contains("is-open")) return;
-      if (e.key === "Escape") closeLightbox();
-      if (e.key === "ArrowLeft") lbStep(-1);
-      if (e.key === "ArrowRight") lbStep(1);
-    }
-
-    function onTouchStart(e) {
-      if (!lb.classList.contains("is-open")) return;
-      const t = e.touches ? e.touches[0] : e;
-      lbState.startX = t.clientX;
-      lbState.dx = 0;
-      lbState.dragging = true;
-    }
-
-    function onTouchMove(e) {
-      if (!lbState.dragging) return;
-      const t = e.touches ? e.touches[0] : e;
-      lbState.dx = t.clientX - lbState.startX;
-      const damp = Math.max(-90, Math.min(90, lbState.dx));
-      lbImg.style.transform = `translateX(${damp}px) scale(0.995)`;
-      lbImg.style.opacity = `${Math.max(0.55, 1 - Math.abs(damp) / 160)}`;
-    }
-
-    function onTouchEnd() {
-      if (!lbState.dragging) return;
-      const dx = lbState.dx;
-      lbState.dragging = false;
-      lbImg.style.transform = "";
-      lbImg.style.opacity = "";
-      if (Math.abs(dx) > 55) lbStep(dx > 0 ? -1 : 1);
-    }
-
-    lbBackdrop.addEventListener("click", closeLightbox);
-    lbClose.addEventListener("click", closeLightbox);
-    lbPrev.addEventListener("click", () => lbStep(-1));
-    lbNext.addEventListener("click", () => lbStep(1));
-    window.addEventListener("keydown", onKey);
-
-    lbStage.addEventListener("touchstart", onTouchStart, { passive: true });
-    lbStage.addEventListener("touchmove", onTouchMove, { passive: true });
-    lbStage.addEventListener("touchend", onTouchEnd, { passive: true });
-
     $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
     $("closeDrawer").addEventListener("click", closeDrawer);
     $("drawerOverlay").addEventListener("click", closeDrawer);
@@ -1315,10 +1106,12 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
     window.changeQty = changeQty;
 
     renderProducts();
+    initCarousels();
     renderCartBadge();
     renderCart();
     initReveal();
   </script>
 
 </body>
+
 </html>
