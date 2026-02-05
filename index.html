@@ -782,7 +782,7 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       if (!cart.length) return null;
 
       const lines = [];
-      lines.push("QULTURE — Заявка на предзаказ");
+      lines.push("QULTURE — Заявка заказa");
       lines.push("");
       cart.forEach((i, idx) => {
         lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
@@ -914,7 +914,7 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
           </button>
 
           <a target="_blank" rel="noopener noreferrer"
-             href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу предзаказать: " + p.name)}"
+             href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу заказать: " + p.name)}"
              class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
             WhatsApp
           </a>
@@ -985,7 +985,7 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
           track.scrollTo({ left: i * slideW(), behavior: "auto" });
           updateArrows();
         });
-        
+
         if (dotsWrap) {
           dotsWrap.addEventListener("click", (e) => {
             const btn = e.target.closest(".carousel-dot");
