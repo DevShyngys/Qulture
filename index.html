@@ -1117,27 +1117,73 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
     }
 
     // ТАЙМЕР И ПОПАП
-    const DEADLINE = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    // 26 февраля 2026 года
+    const DEADLINE = new Date(2026, 1, 26, 0, 0, 0);
+
     function updateTimers() {
       const diff = DEADLINE - new Date();
-      if (diff <= 0) return;
-      const d = Math.floor(diff / 864e5), h = Math.floor(diff / 36e5 % 24), m = Math.floor(diff / 6e4 % 60), s = Math.floor(diff / 1e3 % 60);
+      
+      // Если время вышло, принудительно ставим нули
+      if (diff <= 0) {
+        const barSpans = document.querySelectorAll('#barTimer span:not(.text-white\\/40)');
+        barSpans.forEach(s => s.innerText = "00");
+        const pTimer = $('popupTimer');
+        if (pTimer) pTimer.innerHTML = `<span>00</span><span class="text-white/20">:</span><span>00</span><span class="text-white/20">:</span><span>00</span><span class="text-white/20">:</span><span>00</span>`;
+        return;
+      }
+
+      const d = Math.floor(diff / 864e5), 
+            h = Math.floor(diff / 36e5 % 24), 
+            m = Math.floor(diff / 6e4 % 60), 
+            s = Math.floor(diff / 1e3 % 60);
+            
       const f = n => n < 10 ? '0' + n : n;
+
       const barSpans = document.querySelectorAll('#barTimer span:not(.text-white\\/40)');
-      if (barSpans.length >= 4) { barSpans[0].innerText = f(d); barSpans[1].innerText = f(h); barSpans[2].innerText = f(m); barSpans[3].innerText = f(s); }
+      if (barSpans.length >= 4) { 
+        barSpans[0].innerText = f(d); 
+        barSpans[1].innerText = f(h); 
+        barSpans[2].innerText = f(m); 
+        barSpans[3].innerText = f(s); 
+      }
+
       const pTimer = $('popupTimer');
-      if (pTimer) pTimer.innerHTML = `<span>${f(d)}</span><span class="text-white/20">:</span><span>${f(h)}</span><span class="text-white/20">:</span><span>${f(m)}</span><span class="text-white/20">:</span><span>${f(s)}</span>`;
+      if (pTimer) {
+        pTimer.innerHTML = `<span>${f(d)}</span><span class="text-white/20">:</span><span>${f(h)}</span><span class="text-white/20">:</span><span>${f(m)}</span><span class="text-white/20">:</span><span>${f(s)}</span>`;
+      }
     }
 
     function initPromo() {
       const popup = $('promoPopup'), sticky = $('stickyPromo');
-      setTimeout(() => popup && popup.classList.replace('hidden', 'flex'), 1000);
-      $('closePopup').onclick = () => { popup.classList.replace('flex', 'hidden'); sticky.classList.remove('hidden'); document.body.classList.add('promo-active'); document.getElementById('products')?.scrollIntoView({behavior:'smooth'}); };
-      $('hideBar').onclick = () => { sticky.classList.add('hidden'); document.body.classList.remove('promo-active'); };
-      setInterval(updateTimers, 1000); updateTimers();
+      
+      // Показываем попап через 1 сек после загрузки
+      setTimeout(() => {
+        if (popup) popup.classList.replace('hidden', 'flex');
+      }, 1000);
+
+      const closePopupBtn = $('closePopup');
+      if (closePopupBtn) {
+        closePopupBtn.onclick = () => { 
+          popup.classList.replace('flex', 'hidden'); 
+          sticky.classList.remove('hidden'); 
+          document.body.classList.add('promo-active'); 
+          document.getElementById('products')?.scrollIntoView({behavior:'smooth'}); 
+        };
+      }
+
+      const hideBarBtn = $('hideBar');
+      if (hideBarBtn) {
+        hideBarBtn.onclick = () => { 
+          sticky.classList.add('hidden'); 
+          document.body.classList.remove('promo-active'); 
+        };
+      }
+
+      setInterval(updateTimers, 1000); 
+      updateTimers();
     }
 
-    // ИНИЦИАЛИЗАЦИЯ
+    // ИНИЦИАЛИЗАЦИЯ (весь остальной твой блок)
     $("cartBtn").onclick = () => { openDrawer(); renderCart(); };
     $("closeDrawer").onclick = closeDrawer;
     $("drawerOverlay").onclick = closeDrawer;
