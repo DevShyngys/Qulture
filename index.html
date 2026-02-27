@@ -405,152 +405,10 @@
         display: none;
       }
     }
-
-    /* --- PROMO & ADAPTIVE STYLES --- */
-    #stickyPromo {
-      transition: transform 0.3s var(--ease);
-    }
-
-    /* Когда полоска активна, сдвигаем шапку вниз */
-    body.promo-active header {
-      top: 44px !important;
-    }
-
-    /* Главный отступ секции top */
-    body.promo-active section#top {
-      padding-top: calc(44px + 128px) !important;
-    }
-
-    /* Адаптив для мобилок */
-    @media (max-width: 640px) {
-      body.promo-active section#top {
-        padding-top: calc(44px + 80px) !important;
-      }
-
-      /* Сжимаем текст и таймер, чтобы влезло на iPhone SE и подобные */
-      #stickyPromo span.helv-bold {
-        font-size: 8px;
-        letter-spacing: 0.02em;
-      }
-
-      #barTimer {
-        gap: 2px !important;
-      }
-
-      #barTimer span {
-        min-width: 20px !important;
-        font-size: 10px !important;
-        padding: 2px !important;
-      }
-
-      /* Прячем длинный текст на мобилках, показываем короткий */
-      .promo-text-long {
-        display: none;
-      }
-
-      .promo-text-short {
-        display: inline;
-      }
-    }
-
-    @media (min-width: 641px) {
-      .promo-text-long {
-        display: inline;
-      }
-
-      .promo-text-short {
-        display: none;
-      }
-    }
-
-    /* ФИКС КОРЗИНЫ: Сайдбар на всю высоту, контент максимально поднят вверх */
-    #drawer > div:last-child {
-      top: 0 !important;
-      height: 100% !important;
-      /* Уменьшили отступ с 80px до 64px (вровень с высотой хедера) */
-      padding-top: 64px; 
-      transition: padding-top 0.3s var(--ease);
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Когда активна полоска промо (44px + 64px) */
-    body.promo-active #drawer > div:last-child {
-      padding-top: 108px;
-    }
-
-    /* Адаптив для мобилок (еще плотнее) */
-    @media (max-width: 640px) {
-      #drawer > div:last-child {
-        /* Высота мобильного хедера обычно меньше */
-        padding-top: 60px;
-      }
-      body.promo-active #drawer > div:last-child {
-        padding-top: 104px;
-      }
-    }
   </style>
 </head>
 
 <body class="selection:bg-white selection:text-black">
-
-  <div id="promoPopup"
-    class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md">
-    <div class="bg-black border border-white/10 p-10 max-w-lg w-full text-center relative reveal is-in">
-
-      <div class="brand-title text-5xl mb-2 tracking-[-0.1em]">QULTURE</div>
-      <div class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-10 mono">In Honor of Ramadan & Our Anniversary
-      </div>
-
-      <div id="popupTimer"
-        class="text-4xl md:text-5xl font-light tracking-tighter mb-10 mono flex justify-center gap-4">
-        00:00:00:00
-      </div>
-
-      <div class="space-y-6">
-        <div class="text-6xl font-bold tracking-tighter helv-bold italic">-15% OFF</div>
-      </div>
-
-      <div class="mt-12 flex flex-col items-center gap-6">
-        <button id="closePopup" class="group relative flex items-center justify-center">
-          <span
-            class="text-sm font-bold uppercase tracking-[0.2em] border-b border-white pb-1 group-hover:text-gray-400 group-hover:border-gray-400 transition-all">
-            СМОТРЕТЬ КОЛЛЕКЦИЮ
-          </span>
-        </button>
-      </div>
-
-      <div class="mt-10 text-[9px] text-white/20 uppercase mono tracking-widest">Limited availability</div>
-    </div>
-  </div>
-
-  <div id="stickyPromo"
-    class="fixed top-0 left-0 right-0 z-[90] bg-black text-white h-[44px] hidden border-b border-white/20 overflow-hidden">
-    <div class="max-w-6xl mx-auto h-full px-4 flex items-center justify-between sm:justify-center gap-2 sm:gap-6">
-
-      <span class="helv-bold text-[11px] uppercase tracking-wider whitespace-nowrap">
-        <span class="promo-text-long">In Honor of Ramadan & Our Anniversary —</span>
-      </span>
-
-      <div class="flex items-center gap-2 sm:gap-4">
-        <div id="barTimer" class="flex items-center gap-1 mono text-[12px]">
-          <span class="border border-white/30 px-1.5 py-0.5 text-center">00</span>
-          <span class="text-white/40">:</span>
-          <span class="border border-white/30 px-1.5 py-0.5 text-center">00</span>
-          <span class="text-white/40">:</span>
-          <span class="border border-white/30 px-1.5 py-0.5 text-center">00</span>
-          <span class="text-white/40">:</span>
-          <span class="border border-white/30 px-1.5 py-0.5 text-center">00</span>
-        </div>
-
-        <div class="border border-white/60 px-2 py-0.5 text-[11px] font-bold helv tracking-tighter">
-          -15%
-        </div>
-      </div>
-
-      <button id="hideBar" class="text-white/40 hover:text-white transition-colors text-xl leading-none">×</button>
-    </div>
-  </div>
 
   <!-- HEADER -->
   <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20">
@@ -727,8 +585,7 @@
           class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/20 bg-black sticky top-0 z-10">
           <div>
             <div id="sizeTitle" class="text-lg sm:text-xl font-bold tracking-tighter">Таблица размеров</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom M-L /
-              Custom
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom M-L / Custom
               L-XL</div>
           </div>
 
@@ -825,12 +682,11 @@
     </div>
   </div>
 
-
+  <div id="toast" class="toast mono text-[10px] uppercase tracking-widest text-gray-200">Added to cart</div>
 
   <script>
     const WHATSAPP_NUMBER = "77471126137";
     const CURRENCY = "₸";
-    const PROMO_DISCOUNT = 0.15; // 15% скидка
 
     const PRODUCTS = [
       {
@@ -838,7 +694,7 @@
         name: 'T-SHIRT “YOU’RE RUNNING OUT OF TIME”',
         price: 20000,
         note: "Oversize  /  Unisex",
-        images: ["images/boy.jpg", "images/girl.jpg", "images/tshirt_new.jpg", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
+        images: ["images/boy.jpg","images/girl.jpg","images/tshirt_new.jpg", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
         description: `
 Характеристики:
 • Состав: 95% Хлопок / 5% Эластан (190 г/м²).
@@ -854,11 +710,6 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
 
     const key = "qulture_cart_v1";
     const $ = (id) => document.getElementById(id);
-
-    // Вспомогательная функция для расчета цены со скидкой
-    function getDiscountedPrice(price) {
-      return Math.round(price * (1 - PROMO_DISCOUNT));
-    }
 
     function loadCart() {
       try { return JSON.parse(localStorage.getItem(key)) || []; }
@@ -889,9 +740,8 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       return new Intl.NumberFormat("ru-RU").format(n) + " " + CURRENCY;
     }
 
-    // Считаем общий итог уже с учетом скидки
     function cartTotal(cart) {
-      return cart.reduce((s, i) => s + getDiscountedPrice(i.price) * i.qty, 0);
+      return cart.reduce((s, i) => s + i.price * i.qty, 0);
     }
 
     function addToCart(productId) {
@@ -935,14 +785,13 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       if (!cart.length) return null;
 
       const lines = [];
-      lines.push("QULTURE — Заявка заказa (RAMADAN SALE)");
+      lines.push("QULTURE — Заявка заказa");
       lines.push("");
       cart.forEach((i, idx) => {
-        const discounted = getDiscountedPrice(i.price);
-        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(discounted * i.qty)}`);
+        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
       });
       lines.push("");
-      lines.push(`Итого со скидкой 15%: ${formatPrice(cartTotal(cart))}`);
+      lines.push(`Итого: ${formatPrice(cartTotal(cart))}`);
       lines.push("");
       lines.push("Размер(ы): ");
       lines.push("Город: ");
@@ -972,7 +821,10 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
     }
 
     function escapeHtml(str) {
-      return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
     }
 
     function prettyTextToHtml(text) {
@@ -986,60 +838,170 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
 
     function renderProducts() {
       const grid = $("productGrid");
+
       grid.innerHTML = PRODUCTS.map(p => {
         const desc = p.description ? prettyTextToHtml(p.description) : "";
         const imgs = (p.images && p.images.length) ? p.images : [];
-        const discountedPrice = getDiscountedPrice(p.price);
 
         return `
   <div class="w-full max-w-5xl border border-white/20 bg-black overflow-hidden product-card reveal">
     <div class="grid grid-cols-1 md:grid-cols-2 md:min-h-[560px]">
+
+      <!-- LEFT: FULL-BLEED CAROUSEL -->
       <div class="bg-black md:h-[560px] overflow-hidden">
         <div class="carousel h-full">
-          <button class="carousel-arrow carousel-prev" type="button" data-id="${p.id}">‹</button>
-          <button class="carousel-arrow carousel-next" type="button" data-id="${p.id}">›</button>
-          <div class="carousel-track h-full" id="track-${p.id}">
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous" data-id="${p.id}">‹</button>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Next" data-id="${p.id}">›</button>
+
+          <div class="carousel-track h-full" id="track-${p.id}" aria-label="Product images">
             ${imgs.map((img, idx) => `
               <div class="carousel-slide h-full">
-                <img src="${img}" alt="${escapeHtml(p.name)}" loading="lazy" />
+                <img
+                  src="${img}"
+                  alt="${escapeHtml(p.name)} — ${idx + 1}"
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             `).join("")}
           </div>
+          ${imgs.length > 1 ? `
+  <div class="carousel-dots" id="dots-${p.id}" aria-label="Pagination">
+    ${imgs.map((_, i) => `
+      <button type="button"
+        class="carousel-dot ${i === 0 ? "is-active" : ""}"
+        aria-label="Go to image ${i + 1}"
+        data-id="${p.id}"
+        data-idx="${i}">
+      </button>
+    `).join("")}
+  </div>
+` : ""}
+
         </div>
       </div>
 
+      <!-- RIGHT: INFO -->
       <div class="p-5 sm:p-6 md:p-8">
         <div class="flex items-start justify-between gap-4 sm:gap-6">
           <div class="min-w-0">
-            <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug">
+            <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
               ${escapeHtml(p.name)}
             </div>
+
             <div class="text-sm text-gray-400 mt-2 flex items-center gap-3 flex-wrap">
               <span class="helv-reg">${escapeHtml(p.note || "")}</span>
-              <button type="button" onclick="openSizeGuide()" class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition">Size guide</button>
+
+              <button type="button" onclick="openSizeGuide()"
+                class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition helv-reg">
+                Size guide
+              </button>
             </div>
           </div>
 
-          <div class="text-right whitespace-nowrap pt-1">
-            <div class="text-[10px] text-gray-500 line-through mb-1">${formatPrice(p.price)}</div>
-            <div class="mono text-xs sm:text-sm uppercase tracking-widest text-white font-bold">
-              ${formatPrice(discountedPrice)}
-            </div>
+          <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
+            ${formatPrice(p.price)}
           </div>
         </div>
 
-        <div class="mt-5 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-5">
-          ${desc}
-        </div>
+        ${p.description ? `
+          <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-4 sm:pt-5">
+            ${desc}
+          </div>
+        ` : ""}
 
         <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <button onclick="addToCart('${p.id}')" class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">В корзину</button>
-          <a target="_blank" href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу заказать: " + p.name)}" class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">WhatsApp</a>
+          <button onclick="addToCart('${p.id}')"
+            class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
+            В корзину
+          </button>
+
+          <a target="_blank" rel="noopener noreferrer"
+             href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу заказать: " + p.name)}"
+             class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
+            WhatsApp
+          </a>
         </div>
       </div>
+
     </div>
-  </div>`;
+  </div>
+`;
+
       }).join("");
+    }
+
+    function initCarousels() {
+      PRODUCTS.forEach(p => {
+        const track = document.getElementById(`track-${p.id}`);
+        if (!track) return;
+
+        const prevBtn = document.querySelector(`.carousel-prev[data-id="${p.id}"]`);
+        const nextBtn = document.querySelector(`.carousel-next[data-id="${p.id}"]`);
+        const total = (p.images && p.images.length) ? p.images.length : 1;
+        const dotsWrap = document.getElementById(`dots-${p.id}`);
+
+
+        function slideW() {
+          return track.clientWidth || 1;
+        }
+        function idx() {
+          const w = slideW();
+          return Math.max(0, Math.min(total - 1, Math.round(track.scrollLeft / w)));
+        }
+        function updateArrows() {
+          const i = idx();
+          if (prevBtn) prevBtn.style.display = (i <= 0) ? "none" : "";
+          if (nextBtn) nextBtn.style.display = (i >= total - 1) ? "none" : "";
+          updateDots();
+        }
+        function updateDots() {
+          if (!dotsWrap) return;
+          const i = idx();
+          dotsWrap.querySelectorAll(".carousel-dot").forEach((d, k) => {
+            d.classList.toggle("is-active", k === i);
+          });
+        }
+        function go(i) {
+          const w = slideW();
+          const clamped = Math.max(0, Math.min(total - 1, i));
+          track.scrollTo({ left: clamped * w, behavior: "smooth" });
+          setTimeout(updateArrows, 300);
+        }
+
+        // если одна фотка — прячем обе стрелки
+        if (total <= 1) {
+          if (prevBtn) prevBtn.style.display = "none";
+          if (nextBtn) nextBtn.style.display = "none";
+          return;
+        }
+
+        if (prevBtn) prevBtn.addEventListener("click", () => go(idx() - 1));
+        if (nextBtn) nextBtn.addEventListener("click", () => go(idx() + 1));
+
+        track.addEventListener("scroll", () => {
+          window.requestAnimationFrame(updateArrows);
+        }, { passive: true });
+
+        window.addEventListener("resize", () => {
+          const i = idx();
+          track.scrollTo({ left: i * slideW(), behavior: "auto" });
+          updateArrows();
+        });
+
+        if (dotsWrap) {
+          dotsWrap.addEventListener("click", (e) => {
+            const btn = e.target.closest(".carousel-dot");
+            if (!btn) return;
+            const to = Number(btn.dataset.idx);
+            if (!Number.isFinite(to)) return;
+            go(to);
+          });
+        }
+
+
+        updateArrows();
+      });
     }
 
     function renderCart() {
@@ -1047,158 +1009,112 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
       const wrap = $("cartItems");
 
       if (!cart.length) {
-        wrap.innerHTML = `<div class="p-6 border border-white/20 bg-black text-gray-400 text-sm uppercase tracking-widest">Корзина пустая</div>`;
+        wrap.innerHTML = `
+          <div class="p-6 border border-white/20 bg-black text-gray-400">
+            Корзина пустая. Добавь товары в «Продукция».
+          </div>
+        `;
       } else {
-        wrap.innerHTML = cart.map(i => {
-          const disc = getDiscountedPrice(i.price);
-          return `
+        wrap.innerHTML = cart.map(i => `
           <div class="p-5 border border-white/20 bg-black">
             <div class="flex items-start justify-between gap-4">
               <div>
-                <div class="font-bold text-sm uppercase tracking-tight">${i.name}</div>
-                <div class="flex items-center gap-2 mt-1">
-                  <span class="text-[10px] text-gray-500 line-through">${formatPrice(i.price)}</span>
-                  <span class="text-xs text-white mono">${formatPrice(disc)} / шт.</span>
-                </div>
+                <div class="font-bold">${i.name}</div>
+                <div class="text-sm text-gray-400 mt-1">${formatPrice(i.price)} / шт.</div>
               </div>
-              <button class="mono text-[10px] uppercase text-gray-500 hover:text-white" onclick="removeFromCart('${i.id}')">Удалить</button>
+              <button class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition"
+                onclick="removeFromCart('${i.id}')">Удалить</button>
             </div>
+
             <div class="mt-4 flex items-center justify-between">
               <div class="flex items-center gap-2">
-                <button class="border border-white/20 w-8 h-8 flex items-center justify-center hover:border-white" onclick="changeQty('${i.id}', -1)">-</button>
-                <div class="mono text-xs w-6 text-center">${i.qty}</div>
-                <button class="border border-white/20 w-8 h-8 flex items-center justify-center hover:border-white" onclick="changeQty('${i.id}', 1)">+</button>
+                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', -1)">-</button>
+                <div class="mono text-[12px] uppercase tracking-widest text-gray-300 w-10 text-center">${i.qty}</div>
+                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', 1)">+</button>
               </div>
-              <div class="font-bold text-sm mono">${formatPrice(disc * i.qty)}</div>
+              <div class="font-bold">${formatPrice(i.price * i.qty)}</div>
             </div>
-          </div>`;
-        }).join("");
+          </div>
+        `).join("");
       }
 
       $("cartTotal").textContent = formatPrice(cartTotal(cart));
       renderCartBadge();
     }
 
-    // Остальные функции (initCarousels, openDrawer, initReveal и т.д.) оставляем без изменений
-    function initCarousels() {
-      PRODUCTS.forEach(p => {
-        const track = document.getElementById(`track-${p.id}`);
-        if (!track) return;
-        const prevBtn = document.querySelector(`.carousel-prev[data-id="${p.id}"]`);
-        const nextBtn = document.querySelector(`.carousel-next[data-id="${p.id}"]`);
-        const total = (p.images && p.images.length) ? p.images.length : 1;
-        function slideW() { return track.clientWidth || 1; }
-        function idx() { return Math.max(0, Math.min(total - 1, Math.round(track.scrollLeft / slideW()))); }
-        function updateArrows() {
-          const i = idx();
-          if (prevBtn) prevBtn.style.opacity = (i <= 0) ? "0.3" : "1";
-          if (nextBtn) nextBtn.style.opacity = (i >= total - 1) ? "0.3" : "1";
-        }
-        function go(i) { track.scrollTo({ left: i * slideW(), behavior: "smooth" }); setTimeout(updateArrows, 300); }
-        if (total <= 1) { [prevBtn, nextBtn].forEach(b => b && (b.style.display = "none")); return; }
-        if (prevBtn) prevBtn.onclick = () => go(idx() - 1);
-        if (nextBtn) nextBtn.onclick = () => go(idx() + 1);
-        track.onscroll = () => window.requestAnimationFrame(updateArrows);
-        updateArrows();
-      });
+    function openDrawer() {
+      $("drawer").classList.remove("hidden");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeDrawer() {
+      $("drawer").classList.add("hidden");
+      document.body.classList.remove("overflow-hidden");
     }
 
-    function openDrawer() { $("drawer").classList.remove("hidden"); document.body.classList.add("overflow-hidden"); }
-    function closeDrawer() { $("drawer").classList.add("hidden"); document.body.classList.remove("overflow-hidden"); }
-    function openSizeGuide() { $("sizeModal").classList.add("is-open"); document.body.classList.add("overflow-hidden"); }
-    function closeSizeGuide() { $("sizeModal").classList.remove("is-open"); document.body.classList.remove("overflow-hidden"); }
+    const sizeModal = $("sizeModal");
+    const sizeOverlay = $("sizeOverlay");
+    const closeSize = $("closeSize");
+
+    function openSizeGuide() {
+      sizeModal.classList.add("is-open");
+      document.body.classList.add("overflow-hidden");
+    }
+    function closeSizeGuide() {
+      sizeModal.classList.remove("is-open");
+      document.body.classList.remove("overflow-hidden");
+    }
+
+    sizeOverlay.addEventListener("click", closeSizeGuide);
+    closeSize.addEventListener("click", closeSizeGuide);
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && sizeModal.classList.contains("is-open")) closeSizeGuide();
+    });
+    window.openSizeGuide = openSizeGuide;
 
     function initReveal() {
-      const els = document.querySelectorAll(".reveal");
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); }});
-      }, { threshold: 0.1 });
-      els.forEach(el => io.observe(el));
-    }
-
-    // ТАЙМЕР И ПОПАП
-    // 26 февраля 2026 года
-    const DEADLINE = new Date(2026, 1, 26, 0, 0, 0);
-
-    function updateTimers() {
-      const diff = DEADLINE - new Date();
-      
-      // Если время вышло, принудительно ставим нули
-      if (diff <= 0) {
-        const barSpans = document.querySelectorAll('#barTimer span:not(.text-white\\/40)');
-        barSpans.forEach(s => s.innerText = "00");
-        const pTimer = $('popupTimer');
-        if (pTimer) pTimer.innerHTML = `<span>00</span><span class="text-white/20">:</span><span>00</span><span class="text-white/20">:</span><span>00</span><span class="text-white/20">:</span><span>00</span>`;
+      const els = Array.from(document.querySelectorAll(".reveal"));
+      if (!("IntersectionObserver" in window)) {
+        els.forEach(el => el.classList.add("is-in"));
         return;
       }
 
-      const d = Math.floor(diff / 864e5), 
-            h = Math.floor(diff / 36e5 % 24), 
-            m = Math.floor(diff / 6e4 % 60), 
-            s = Math.floor(diff / 1e3 % 60);
-            
-      const f = n => n < 10 ? '0' + n : n;
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add("is-in");
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12 });
 
-      const barSpans = document.querySelectorAll('#barTimer span:not(.text-white\\/40)');
-      if (barSpans.length >= 4) { 
-        barSpans[0].innerText = f(d); 
-        barSpans[1].innerText = f(h); 
-        barSpans[2].innerText = f(m); 
-        barSpans[3].innerText = f(s); 
-      }
-
-      const pTimer = $('popupTimer');
-      if (pTimer) {
-        pTimer.innerHTML = `<span>${f(d)}</span><span class="text-white/20">:</span><span>${f(h)}</span><span class="text-white/20">:</span><span>${f(m)}</span><span class="text-white/20">:</span><span>${f(s)}</span>`;
-      }
+      els.forEach((el, idx) => {
+        if (!el.classList.contains("delay-1") && !el.classList.contains("delay-2") && !el.classList.contains("delay-3")) {
+          const mod = idx % 4;
+          if (mod === 1) el.classList.add("delay-1");
+          if (mod === 2) el.classList.add("delay-2");
+          if (mod === 3) el.classList.add("delay-3");
+        }
+        io.observe(el);
+      });
     }
 
-    function initPromo() {
-      const popup = $('promoPopup'), sticky = $('stickyPromo');
-      
-      // Показываем попап через 1 сек после загрузки
-      setTimeout(() => {
-        if (popup) popup.classList.replace('hidden', 'flex');
-      }, 1000);
+    $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
+    $("closeDrawer").addEventListener("click", closeDrawer);
+    $("drawerOverlay").addEventListener("click", closeDrawer);
+    $("drawerCheckout").addEventListener("click", goCheckout);
+    $("clearCart").addEventListener("click", clearCart);
 
-      const closePopupBtn = $('closePopup');
-      if (closePopupBtn) {
-        closePopupBtn.onclick = () => { 
-          popup.classList.replace('flex', 'hidden'); 
-          sticky.classList.remove('hidden'); 
-          document.body.classList.add('promo-active'); 
-          document.getElementById('products')?.scrollIntoView({behavior:'smooth'}); 
-        };
-      }
-
-      const hideBarBtn = $('hideBar');
-      if (hideBarBtn) {
-        hideBarBtn.onclick = () => { 
-          sticky.classList.add('hidden'); 
-          document.body.classList.remove('promo-active'); 
-        };
-      }
-
-      setInterval(updateTimers, 1000); 
-      updateTimers();
-    }
-
-    // ИНИЦИАЛИЗАЦИЯ (весь остальной твой блок)
-    $("cartBtn").onclick = () => { openDrawer(); renderCart(); };
-    $("closeDrawer").onclick = closeDrawer;
-    $("drawerOverlay").onclick = closeDrawer;
-    $("drawerCheckout").onclick = goCheckout;
-    $("clearCart").onclick = clearCart;
-    $("sizeOverlay").onclick = closeSizeGuide;
-    $("closeSize").onclick = closeSizeGuide;
+    window.addToCart = addToCart;
+    window.removeFromCart = removeFromCart;
+    window.changeQty = changeQty;
 
     renderProducts();
     initCarousels();
     renderCartBadge();
     renderCart();
     initReveal();
-    initPromo();
-</script>
+  </script>
+
 </body>
 
 </html>
