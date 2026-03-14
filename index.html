@@ -585,7 +585,8 @@
           class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/20 bg-black sticky top-0 z-10">
           <div>
             <div id="sizeTitle" class="text-lg sm:text-xl font-bold tracking-tighter">Таблица размеров</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom M-L / Custom
+            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom M-L /
+              Custom
               L-XL</div>
           </div>
 
@@ -693,8 +694,9 @@
         id: "q1",
         name: 'T-SHIRT “YOU’RE RUNNING OUT OF TIME”',
         price: 15000,
+        originalPrice: 20000,
         note: "Oversize  /  Unisex",
-        images: ["images/boy.jpg","images/girl.jpg","images/tshirt_new.jpg", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
+        images: ["images/boy.jpg", "images/girl.jpg", "images/tshirt_new.jpg", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
         description: `
 Характеристики:
 • Состав: 95% Хлопок / 5% Эластан (190 г/м²).
@@ -899,8 +901,9 @@ Handmade in Kazakhstan. Каждая вещь кроится и шьется в�
             </div>
           </div>
 
-          <div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-300 whitespace-nowrap pt-1">
-            ${formatPrice(p.price)}
+          <div class="flex flex-col items-end gap-1 pt-1">
+            ${p.originalPrice ? `<div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-500 whitespace-nowrap line-through">${formatPrice(p.originalPrice)}</div>` : ''}
+            <div class="mono text-[11px] sm:text-xs uppercase tracking-widest whitespace-nowrap" style="color:#4ade80">${formatPrice(p.price)}</div>
           </div>
         </div>
 
