@@ -1,1123 +1,686 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html lang="ru" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QULTURE — Drop 01</title>
-  <meta name="description"
-    content="QULTURE Drop 01 — лимитированный pre-order. Handmade in Kazakhstan. Оформление через WhatsApp.">
-
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="favicon.png">
-
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* ===== Global font: Helvetica across the page ===== */
-    body {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: #000;
-      color: #fff;
-    }
-
-    .mono {
-      font-family: 'JetBrains Mono', monospace;
-    }
-
-    :root {
-      --ease: cubic-bezier(.2, .8, .2, 1);
-    }
-
-    /* make everything sharp */
-    * {
-      border-radius: 0 !important;
-    }
-
-    /* remove shadows (flat) */
-    .shadow,
-    .shadow-md,
-    .shadow-lg,
-    .shadow-xl {
-      box-shadow: none !important;
-    }
-
-    /* sharp borders (no opacity on element) */
-    .border-white\/10 {
-      border-color: rgba(255, 255, 255, .10) !important;
-    }
-
-    .border-white\/12 {
-      border-color: rgba(255, 255, 255, .12) !important;
-    }
-
-    .border-white\/16 {
-      border-color: rgba(255, 255, 255, .16) !important;
-    }
-
-    .border-white\/18 {
-      border-color: rgba(255, 255, 255, .18) !important;
-    }
-
-    .border-white\/20 {
-      border-color: rgba(255, 255, 255, .20) !important;
-    }
-
-    .border-white\/22 {
-      border-color: rgba(255, 255, 255, .22) !important;
-    }
-
-    .border-white\/32 {
-      border-color: rgba(255, 255, 255, .32) !important;
-    }
-
-    .border-white\/35 {
-      border-color: rgba(255, 255, 255, .35) !important;
-    }
-
-    .border-white\/42 {
-      border-color: rgba(255, 255, 255, .42) !important;
-    }
-
-    .border-white\/45 {
-      border-color: rgba(255, 255, 255, .45) !important;
-    }
-
-    /* overlays must stay translucent */
-    #drawerOverlay {
-      background: rgba(0, 0, 0, .65) !important;
-    }
-
-    #sizeOverlay {
-      background: rgba(0, 0, 0, .72) !important;
-    }
-
-    /* TYPO SYSTEM */
-    .helv {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .helv-bold {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-    }
-
-    .helv-reg {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 400;
-    }
-
-    /* HERO TITLE: Helvetica Bold, LS -6, LH 50 */
-    .hero-title {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      letter-spacing: -6px;
-      line-height: 50px;
-    }
-
-    @media (max-width: 640px) {
-      .hero-title {
-        line-height: 40px;
-        letter-spacing: -4px;
-      }
-    }
-
-    /* BRAND "QULTURE": Helvetica Bold, LS -6 */
-    .brand-title {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      letter-spacing: -6px;
-    }
-
-    @media (max-width: 640px) {
-      .brand-title {
-        letter-spacing: -4px;
-      }
-    }
-
-    /* DROP 01: Helvetica Bold, size 11, LS 1.1 */
-    .drop-11 {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      font-size: 11px;
-      letter-spacing: 1.1px;
-    }
-
-    /* CTA */
-    .cta-helv {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    .section-helv {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      letter-spacing: -6px;
-    }
-
-    @media (max-width: 640px) {
-      .section-helv {
-        letter-spacing: -4px;
-      }
-    }
-
-    .contacts-helv {
-      font-family: "Helvetica Neue", Helvetica, Arial, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      font-weight: 700;
-      letter-spacing: -1px;
-    }
-
-    /* ====== MODALS ====== */
-    .modal {
-      display: none;
-    }
-
-    .modal.is-open {
-      display: block;
-    }
-
-    .modal-card {
-      border: 1px solid rgba(255, 255, 255, .18);
-      background: #000;
-      overflow: hidden;
-    }
-
-    .modal-shell {
-      max-height: calc(100dvh - 24px);
-      width: min(980px, calc(100vw - 24px));
-    }
-
-    .modal-body {
-      max-height: calc(100dvh - 140px);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    /* reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity .6s var(--ease), transform .6s var(--ease);
-      will-change: opacity, transform;
-    }
-
-    .reveal.is-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .reveal.delay-1 {
-      transition-delay: .08s;
-    }
-
-    .reveal.delay-2 {
-      transition-delay: .16s;
-    }
-
-    .reveal.delay-3 {
-      transition-delay: .24s;
-    }
-
-    .product-card {
-      transition: border-color .25s var(--ease), transform .25s var(--ease);
-    }
-
-    .product-card:hover {
-      border-color: rgba(255, 255, 255, .35) !important;
-      transform: translateY(-2px);
-    }
-
-    /* toast */
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%) translateY(10px);
-      opacity: 0;
-      pointer-events: none;
-      z-index: 80;
-      border: 1px solid rgba(255, 255, 255, .22);
-      background: #000;
-      padding: 10px 14px;
-      transition: opacity .22s var(--ease), transform .22s var(--ease);
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .shake {
-      animation: shake .35s var(--ease);
-    }
-
-    @keyframes shake {
-      0% {
-        transform: translateX(0);
-      }
-
-      25% {
-        transform: translateX(-6px);
-      }
-
-      50% {
-        transform: translateX(6px);
-      }
-
-      75% {
-        transform: translateX(-4px);
-      }
-
-      100% {
-        transform: translateX(0);
-      }
-    }
-
-    /* =========================
-   FULL-BLEED SWIPE (NO peek, NO counter, NO dots) + arrows
-   ========================= */
-    .carousel {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      background: #000;
-    }
-
-    /* важное: без padding, без gap, чисто full */
-    .carousel-track {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      overscroll-behavior-x: contain;
-      gap: 0;
-      padding: 0;
-      height: 100%;
-    }
-
-    .carousel-track::-webkit-scrollbar {
-      display: none;
-    }
-
-    .carousel-slide {
-      flex: 0 0 100%;
-      scroll-snap-align: start;
-      height: 100%;
-    }
-
-    /* картинка во всю, без рамок */
-    .carousel-slide img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    /* стрелки */
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 44px;
-      height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(255, 255, 255, .22);
-      background: rgba(0, 0, 0, .55);
-      color: #fff;
-      opacity: .9;
-      transition: transform .2s var(--ease), opacity .2s var(--ease), border-color .2s var(--ease);
-      user-select: none;
-      z-index: 5;
-    }
-
-    .carousel-arrow:hover {
-      transform: translateY(-50%) scale(1.04);
-      opacity: 1;
-      border-color: rgba(255, 255, 255, .45);
-    }
-
-    .carousel-prev {
-      left: 12px;
-    }
-
-    .carousel-next {
-      right: 12px;
-    }
-
-
-    @media (max-width: 768px) {
-      .carousel-arrow {
-        display: none;
-      }
-
-      /* если хочешь скрывать стрелки на мобилке */
-      .carousel-track {
-        padding-right: 0;
-      }
-
-      .carousel-slide {
-        flex-basis: 100%;
-      }
-    }
-
-    /* pagination dots */
-    .carousel-dots {
-      position: absolute;
-      left: 50%;
-      bottom: 10px;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 6px;
-      z-index: 6;
-      padding: 6px 10px;
-      background: rgba(0, 0, 0, .25);
-      border: 1px solid rgba(255, 255, 255, .12);
-    }
-
-    .carousel-dot {
-      width: 18px;
-      /* “черточки”, не кружки */
-      height: 2px;
-      background: rgba(255, 255, 255, .25);
-      transition: background .2s var(--ease), transform .2s var(--ease);
-    }
-
-    .carousel-dot.is-active {
-      background: rgba(255, 255, 255, .85);
-      transform: scaleX(1.08);
-    }
-
-    /* на десктопе можно оставить, но если хочешь — только на мобилке: */
-    @media (min-width: 769px) {
-      .carousel-dots {
-        display: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>QULTURE</title>
+<meta name="description" content="QULTURE — Handmade in Kazakhstan. Drop 01 & SGIN Drop 02.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+*{border-radius:0!important;}
+:root{
+  --px:'Press Start 2P',monospace;
+  --vt:'VT323',monospace;
+  --green:#1a7a1a;
+  --red:#cc2200;
+  /* light defaults */
+  --bg:#f5f5f5;
+  --surface:#fff;
+  --surface2:#f8f8f8;
+  --border:#e8e8e8;
+  --text:#111;
+  --text2:#888;
+  --text3:#bbb;
+  --shadow:rgba(0,0,0,0.08);
+  --shadow-lg:rgba(0,0,0,0.16);
+  --overlay:rgba(0,0,0,0.45);
+}
+[data-theme="dark"]{
+  --bg:#0d0d0d;
+  --surface:#141414;
+  --surface2:#1a1a1a;
+  --border:#252525;
+  --text:#f0f0f0;
+  --text2:#777;
+  --text3:#444;
+  --shadow:rgba(0,0,0,0.3);
+  --shadow-lg:rgba(0,0,0,0.5);
+  --overlay:rgba(0,0,0,0.8);
+}
+html,body{width:100%;min-height:100vh;background:var(--bg);font-family:var(--px);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s;}
+
+/* SCANLINES (dark only) */
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;
+  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px);
+  transition:opacity .3s;
+}
+[data-theme="dark"] body::after{opacity:1;}
+
+/* ── SPLASH ─────────────────────── */
+#splash{position:fixed;inset:0;z-index:500;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg);transition:opacity .6s,transform .6s;}
+#splash.hide{opacity:0;pointer-events:none;transform:scale(1.03);}
+.splash-logo{font-family:var(--px);font-size:clamp(28px,7vw,72px);color:var(--text);letter-spacing:1px;text-align:center;white-space:nowrap;margin-bottom:12px;text-shadow:4px 6px 0px var(--shadow),8px 14px 28px var(--shadow-lg);animation:flicker 6s infinite;}
+@keyframes flicker{0%,100%{opacity:1}48%{opacity:1}50%{opacity:.88}52%{opacity:1}96%{opacity:1}97%{opacity:.82}99%{opacity:1}}
+.splash-sub{font-family:var(--vt);font-size:20px;color:var(--text3);letter-spacing:5px;text-transform:uppercase;margin-bottom:52px;text-align:center;}
+.start-btn{font-family:var(--px);font-size:11px;letter-spacing:2px;text-transform:uppercase;background:none;color:var(--text);border:2px solid var(--text);padding:18px 38px;cursor:pointer;animation:blink 1.1s steps(1) infinite;transition:background .15s,color .15s;box-shadow:4px 4px 0px var(--shadow);}
+.start-btn:hover{background:var(--text);color:var(--bg);animation:none;}
+@keyframes blink{0%,49%{opacity:1}50%,100%{opacity:0}}
+.splash-year{position:absolute;bottom:24px;font-family:var(--vt);font-size:15px;color:var(--text3);letter-spacing:3px;}
+
+/* ── SITE ───────────────────────── */
+#site{opacity:0;pointer-events:none;transition:opacity .5s .2s;}
+#site.show{opacity:1;pointer-events:all;}
+
+/* ── TICKER ─────────────────────── */
+.ticker{background:var(--surface);border-bottom:1px solid var(--border);overflow:hidden;white-space:nowrap;padding:7px 0;font-family:var(--vt);font-size:17px;color:var(--text3);letter-spacing:2px;transition:background .3s,border-color .3s;}
+.ticker-inner{display:inline-block;animation:tick 30s linear infinite;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── HEADER ─────────────────────── */
+header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;transition:background .3s,border-color .3s;}
+.hdr-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
+.hdr-logo img{width:32px;height:32px;object-fit:contain;}
+.hdr-logo span{font-family:var(--px);font-size:10px;letter-spacing:1px;}
+.hdr-nav{display:flex;align-items:center;gap:12px;}
+.hdr-nav a,.hdr-nav button{font-family:var(--px);font-size:6px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;background:none;border:none;cursor:pointer;transition:color .15s;}
+.hdr-nav a:hover,.hdr-nav button:hover{color:var(--text);}
+.btn-wa{background:var(--text)!important;color:var(--bg)!important;padding:7px 12px!important;font-size:6px!important;}
+.btn-cart{border:1.5px solid var(--border)!important;padding:7px 12px!important;color:var(--text2)!important;font-size:6px!important;}
+/* theme toggle */
+.theme-btn{width:32px;height:18px;background:var(--border);border:1.5px solid var(--border)!important;position:relative;cursor:pointer;flex-shrink:0;}
+.theme-btn::after{content:'';position:absolute;top:2px;left:2px;width:10px;height:10px;background:var(--text);transition:transform .2s;}
+[data-theme="dark"] .theme-btn::after{transform:translateX(12px);}
+@media(max-width:500px){.hdr-logo span{display:none;}.hdr-nav{gap:7px;}}
+
+/* ── SECTIONS ───────────────────── */
+.section{padding:40px 24px;border-top:1px solid var(--border);position:relative;z-index:1;transition:border-color .3s;}
+.section-label{font-family:var(--px);font-size:9px;color:var(--text);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;}
+.section-sub{font-family:var(--vt);font-size:18px;color:var(--text3);letter-spacing:3px;margin-bottom:32px;}
+
+/* ── PRODUCT GRID ───────────────── */
+.drop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;width:100%;}
+.tile-wrap{display:flex;flex-direction:column;gap:10px;}
+.tile-drop-ext{font-family:var(--px);font-size:6px;font-weight:700;color:var(--text);letter-spacing:.5px;text-transform:uppercase;line-height:1.7;}
+
+/* ── TILE ───────────────────────── */
+.tile{position:relative;background:var(--surface);border:none;overflow:hidden;cursor:pointer;box-shadow:0 2px 12px var(--shadow);transition:box-shadow .2s,transform .2s,background .3s;display:flex;flex-direction:column;height:100%;}
+.tile:hover{box-shadow:0 8px 28px var(--shadow-lg);transform:translateY(-3px);}
+.tile-img{aspect-ratio:4/5;overflow:hidden;position:relative;background:var(--surface2);display:flex;align-items:center;justify-content:center;}
+.tile-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.tile:hover .tile-img img{transform:scale(1.05);}
+.tile-info{flex-grow:1;padding:12px 14px;border-top:1px solid var(--border);background:var(--surface);transition:background .3s,border-color .3s;display:flex;flex-direction:column;justify-content:space-between;}
+.tile-drop-label{font-family:var(--px);font-size:5px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;padding-top:2px;flex-shrink:0;}
+.tile-name{font-family:var(--px);font-size:6px;color:var(--text);line-height:1.9;text-transform:uppercase;margin-bottom:6px;word-break:break-word;}
+.tile-price-row{display:flex;align-items:center;gap:8px;margin-top:auto;}
+.tile-old{font-family:var(--vt);font-size:15px;color:var(--text3);text-decoration:line-through;letter-spacing:1px;}
+.tile-price{font-family:var(--vt);font-size:18px;color:var(--green);letter-spacing:2px;}
+
+/* mystery */
+.tile.mystery{cursor:default;box-shadow:0 2px 8px var(--shadow);}
+.tile.mystery:hover{transform:none;box-shadow:0 2px 8px var(--shadow);}
+.mystery-inner{aspect-ratio:4/5;flex-shrink:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface2);gap:10px;transition:background .3s;}
+.mq{font-size:48px;line-height:1;color:var(--border);font-family:var(--px);user-select:none;animation:mqglow 2.5s ease-in-out infinite alternate;}
+@keyframes mqglow{from{text-shadow:0 0 10px var(--shadow)}to{text-shadow:0 0 28px var(--shadow-lg)}}
+.mystery-label{font-family:var(--vt);font-size:14px;color:var(--text3);letter-spacing:3px;text-transform:uppercase;}
+
+/* ── ACCORDION ──────────────────── */
+.accordion{max-width:860px;margin:0 auto;}
+.acc-item{border-bottom:1px solid var(--border);transition:border-color .3s;}
+.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 0;background:none;border:none;cursor:pointer;font-family:var(--px);font-size:7px;color:var(--text);letter-spacing:.5px;text-transform:uppercase;text-align:left;transition:color .15s;}
+.acc-trigger:hover{color:var(--text2);}
+.acc-icon{font-size:14px;transition:transform .25s;flex-shrink:0;margin-left:12px;}
+.acc-item.open .acc-icon{transform:rotate(45deg);}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .25s;}
+.acc-body-inner{font-family:var(--vt);font-size:18px;color:var(--text2);line-height:1.7;letter-spacing:1px;padding-bottom:14px;}
+.acc-body-inner li{margin-left:18px;margin-bottom:3px;}
+.acc-body-inner a{color:var(--green);text-decoration:none;}
+.acc-body-inner a:hover{text-decoration:underline;}
+.acc-item.open .acc-body{max-height:400px;}
+
+/* ── CONTACTS ───────────────────── */
+.contacts-box{max-width:860px;margin:0 auto;background:var(--surface);padding:22px 20px;box-shadow:0 2px 10px var(--shadow);transition:background .3s;}
+.ct-title{font-family:var(--px);font-size:9px;color:var(--text);letter-spacing:1px;margin-bottom:18px;}
+.ct-row{font-family:var(--vt);font-size:20px;letter-spacing:2px;display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.ct-row .lb{color:var(--text3);}
+.ct-row a{color:var(--green);text-decoration:none;transition:color .15s;}
+.ct-row a:hover{text-decoration:underline;}
+
+/* ── FOOTER ─────────────────────── */
+footer{border-top:1px solid var(--border);background:var(--surface);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;transition:background .3s,border-color .3s;}
+.ft-copy{font-family:var(--vt);font-size:15px;color:var(--text3);letter-spacing:2px;}
+.ft-pay img{height:30px;opacity:.5;}
+.ft-links{display:flex;gap:14px;}
+.ft-links a{font-family:var(--vt);font-size:15px;color:var(--text3);text-decoration:none;letter-spacing:1px;transition:color .15s;}
+.ft-links a:hover{color:var(--text);}
+
+/* ── PRODUCT MODAL ──────────────── */
+#prodModal{position:fixed;inset:0;z-index:300;display:none;}
+#prodModal.open{display:block;}
+.pm-overlay{position:absolute;inset:0;background:var(--overlay);}
+.pm-box{position:relative;z-index:2;width:min(860px,calc(100vw - 20px));max-height:calc(100dvh - 20px);margin:10px auto;background:var(--surface);box-shadow:0 8px 40px var(--shadow-lg);display:flex;flex-direction:column;overflow:hidden;transition:background .3s;}
+.pm-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--surface2);border-bottom:1px solid var(--border);flex-shrink:0;transition:background .3s,border-color .3s;}
+.pm-bar .wdots{display:flex;gap:5px;}
+.wdot{width:10px;height:10px;border:1px solid var(--border);}
+.wdot.r{background:#ff5f57;}.wdot.y{background:#ffbd2e;}.wdot.g{background:#28ca41;}
+.pm-title{font-family:var(--px);font-size:6px;color:var(--text3);letter-spacing:1px;}
+.pm-close{font-family:var(--px);font-size:6px;color:var(--text2);background:none;border:1px solid var(--border);padding:6px 10px;cursor:pointer;transition:color .15s,border-color .15s;}
+.pm-close:hover{color:var(--text);border-color:var(--text2);}
+.pm-body{display:grid;grid-template-columns:1fr;overflow-y:auto;}
+@media(min-width:580px){.pm-body{grid-template-columns:1fr 1fr;max-height:calc(100dvh - 80px);overflow-y:hidden;}}
+.pm-img{min-height:300px;background:var(--surface2);}
+@media(min-width:580px){.pm-img{min-height:500px;}}
+.pm-info{padding:24px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;}
+.pm-name{font-family:var(--px);font-size:8px;color:var(--text);line-height:2;text-transform:uppercase;}
+.pm-note{font-family:var(--vt);font-size:18px;color:var(--text2);letter-spacing:2px;}
+.pm-prices{display:flex;flex-direction:column;gap:4px;}
+.pm-old{font-family:var(--vt);font-size:17px;color:var(--text3);text-decoration:line-through;letter-spacing:2px;}
+.pm-price{font-family:var(--px);font-size:11px;color:var(--green);letter-spacing:1px;}
+.pm-desc{font-family:var(--vt);font-size:17px;color:var(--text2);line-height:1.6;letter-spacing:1px;border-top:1px solid var(--border);padding-top:12px;}
+.pm-desc p{margin-bottom:8px;}
+.pm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;border-top:1px solid var(--border);padding-top:14px;}
+.size-guide-btn{font-family:var(--px);font-size:5px;color:var(--text2);border:1px solid var(--border);background:none;padding:6px 10px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:color .15s,border-color .15s;width:fit-content;}
+.size-guide-btn:hover{color:var(--text);border-color:var(--text2);}
+
+/* ── BUTTONS ────────────────────── */
+.pbtn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--px);font-size:7px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:13px 16px;cursor:pointer;transition:background .15s,color .15s;border:2px solid transparent;}
+.pbtn-dark{background:var(--text);color:var(--bg);border-color:var(--text);}
+.pbtn-dark:hover{opacity:.85;}
+.pbtn-outline{background:transparent;color:var(--text2);border-color:var(--border);}
+.pbtn-outline:hover{color:var(--text);border-color:var(--text2);}
+
+/* ── CAROUSEL ───────────────────── */
+.carousel{position:relative;width:100%;height:100%;}
+.carousel-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
+.carousel-track::-webkit-scrollbar{display:none;}
+.carousel-slide{flex:0 0 100%;scroll-snap-align:start;height:100%;display:flex;align-items:center;justify-content:center;padding:12px;}
+.carousel-slide img{max-width:100%;max-height:100%;object-fit:contain;display:block;filter:drop-shadow(2px 6px 20px rgba(0,0,0,0.15));}
+.car-arrow{position:absolute;top:50%;transform:translateY(-50%);width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.6);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:18px;cursor:pointer;z-index:5;transition:background .15s;}
+.car-arrow:hover{background:rgba(0,0,0,.85);}
+.car-prev{left:8px;}.car-next{right:8px;}
+
+/* ── CART DRAWER ────────────────── */
+#drawer{position:fixed;inset:0;z-index:500;display:none;}
+#drOverlay{position:absolute;inset:0;background:var(--overlay);}
+.dr-inner{position:absolute;right:0;top:0;height:100%;width:min(380px,100vw);background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;box-shadow:-4px 0 24px var(--shadow-lg);transition:background .3s,border-color .3s;}
+.dr-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;transition:border-color .3s;}
+.dr-title{font-family:var(--px);font-size:8px;color:var(--text);letter-spacing:1px;}
+.dr-body{flex:1;overflow-y:auto;padding:14px 16px;}
+.dr-foot{padding:14px 16px;border-top:1px solid var(--border);flex-shrink:0;transition:border-color .3s;}
+.dr-total{display:flex;justify-content:space-between;font-family:var(--px);font-size:7px;color:var(--text2);margin-bottom:12px;}
+.dr-total span:last-child{color:var(--text);}
+.cart-item{background:var(--surface2);padding:12px;margin-bottom:8px;transition:background .3s;}
+.ci-name{font-family:var(--px);font-size:6px;color:var(--text);line-height:1.8;margin-bottom:4px;}
+.ci-price{font-family:var(--vt);font-size:15px;color:var(--text2);letter-spacing:1px;}
+.ci-ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+.qty-wrap{display:flex;align-items:center;gap:6px;}
+.qbtn{font-family:var(--px);font-size:9px;color:var(--text2);background:none;border:1.5px solid var(--border);width:28px;height:28px;cursor:pointer;transition:border-color .15s,color .15s;}
+.qbtn:hover{border-color:var(--text2);color:var(--text);}
+.qval{font-family:var(--vt);font-size:17px;color:var(--text);width:28px;text-align:center;}
+.ci-total{font-family:var(--px);font-size:7px;color:var(--text);}
+.ci-rm{font-family:var(--px);font-size:5px;color:var(--text3);background:none;border:none;cursor:pointer;transition:color .15s;}
+.ci-rm:hover{color:var(--red);}
+.cart-empty{font-family:var(--vt);font-size:17px;color:var(--text3);border:1px solid var(--border);padding:18px;text-align:center;letter-spacing:1px;}
+
+/* ── SIZE MODAL ─────────────────── */
+#sizeModal{position:fixed;inset:0;z-index:400;display:none;}
+#sizeModal.open{display:block;}
+#szOverlay{position:absolute;inset:0;background:var(--overlay);}
+.sz-box{position:relative;z-index:2;width:min(600px,calc(100vw - 20px));max-height:calc(100dvh - 32px);margin:16px auto;background:var(--surface);box-shadow:0 8px 40px var(--shadow-lg);display:flex;flex-direction:column;transition:background .3s;}
+.sz-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--surface2);border-bottom:1px solid var(--border);flex-shrink:0;transition:background .3s,border-color .3s;}
+.sz-body{padding:18px;overflow-y:auto;}
+.sz-table{width:100%;border-collapse:collapse;font-family:var(--vt);font-size:17px;color:var(--text);}
+.sz-table th{font-family:var(--px);font-size:5px;color:var(--text2);padding:8px 6px;border-bottom:1px solid var(--border);text-align:left;letter-spacing:.5px;}
+.sz-table td{padding:7px 6px;border-bottom:1px solid var(--surface2);letter-spacing:1px;}
+.sz-table td:first-child{color:var(--text2);}
+.sz-note{font-family:var(--vt);font-size:14px;color:var(--text3);margin-top:12px;line-height:1.6;letter-spacing:1px;}
+
+/* ── TOAST ──────────────────────── */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;z-index:9000;background:var(--text);color:var(--bg);font-family:var(--px);font-size:6px;letter-spacing:1px;padding:12px 18px;transition:opacity .2s,transform .2s;box-shadow:0 4px 16px var(--shadow-lg);}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ── REVEAL ─────────────────────── */
+.reveal{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;}
+.reveal.in{opacity:1;transform:none;}
+</style>
 </head>
+<body>
 
-<body class="selection:bg-white selection:text-black">
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">QULTURE</div>
+  <div class="splash-sub">Handmade in Kazakhstan</div>
+  <button class="start-btn" id="startBtn">▶ PRESS START</button>
+  <div class="splash-year">© 2026</div>
+</div>
 
-  <!-- HEADER -->
-  <header class="fixed top-0 left-0 right-0 z-50 bg-black border-b border-white/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-3">
-      <a href="#top" class="flex items-center gap-0.5 sm:gap-1 min-w-0">
-        <img src="logo.png" alt="QULTURE logo" class="w-14 h-14 sm:w-16 sm:h-16 object-contain opacity-100">
-        <span class="text-lg sm:text-xl md:text-2xl font-bold tracking-tighter truncate brand-title">QULTURE</span>
-      </a>
+<!-- SITE -->
+<div id="site">
 
-      <nav class="hidden md:flex items-center gap-6 mono text-[11px] uppercase tracking-widest text-gray-400">
-        <a href="#products" class="hover:text-white transition-colors">Продукция</a>
-        <a href="#buyers" class="hover:text-white transition-colors">Покупателям</a>
-        <a href="#contacts" class="hover:text-white transition-colors">Контакты</a>
-      </nav>
+  <div class="ticker" aria-hidden="true">
+    <span class="ticker-inner">
+      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — SGIN COMING &nbsp;|&nbsp;
+      LIMITED PRE-ORDER &nbsp;|&nbsp; VIA WHATSAPP ONLY &nbsp;|&nbsp; YOU'RE RUNNING OUT OF TIME &nbsp;|&nbsp;
+      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — SGIN COMING &nbsp;|&nbsp;
+      LIMITED PRE-ORDER &nbsp;|&nbsp; VIA WHATSAPP ONLY &nbsp;|&nbsp; YOU'RE RUNNING OUT OF TIME &nbsp;|&nbsp;
+    </span>
+  </div>
 
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer"
-          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-          <span class="hidden sm:inline">WhatsApp</span><span class="sm:hidden">WA</span>
-        </a>
-
-        <a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer"
-          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-black bg-white px-3 sm:px-4 py-2 hover:opacity-90 transition whitespace-nowrap">
-          <span class="hidden sm:inline">Instagram</span><span class="sm:hidden">IG</span>
-        </a>
-
-        <button id="cartBtn"
-          class="mono text-[10px] sm:text-[11px] uppercase tracking-widest border border-white/20 px-3 sm:px-4 py-2 hover:border-white transition whitespace-nowrap">
-          <span>Корзина</span>
-          <span id="cartCount" class="text-gray-400">(0)</span>
-        </button>
-      </div>
-    </div>
+  <header>
+    <a href="#" class="hdr-logo">
+      <img src="logo.png" alt="QULTURE">
+      <span>QULTURE</span>
+    </a>
+    <nav class="hdr-nav">
+      <a href="#shop">SHOP</a>
+      <a href="#info">ИНФО</a>
+      <a href="#contacts">КОНТАКТЫ</a>
+      <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer" class="btn-wa pbtn" style="font-size:6px;padding:7px 12px;">WA</a>
+      <button id="cartBtn" class="btn-cart pbtn" style="font-size:6px;padding:7px 12px;">КОРЗИНА <span id="cartCount">(0)</span></button>
+      <button class="theme-btn" id="themeBtn" aria-label="Toggle theme" title="Переключить тему"></button>
+    </nav>
   </header>
 
-  <!-- HERO -->
-  <section id="top" class="pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="border border-white/20 p-6 sm:p-8 md:p-12 bg-black reveal">
-        <h1 class="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tighter hero-title">
-          YOU’RE RUNNING <br class="hidden md:block" /> OUT OF TIME.
-        </h1>
-
-        <div class="mono text-gray-400 mt-4 sm:mt-6 drop-11 uppercase">
-          Drop 01
-        </div>
-
-        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3">
-          <a href="#products"
-            class="inline-flex justify-center items-center bg-white text-black px-7 sm:px-8 py-4 font-bold uppercase tracking-widest cta-helv">
-            Смотреть продукцию
-          </a>
-        </div>
-      </div>
-    </div>
+  <!-- SHOP: single unified grid -->
+  <section id="shop" class="section">
+    <div class="section-label reveal">// SHOP</div>
+    <div class="section-sub reveal">ALL DROPS</div>
+    <div class="drop-grid" id="shopGrid"></div>
   </section>
 
-  <!-- PRODUCTS -->
-  <section id="products" class="py-14 sm:py-16 border-t border-white/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="flex items-end justify-between gap-6 mb-7 sm:mb-8 reveal">
-        <div>
-          <h2 class="text-2xl md:text-3xl font-bold tracking-tighter">Продукция</h2>
-          <p class="text-gray-400 mt-2">Добавь в корзину — оформим заказ через WhatsApp.</p>
-        </div>
-        <div class="mono text-[11px] uppercase tracking-widest text-gray-500 hidden sm:block">Drop 01</div>
-      </div>
+  <!-- INFO: accordion -->
+  <section id="info" class="section">
+    <div class="section-label reveal">// ИНФОРМАЦИЯ</div>
+    <div class="accordion reveal" style="margin-top:24px;" id="accordion">
 
-      <div id="productGrid" class="grid grid-cols-1 place-items-center gap-6"></div>
-    </div>
-  </section>
-
-  <!-- BUYERS -->
-  <section id="buyers" class="py-14 sm:py-16 border-t border-white/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <h2 class="text-2xl md:text-3xl font-bold tracking-tighter mb-7 sm:mb-8 section-helv">
-        Информация для покупателей
-      </h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-        <div class="p-6 border border-white/20 bg-black">
-          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Как заказать</div>
-          <ol class="text-sm text-gray-300 leading-relaxed list-decimal pl-5 space-y-2">
-            <li>Добавь товар в корзину</li>
-            <li>Нажми «Оформить в WhatsApp»</li>
-            <li>Мы уточним размер/доставку</li>
-          </ol>
-        </div>
-
-        <div class="p-6 border border-white/20 bg-black">
-          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Рассрочка/KASPI RED</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            Если хочешь рассрочку — напиши менеджеру. Подскажем условия и оформим вручную.
-          </p>
-        </div>
-
-        <div class="p-6 border border-white/20 bg-black">
-          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Доставка</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            По Казахстану и СНГ. Стоимость и сроки зависят от города — уточняем при оформлении.
-          </p>
-        </div>
-
-        <div class="p-6 border border-white/20 bg-black">
-          <div class="text-[11px] uppercase tracking-widest text-gray-500 mb-3 helv-reg">Возврат и обмен</div>
-          <p class="text-sm text-gray-300 leading-relaxed">
-            Возврат/обмен — в течение 14 дней при сохранении бирки и отсутствии следов носки. По вопросам — пишите в
-            WhatsApp.
-          </p>
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>КАК ЗАКАЗАТЬ</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner"><ol><li>Выберите товар</li><li>Нажмите «В корзину»</li><li>Оформите заказ через WhatsApp</li></ol></div>
         </div>
       </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>РАССРОЧКА / KASPI RED</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">Напиши менеджеру — подскажем условия и оформим вручную.</div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>ДОСТАВКА</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">По всему Казахстану и СНГ. Стоимость и сроки уточняем при оформлении.</div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>ВОЗВРАТ И ОБМЕН</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">В течение 14 дней при сохранении бирки и отсутствии следов носки. Пиши в WhatsApp.</div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>ПУБЛИЧНАЯ ОФЕРТА</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">Товар является лимитированным изделием ручной работы. Все продажи — финальные после подтверждения в WhatsApp. <a href="offer.html">Читать полный текст оферты →</a></div>
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-trigger">
+          <span>ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body">
+          <div class="acc-body-inner">Мы собираем только контактные данные, необходимые для оформления заказа, и не передаём их третьим лицам. <a href="privacy.html">Читать полностью →</a></div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- CONTACTS -->
-  <section id="contacts" class="py-14 sm:py-16 border-t border-white/20">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 items-start">
-        <div class="md:col-span-2 p-7 sm:p-8 border border-white/20 bg-black">
-          <h3 class="text-2xl font-bold tracking-tighter contacts-helv">Контакты</h3>
-
-          <div class="mt-6 space-y-4 text-sm text-white">
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="text-white helv-reg">Instagram:</span>
-              <a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer"
-                class="hover:opacity-80 transition helv-reg">
-                @qulture.culture
-              </a>
-            </div>
-
-            <div class="flex flex-wrap items-center gap-2">
-              <span class="text-white helv-reg">WhatsApp:</span>
-              <a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer"
-                class="hover:opacity-80 transition helv-reg">
-                +7 747 112 61 37
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
+  <section id="contacts" class="section">
+    <div class="section-label reveal">// КОНТАКТЫ</div>
+    <div class="contacts-box reveal" style="margin-top:24px;">
+      <div class="ct-title">QULTURE.KZ</div>
+      <div class="ct-row"><span class="lb">INSTAGRAM:</span><a href="https://www.instagram.com/qulture.culture" target="_blank" rel="noopener noreferrer">@qulture.culture</a></div>
+      <div class="ct-row"><span class="lb">WHATSAPP:</span><a href="https://wa.me/77471126137" target="_blank" rel="noopener noreferrer">+7 747 112 61 37</a></div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="border-t border-white/20 relative overflow-hidden">
-    <div
-      class="max-w-6xl mx-auto px-4 sm:px-6 py-6 md:py-0 md:h-24 flex flex-col md:flex-row items-center justify-between gap-4 mono text-[10px] uppercase tracking-widest text-gray-600 relative">
-      <div class="shrink-0 text-white helv-reg normal-case tracking-normal">© 2026 QULTURE.KZ</div>
-
-      <div class="relative w-full md:flex-1 md:h-full flex items-center justify-center h-20 md:h-full">
-        <img src="payments.png" alt="Visa / MasterCard"
-          class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-32 md:h-36 w-auto opacity-90 pointer-events-none" />
-      </div>
-
-      <div class="shrink-0 flex flex-wrap justify-center md:justify-end items-center gap-2 text-center">
-        <a href="/privacy" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">
-          Политика конфиденциальности
-        </a>
-        <span class="opacity-40 hidden md:inline">/</span>
-        <a href="/offer" class="text-white hover:opacity-80 transition helv-reg normal-case tracking-normal">
-          Публичная оферта
-        </a>
-      </div>
-    </div>
+  <footer>
+    <div class="ft-copy">© 2026 QULTURE.KZ</div>
+    <div class="ft-pay"><img src="payments.png" alt="Visa/MC"></div>
+    <div class="ft-links"><a href="privacy.html">PRIVACY</a><a href="offer.html">OFFER</a></div>
   </footer>
 
-  <!-- SIZE MODAL -->
-  <div id="sizeModal" class="modal fixed inset-0 z-[70]" role="dialog" aria-modal="true" aria-labelledby="sizeTitle">
-    <div id="sizeOverlay" class="absolute inset-0 bg-black"></div>
+</div><!-- #site -->
+<!-- PRODUCT MODAL -->
+<div id="prodModal">
+  <div class="pm-overlay" id="pmOverlay"></div>
+  <div class="pm-box">
+    <div class="pm-bar">
+      <div class="wdots"><div class="wdot r"></div><div class="wdot y"></div><div class="wdot g"></div></div>
+      <span class="pm-title" id="pmTitle">PRODUCT.IMG</span>
+      <button class="pm-close" id="pmClose">ЗАКРЫТЬ</button>
+    </div>
+    <div class="pm-body">
+      <div class="pm-img" id="pmImg" style="min-height:300px;"></div>
+      <div class="pm-info" id="pmInfo"></div>
+    </div>
+  </div>
+</div>
 
-    <div class="relative h-full w-full flex items-center justify-center p-3 sm:p-6">
-      <div class="modal-card modal-shell">
-        <div
-          class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/20 bg-black sticky top-0 z-10">
-          <div>
-            <div id="sizeTitle" class="text-lg sm:text-xl font-bold tracking-tighter">Таблица размеров</div>
-            <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mt-1">Custom M-L /
-              Custom
-              L-XL</div>
-          </div>
-
-          <button id="closeSize"
-            class="mono text-[11px] uppercase tracking-widest text-gray-300 border border-white/20 px-3 py-2 hover:border-white transition">
-            Закрыть
-          </button>
-        </div>
-
-        <div class="p-5 sm:p-6 modal-body">
-          <div class="border border-white/20 bg-black p-4 sm:p-5">
-            <div class="mono text-[11px] uppercase tracking-widest text-gray-400 mb-3">Measurements (cm)</div>
-
-            <div class="overflow-hidden border border-white/20">
-              <table class="w-full text-sm">
-                <thead class="bg-black">
-                  <tr class="text-left">
-                    <th class="py-3 px-3 text-gray-400 font-normal">Параметр</th>
-                    <th class="py-3 px-3 text-gray-200 font-normal">Custom M-L</th>
-                    <th class="py-3 px-3 text-gray-200 font-normal">Custom L-XL</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-white/20">
-                  <tr>
-                    <td class="py-3 px-3 text-gray-400">Ширина груди</td>
-                    <td class="py-3 px-3">59</td>
-                    <td class="py-3 px-3">63</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-3 text-gray-400">Длина изделия</td>
-                    <td class="py-3 px-3">67</td>
-                    <td class="py-3 px-3">70</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-3 text-gray-400">Ширина плеча</td>
-                    <td class="py-3 px-3">17</td>
-                    <td class="py-3 px-3">18</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-3 text-gray-400">Ширина низа</td>
-                    <td class="py-3 px-3">58</td>
-                    <td class="py-3 px-3">61</td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-3 text-gray-400">Длина рукава</td>
-                    <td class="py-3 px-3">22</td>
-                    <td class="py-3 px-3">24</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="mt-4 text-xs text-gray-400 leading-relaxed">
-              * Допуск по ручному пошиву ±1–2 см. Если хочешь “как сидит” — напиши в WhatsApp, поможем подобрать.
-            </div>
-            <div class="mt-4 text-xs text-gray-400 leading-relaxed">
-              * Pазмер M-L пишется как L на футболке, Pазмер L-XL пишется как XL
-            </div>
-          </div>
-        </div>
+<!-- SIZE MODAL -->
+<div id="sizeModal">
+  <div id="szOverlay"></div>
+  <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px;">
+    <div class="sz-box">
+      <div class="sz-bar">
+        <div style="display:flex;align-items:center;gap:6px;"><div class="wdot r"></div><div class="wdot y"></div><span class="pm-title">SIZE_GUIDE.TXT</span></div>
+        <button class="pm-close" id="szClose">ЗАКРЫТЬ</button>
+      </div>
+      <div class="sz-body">
+        <table class="sz-table">
+          <thead><tr><th>ПАРАМЕТР</th><th>Custom M-L</th><th>Custom L-XL</th></tr></thead>
+          <tbody>
+            <tr><td>Ширина груди</td><td>59 см</td><td>63 см</td></tr>
+            <tr><td>Длина изделия</td><td>67 см</td><td>70 см</td></tr>
+            <tr><td>Ширина плеча</td><td>17 см</td><td>18 см</td></tr>
+            <tr><td>Ширина низа</td><td>58 см</td><td>61 см</td></tr>
+            <tr><td>Длина рукава</td><td>22 см</td><td>24 см</td></tr>
+          </tbody>
+        </table>
+        <p class="sz-note">* Допуск ±1–2 см (ручной пошив).</p>
+        <p class="sz-note">* M-L = L на футболке, L-XL = XL.</p>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- CART DRAWER -->
-  <div id="drawer" class="fixed inset-0 z-[60] hidden">
-    <div id="drawerOverlay" class="absolute inset-0 bg-black"></div>
-    <div
-      class="absolute right-0 top-0 h-full w-full sm:w-[420px] bg-black border-l border-white/20 p-6 overflow-y-auto">
-      <div class="flex items-center justify-between">
-        <div class="text-xl font-bold tracking-tighter">Корзина</div>
-        <button id="closeDrawer"
-          class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition">Закрыть</button>
+<!-- INFO MODAL -->
+<div id="infoModal" style="position:fixed;inset:0;z-index:400;display:none;">
+  <div id="imOverlay" style="position:absolute;inset:0;background:var(--overlay);"></div>
+  <div style="position:relative;z-index:2;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:16px;">
+    <div class="sz-box">
+      <div class="sz-bar">
+        <div style="display:flex;align-items:center;gap:6px;"><div class="wdot r"></div><div class="wdot y"></div><span class="pm-title" id="imTitle">INFO.TXT</span></div>
+        <button class="pm-close" id="imClose">ЗАКРЫТЬ</button>
       </div>
-
-      <div id="cartItems" class="mt-6 space-y-4"></div>
-
-      <div class="mt-6 border-t border-white/20 pt-4">
-        <div class="flex items-center justify-between text-sm">
-          <span class="mono text-gray-500">Итого:</span>
-          <span id="cartTotal" class="font-bold">0 ₸</span>
-        </div>
-
-        <button id="drawerCheckout"
-          class="mt-4 w-full bg-white text-black px-6 py-3 font-bold uppercase tracking-widest hover:opacity-90 transition">
-          Оформить в WhatsApp
-        </button>
-
-        <button id="clearCart"
-          class="mt-3 w-full border border-white/20 px-6 py-3 font-bold uppercase tracking-widest hover:border-white transition">
-          Очистить корзину
-        </button>
+      <div class="sz-body" id="imBody" style="font-family:var(--vt);font-size:16px;color:var(--text);line-height:1.6;letter-spacing:1px;white-space:pre-wrap;">
       </div>
     </div>
   </div>
+</div>
 
-  <div id="toast" class="toast mono text-[10px] uppercase tracking-widest text-gray-200">Added to cart</div>
-
-  <script>
-    const WHATSAPP_NUMBER = "77471126137";
-    const CURRENCY = "₸";
-
-    const PRODUCTS = [
-      {
-        id: "q1",
-        name: 'T-SHIRT “YOU’RE RUNNING OUT OF TIME”',
-        price: 15000,
-        originalPrice: 20000,
-        note: "Oversize  /  Unisex",
-        images: ["images/boy.jpg", "images/girl.jpg", "images/tshirt_new.jpg", "images/mmmm.png", "images/macro2.png", "images/macro.png", "images/sostavnik.png"],
-        description: `
-Характеристики:
-• Состав: 95% Хлопок / 5% Эластан (190 г/м²).
-• Принт: Износостойкая шелкография.
-• Крой: Авторский силуэт QULTURE (собственные лекала).
-• Размеры: Custom M-L / Custom L-XL
-
-Производство:
-Handmade in Kazakhstan. Каждая вещь кроится и шьется вручную в локальном цеху, а не заказывается готовыми бланками. Мы полностью контролируем процесс: от выбора нитей до финального шва.
-        `.trim(),
-      },
-    ];
-
-    const key = "qulture_cart_v1";
-    const $ = (id) => document.getElementById(id);
-
-    function loadCart() {
-      try { return JSON.parse(localStorage.getItem(key)) || []; }
-      catch { return []; }
-    }
-
-    const toastEl = $("toast");
-    let toastT = null;
-    function toast(msg) {
-      if (!toastEl) return;
-      toastEl.textContent = msg;
-      toastEl.classList.add("show");
-      clearTimeout(toastT);
-      toastT = setTimeout(() => toastEl.classList.remove("show"), 1200);
-    }
-
-    function renderCartBadge() {
-      const cart = loadCart();
-      $("cartCount").textContent = `(${cart.reduce((s, i) => s + i.qty, 0)})`;
-    }
-
-    function saveCart(cart) {
-      localStorage.setItem(key, JSON.stringify(cart));
-      renderCartBadge();
-    }
-
-    function formatPrice(n) {
-      return new Intl.NumberFormat("ru-RU").format(n) + " " + CURRENCY;
-    }
-
-    function cartTotal(cart) {
-      return cart.reduce((s, i) => s + i.price * i.qty, 0);
-    }
-
-    function addToCart(productId) {
-      const p = PRODUCTS.find(x => x.id === productId);
-      if (!p) return;
-
-      const cart = loadCart();
-      const existing = cart.find(x => x.id === p.id);
-      if (existing) existing.qty += 1;
-      else cart.push({ id: p.id, name: p.name, price: p.price, qty: 1 });
-
-      saveCart(cart);
-      openDrawer();
-      renderCart();
-      toast("Added to cart");
-    }
-
-    function removeFromCart(productId) {
-      const cart = loadCart().filter(x => x.id !== productId);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function changeQty(productId, delta) {
-      const cart = loadCart();
-      const item = cart.find(x => x.id === productId);
-      if (!item) return;
-      item.qty += delta;
-      if (item.qty <= 0) return removeFromCart(productId);
-      saveCart(cart);
-      renderCart();
-    }
-
-    function clearCart() {
-      saveCart([]);
-      renderCart();
-    }
-
-    function buildWhatsappMessage() {
-      const cart = loadCart();
-      if (!cart.length) return null;
-
-      const lines = [];
-      lines.push("QULTURE — Заявка заказa");
-      lines.push("");
-      cart.forEach((i, idx) => {
-        lines.push(`${idx + 1}) ${i.name} — ${i.qty} шт. — ${formatPrice(i.price * i.qty)}`);
-      });
-      lines.push("");
-      lines.push(`Итого: ${formatPrice(cartTotal(cart))}`);
-      lines.push("");
-      lines.push("Размер(ы): ");
-      lines.push("Город: ");
-      lines.push("Доставка: ");
-      lines.push("Комментарий: ");
-
-      return encodeURIComponent(lines.join("\n"));
-    }
-
-    function shakeCartBtn() {
-      const btn = $("cartBtn");
-      if (!btn) return;
-      btn.classList.remove("shake");
-      void btn.offsetWidth;
-      btn.classList.add("shake");
-    }
-
-    function goCheckout() {
-      const msg = buildWhatsappMessage();
-      if (!msg) {
-        shakeCartBtn();
-        alert("Корзина пустая. Добавь товары в разделе «Продукция».");
-        return;
-      }
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`;
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    }
-
-    function prettyTextToHtml(text) {
-      let safe = escapeHtml(text);
-      return safe
-        .replace(/\n{2,}/g, "\n\n")
-        .split("\n\n")
-        .map(block => `<p class="mb-3 last:mb-0">${block.replace(/\n/g, "<br>")}</p>`)
-        .join("");
-    }
-
-    function renderProducts() {
-      const grid = $("productGrid");
-
-      grid.innerHTML = PRODUCTS.map(p => {
-        const desc = p.description ? prettyTextToHtml(p.description) : "";
-        const imgs = (p.images && p.images.length) ? p.images : [];
-
-        return `
-  <div class="w-full max-w-5xl border border-white/20 bg-black overflow-hidden product-card reveal">
-    <div class="grid grid-cols-1 md:grid-cols-2 md:min-h-[560px]">
-
-      <!-- LEFT: FULL-BLEED CAROUSEL -->
-      <div class="bg-black md:h-[560px] overflow-hidden">
-        <div class="carousel h-full">
-          <button class="carousel-arrow carousel-prev" type="button" aria-label="Previous" data-id="${p.id}">‹</button>
-          <button class="carousel-arrow carousel-next" type="button" aria-label="Next" data-id="${p.id}">›</button>
-
-          <div class="carousel-track h-full" id="track-${p.id}" aria-label="Product images">
-            ${imgs.map((img, idx) => `
-              <div class="carousel-slide h-full">
-                <img
-                  src="${img}"
-                  alt="${escapeHtml(p.name)} — ${idx + 1}"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            `).join("")}
-          </div>
-          ${imgs.length > 1 ? `
-  <div class="carousel-dots" id="dots-${p.id}" aria-label="Pagination">
-    ${imgs.map((_, i) => `
-      <button type="button"
-        class="carousel-dot ${i === 0 ? "is-active" : ""}"
-        aria-label="Go to image ${i + 1}"
-        data-id="${p.id}"
-        data-idx="${i}">
-      </button>
-    `).join("")}
-  </div>
-` : ""}
-
-        </div>
-      </div>
-
-      <!-- RIGHT: INFO -->
-      <div class="p-5 sm:p-6 md:p-8">
-        <div class="flex items-start justify-between gap-4 sm:gap-6">
-          <div class="min-w-0">
-            <div class="text-base sm:text-lg md:text-xl font-semibold tracking-tight leading-snug break-words">
-              ${escapeHtml(p.name)}
-            </div>
-
-            <div class="text-sm text-gray-400 mt-2 flex items-center gap-3 flex-wrap">
-              <span class="helv-reg">${escapeHtml(p.note || "")}</span>
-
-              <button type="button" onclick="openSizeGuide()"
-                class="text-[10px] uppercase tracking-widest border border-white/20 px-3 py-1.5 hover:border-white transition helv-reg">
-                Size guide
-              </button>
-            </div>
-          </div>
-
-          <div class="flex flex-col items-end gap-1 pt-1">
-            ${p.originalPrice ? `<div class="mono text-[11px] sm:text-xs uppercase tracking-widest text-gray-500 whitespace-nowrap line-through">${formatPrice(p.originalPrice)}</div>` : ''}
-            <div class="mono text-[11px] sm:text-xs uppercase tracking-widest whitespace-nowrap" style="color:#4ade80">${formatPrice(p.price)}</div>
-          </div>
-        </div>
-
-        ${p.description ? `
-          <div class="mt-5 sm:mt-6 text-sm text-gray-300 leading-relaxed border-t border-white/20 pt-4 sm:pt-5">
-            ${desc}
-          </div>
-        ` : ""}
-
-        <div class="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <button onclick="addToCart('${p.id}')"
-            class="bg-white text-black px-5 py-3 font-bold uppercase tracking-widest text-[12px] hover:opacity-90 transition">
-            В корзину
-          </button>
-
-          <a target="_blank" rel="noopener noreferrer"
-             href="https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("QULTURE — хочу заказать: " + p.name)}"
-             class="border border-white/20 px-5 py-3 font-bold uppercase tracking-widest text-[12px] text-center hover:border-white transition">
-            WhatsApp
-          </a>
-        </div>
-      </div>
-
+<!-- CART DRAWER -->
+<div id="drawer">
+  <div id="drOverlay"></div>
+  <div class="dr-inner">
+    <div class="dr-head">
+      <div class="dr-title">CART.EXE</div>
+      <button class="pm-close" id="drClose">ЗАКРЫТЬ</button>
+    </div>
+    <div class="dr-body" id="cartItems"></div>
+    <div class="dr-foot">
+      <div class="dr-total"><span>ИТОГО:</span><span id="cartTotal">0 ₸</span></div>
+      <button id="checkoutBtn" class="pbtn pbtn-dark" style="width:100%;margin-bottom:10px;">▶ ОФОРМИТЬ В WHATSAPP</button>
+      <button id="clearBtn" class="pbtn pbtn-outline" style="width:100%;">ОЧИСТИТЬ</button>
     </div>
   </div>
-`;
+</div>
 
-      }).join("");
-    }
+<div id="toast" class="toast">✓ ADDED TO CART</div>
 
-    function initCarousels() {
-      PRODUCTS.forEach(p => {
-        const track = document.getElementById(`track-${p.id}`);
-        if (!track) return;
+<script>
+const WA = "77471126137", CUR = "₸";
 
-        const prevBtn = document.querySelector(`.carousel-prev[data-id="${p.id}"]`);
-        const nextBtn = document.querySelector(`.carousel-next[data-id="${p.id}"]`);
-        const total = (p.images && p.images.length) ? p.images.length : 1;
-        const dotsWrap = document.getElementById(`dots-${p.id}`);
+// ── DATA ──────────────────────────
+const ALL_PRODUCTS = [
+  {
+    id:"q1", drop:"DROP 01", dropSub:"YOU'RE RUNNING OUT OF TIME",
+    name:'T-SHIRT\n"YOU\'RE RUNNING\nOUT OF TIME"',
+    price:15000, originalPrice:20000, note:"Oversize / Unisex",
+    thumb:"images/boy.jpg",
+    images:["images/boy.jpg","images/girl.jpg","images/tshirt_new.jpg","images/mmmm.png","images/macro2.png","images/macro.png","images/sostavnik.png"],
+    description:"Характеристики:\n• Состав: 95% Хлопок / 5% Эластан (190 г/м²).\n• Принт: Износостойкая шелкография.\n• Крой: Авторский силуэт QULTURE.\n• Размеры: Custom M-L / Custom L-XL\n\nПроизводство:\nHandmade in Kazakhstan. Каждая вещь кроится и шьётся вручную в локальном цеху."
+  },
+  {
+    id:"s1", drop:"DROP 02", dropSub:"SGIN",
+    name:"T-SHIRT SGIN (WHITE)",
+    price:13000, originalPrice:null, note:"Oversize / Unisex",
+    thumb:"images/T-SHIRT_SGIN.png",
+    images:["images/T-SHIRT_SGIN.png"],
+    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки» (box fit).\n\nПринт:\nТехнология: качественная шелкография.\nЭффект: винтажный стиль с потертостями. Принт мягкий, не стоит колом.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
+    conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур (в частности, S.G.I.N. — Social Group Integration Network / System Global Information Network) носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
+    preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
+  },
+  {
+    id:"s2", drop:"DROP 02", dropSub:"SGIN",
+    name:"SWEATSHIRT SGIN",
+    price:null, originalPrice:null, note:"Oversize / Unisex",
+    thumb:"images/SWEATSHIRT_SGIN.png",
+    images:["images/SWEATSHIRT_SGIN.png"],
+    description:"Коллекция: SGIN.\nПлотный свитшот оверсайз кроя."
+  }
+];
 
+const CART_KEY = "qulture_cart_v3";
+const $ = id => document.getElementById(id);
 
-        function slideW() {
-          return track.clientWidth || 1;
-        }
-        function idx() {
-          const w = slideW();
-          return Math.max(0, Math.min(total - 1, Math.round(track.scrollLeft / w)));
-        }
-        function updateArrows() {
-          const i = idx();
-          if (prevBtn) prevBtn.style.display = (i <= 0) ? "none" : "";
-          if (nextBtn) nextBtn.style.display = (i >= total - 1) ? "none" : "";
-          updateDots();
-        }
-        function updateDots() {
-          if (!dotsWrap) return;
-          const i = idx();
-          dotsWrap.querySelectorAll(".carousel-dot").forEach((d, k) => {
-            d.classList.toggle("is-active", k === i);
-          });
-        }
-        function go(i) {
-          const w = slideW();
-          const clamped = Math.max(0, Math.min(total - 1, i));
-          track.scrollTo({ left: clamped * w, behavior: "smooth" });
-          setTimeout(updateArrows, 300);
-        }
+// ── THEME ─────────────────────────
+const root = document.documentElement;
+let theme = localStorage.getItem("qulture_theme") || "light";
+root.setAttribute("data-theme", theme);
+$("themeBtn").addEventListener("click", () => {
+  theme = theme === "light" ? "dark" : "light";
+  root.setAttribute("data-theme", theme);
+  localStorage.setItem("qulture_theme", theme);
+});
 
-        // если одна фотка — прячем обе стрелки
-        if (total <= 1) {
-          if (prevBtn) prevBtn.style.display = "none";
-          if (nextBtn) nextBtn.style.display = "none";
-          return;
-        }
+// ── SPLASH ────────────────────────
+$("startBtn").addEventListener("click", () => {
+  $("splash").classList.add("hide");
+  $("site").classList.add("show");
+  setTimeout(() => $("splash").style.display="none", 700);
+});
 
-        if (prevBtn) prevBtn.addEventListener("click", () => go(idx() - 1));
-        if (nextBtn) nextBtn.addEventListener("click", () => go(idx() + 1));
+// ── CART ──────────────────────────
+function loadCart(){ try{return JSON.parse(localStorage.getItem(CART_KEY))||[];}catch{return[];} }
+function saveCart(c){ localStorage.setItem(CART_KEY,JSON.stringify(c)); badge(); }
+function badge(){ $("cartCount").textContent=`(${loadCart().reduce((s,i)=>s+i.qty,0)})`; }
+function fmt(n){ return new Intl.NumberFormat("ru-RU").format(n)+" "+CUR; }
+function total(c){ return c.reduce((s,i)=>s+i.price*i.qty,0); }
 
-        track.addEventListener("scroll", () => {
-          window.requestAnimationFrame(updateArrows);
-        }, { passive: true });
+let toastTimer;
+function showToast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"),1400); }
 
-        window.addEventListener("resize", () => {
-          const i = idx();
-          track.scrollTo({ left: i * slideW(), behavior: "auto" });
-          updateArrows();
-        });
+window.addToCart = function(id){
+  const p=ALL_PRODUCTS.find(x=>x.id===id); if(!p||p.mystery) return;
+  const c=loadCart(), ex=c.find(x=>x.id===id);
+  if(ex) ex.qty++; else c.push({id,name:p.name,price:p.price,qty:1});
+  saveCart(c); openDrawer(); renderCart(); showToast("✓ ADDED TO CART");
+};
+window.removeFromCart = function(id){ saveCart(loadCart().filter(x=>x.id!==id)); renderCart(); };
+window.changeQty = function(id,d){
+  const c=loadCart(), it=c.find(x=>x.id===id); if(!it) return;
+  it.qty+=d; if(it.qty<=0){ removeFromCart(id); return; }
+  saveCart(c); renderCart();
+};
+function openDrawer(){ $("drawer").style.display="block"; document.body.style.overflow="hidden"; }
+function closeDrawer(){ $("drawer").style.display="none"; document.body.style.overflow=""; }
+function renderCart(){
+  const c=loadCart(), w=$("cartItems");
+  w.innerHTML=c.length
+    ? c.map(i=>`
+      <div class="cart-item">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
+          <div><div class="ci-name">${esc(i.name)}</div><div class="ci-price">${fmt(i.price)}</div></div>
+          <button class="ci-rm" onclick="removeFromCart('${i.id}')">✕</button>
+        </div>
+        <div class="ci-ctrl">
+          <div class="qty-wrap"><button class="qbtn" onclick="changeQty('${i.id}',-1)">-</button><span class="qval">${i.qty}</span><button class="qbtn" onclick="changeQty('${i.id}',1)">+</button></div>
+          <div class="ci-total">${fmt(i.price*i.qty)}</div>
+        </div>
+      </div>`).join("")
+    : `<div class="cart-empty">КОРЗИНА ПУСТАЯ</div>`;
+  $("cartTotal").textContent=fmt(total(c)); badge();
+}
+function buildMsg(){
+  const c=loadCart(); if(!c.length) return null;
+  const l=["QULTURE — Заявка заказа",""];
+  c.forEach((i,n)=>l.push(`${n+1}) ${i.name} — ${i.qty} шт. — ${fmt(i.price*i.qty)}`));
+  l.push("",`Итого: ${fmt(total(c))}`,"","Размер(ы): ","Город: ","Доставка: ");
+  return encodeURIComponent(l.join("\n"));
+}
+function checkout(){
+  const msg=buildMsg();
+  if(!msg){ alert("Корзина пустая!"); return; }
+  window.open(`https://wa.me/${WA}?text=${msg}`,"_blank","noopener,noreferrer");
+}
+$("cartBtn").addEventListener("click",()=>{openDrawer();renderCart();});
+$("drClose").addEventListener("click",closeDrawer);
+$("drOverlay").addEventListener("click",closeDrawer);
+$("checkoutBtn").addEventListener("click",checkout);
+$("clearBtn").addEventListener("click",()=>{saveCart([]);renderCart();});
 
-        if (dotsWrap) {
-          dotsWrap.addEventListener("click", (e) => {
-            const btn = e.target.closest(".carousel-dot");
-            if (!btn) return;
-            const to = Number(btn.dataset.idx);
-            if (!Number.isFinite(to)) return;
-            go(to);
-          });
-        }
+// ── SIZE MODAL ────────────────────
+window.openSizeGuide = function(){ $("sizeModal").classList.add("open"); document.body.style.overflow="hidden"; };
+function closeSize(){ $("sizeModal").classList.remove("open"); document.body.style.overflow=""; }
+$("szClose").addEventListener("click",closeSize);
+$("szOverlay").addEventListener("click",closeSize);
 
+// ── INFO MODAL ────────────────────
+window.openInfoModal = function(id, type) {
+  const p = ALL_PRODUCTS.find(x => x.id === id); if(!p) return;
+  $("imTitle").textContent = type.toUpperCase() + ".TXT";
+  $("imBody").textContent = p[type + "Text"];
+  $("infoModal").style.display = "block";
+  document.body.style.overflow = "hidden";
+};
+window.closeInfo = function() { $("infoModal").style.display = "none"; document.body.style.overflow = ""; };
+$("imClose").addEventListener("click", closeInfo);
+$("imOverlay").addEventListener("click", closeInfo);
 
-        updateArrows();
-      });
-    }
+// ── PRODUCT MODAL ─────────────────
+function esc(s){ return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+function prettyHtml(t){ return esc(t).replace(/\n{2,}/g,"\n\n").split("\n\n").map(b=>`<p>${b.replace(/\n/g,"<br>")}</p>`).join(""); }
 
-    function renderCart() {
-      const cart = loadCart();
-      const wrap = $("cartItems");
+function openModal(id){
+  const p=ALL_PRODUCTS.find(x=>x.id===id); if(!p||p.mystery) return;
+  $("pmTitle").textContent=`PRODUCT_${id.toUpperCase()}.IMG`;
+  const imgs=p.images||[p.thumb];
+  $("pmImg").innerHTML=`
+    <div class="carousel" style="height:100%;min-height:300px;">
+      <button class="car-arrow car-prev" id="cPrev">‹</button>
+      <button class="car-arrow car-next" id="cNext">›</button>
+      <div class="carousel-track" id="cTrack">
+        ${imgs.map((s,i)=>`<div class="carousel-slide"><img src="${s}" alt="${esc(p.name)} ${i+1}" loading="lazy"></div>`).join("")}
+      </div>
+    </div>`;
+  $("pmInfo").innerHTML=`
+    <div class="pm-name">${esc(p.name)}</div>
+    ${p.note?`<div class="pm-note">${esc(p.note)}</div>`:""}
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="size-guide-btn" onclick="openSizeGuide()">▶ SIZE GUIDE</button>
+      ${p.conceptText?`<button class="size-guide-btn" onclick="openInfoModal('${p.id}', 'concept')">▶ CONCEPT</button>`:""}
+      ${p.preOrderText?`<button class="size-guide-btn" onclick="openInfoModal('${p.id}', 'preOrder')">▶ PRE-ORDER</button>`:""}
+    </div>
+    ${p.price?`
+    <div class="pm-prices">
+      ${p.originalPrice?`<div class="pm-old">${fmt(p.originalPrice)}</div>`:""}
+      <div class="pm-price">${fmt(p.price)}</div>
+    </div>`:""}
+    ${p.description?`<div class="pm-desc">${prettyHtml(p.description)}</div>`:""}
+    <div class="pm-actions">
+      <button onclick="addToCart('${p.id}')" class="pbtn pbtn-dark">▶ В КОРЗИНУ</button>
+      <a href="https://wa.me/${WA}?text=${encodeURIComponent("QULTURE — хочу заказать: "+p.name)}" target="_blank" rel="noopener noreferrer" class="pbtn pbtn-outline">WHATSAPP</a>
+    </div>`;
+  $("prodModal").classList.add("open"); document.body.style.overflow="hidden";
+  initCarousel(imgs.length);
+}
+function closeProd(){ $("prodModal").classList.remove("open"); document.body.style.overflow=""; }
+$("pmClose").addEventListener("click",closeProd);
+$("pmOverlay").addEventListener("click",closeProd);
 
-      if (!cart.length) {
-        wrap.innerHTML = `
-          <div class="p-6 border border-white/20 bg-black text-gray-400">
-            Корзина пустая. Добавь товары в «Продукция».
+function initCarousel(total){
+  if(total<=1){ ["cPrev","cNext"].forEach(id=>{const b=$(id);if(b)b.style.display="none";}); return; }
+  const tr=$("cTrack"), pv=$("cPrev"), nx=$("cNext");
+  const sw=()=>tr.clientWidth||1;
+  const ci=()=>Math.max(0,Math.min(total-1,Math.round(tr.scrollLeft/sw())));
+  const upd=()=>{ const i=ci(); pv.style.display=i<=0?"none":""; nx.style.display=i>=total-1?"none":""; };
+  const go=i=>{ tr.scrollTo({left:Math.max(0,Math.min(total-1,i))*sw(),behavior:"smooth"}); setTimeout(upd,300); };
+  pv.onclick=()=>go(ci()-1); nx.onclick=()=>go(ci()+1);
+  tr.addEventListener("scroll",()=>requestAnimationFrame(upd),{passive:true});
+  upd();
+}
+
+// ── RENDER GRID ───────────────────
+function renderGrid(){
+  const g=$("shopGrid");
+  g.innerHTML=ALL_PRODUCTS.map(p=>{
+    if(p.mystery) return `
+      <div class="tile-wrap">
+        <div class="tile mystery">
+          <div class="mystery-inner"><div class="mq">?</div><div class="mystery-label">COMING SOON</div></div>
+          <div class="tile-info">
+            <div class="tile-price-row"><span class="tile-price" style="color:var(--text3);">???</span></div>
           </div>
-        `;
-      } else {
-        wrap.innerHTML = cart.map(i => `
-          <div class="p-5 border border-white/20 bg-black">
-            <div class="flex items-start justify-between gap-4">
-              <div>
-                <div class="font-bold">${i.name}</div>
-                <div class="text-sm text-gray-400 mt-1">${formatPrice(i.price)} / шт.</div>
-              </div>
-              <button class="mono text-[11px] uppercase tracking-widest text-gray-400 hover:text-white transition"
-                onclick="removeFromCart('${i.id}')">Удалить</button>
-            </div>
-
-            <div class="mt-4 flex items-center justify-between">
-              <div class="flex items-center gap-2">
-                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', -1)">-</button>
-                <div class="mono text-[12px] uppercase tracking-widest text-gray-300 w-10 text-center">${i.qty}</div>
-                <button class="border border-white/20 w-10 h-10 hover:border-white transition" onclick="changeQty('${i.id}', 1)">+</button>
-              </div>
-              <div class="font-bold">${formatPrice(i.price * i.qty)}</div>
-            </div>
+        </div>
+        <div class="tile-drop-ext">${p.drop}<br>${p.dropSub}</div>
+      </div>`;
+    return `
+      <div class="tile-wrap">
+        <div class="tile reveal" onclick="openModal('${p.id}')">
+          <div class="tile-img"><img src="${p.thumb}" alt="${esc(p.name)}" loading="lazy"></div>
+          <div class="tile-info">
+            <div class="tile-name">${esc(p.name)}</div>
+            ${p.price?`
+            <div class="tile-price-row">
+              ${p.originalPrice?`<span class="tile-old">${fmt(p.originalPrice)}</span>`:""}
+              <span class="tile-price">${fmt(p.price)}</span>
+            </div>`:""}
           </div>
-        `).join("");
-      }
+        </div>
+        <div class="tile-drop-ext">${p.drop}<br>${p.dropSub}</div>
+      </div>`;
+  }).join("");
+}
 
-      $("cartTotal").textContent = formatPrice(cartTotal(cart));
-      renderCartBadge();
-    }
+// ── ACCORDION ─────────────────────
+document.querySelectorAll(".acc-trigger").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    const item=btn.closest(".acc-item");
+    const wasOpen=item.classList.contains("open");
+    document.querySelectorAll(".acc-item").forEach(i=>i.classList.remove("open"));
+    if(!wasOpen) item.classList.add("open");
+  });
+});
+// ── REVEAL ────────────────────────
+function initReveal(){
+  const els=document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window)){els.forEach(e=>e.classList.add("in"));return;}
+  const io=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);} });
+  },{threshold:0.08});
+  els.forEach(e=>io.observe(e));
+}
 
-    function openDrawer() {
-      $("drawer").classList.remove("hidden");
-      document.body.classList.add("overflow-hidden");
-    }
-    function closeDrawer() {
-      $("drawer").classList.add("hidden");
-      document.body.classList.remove("overflow-hidden");
-    }
+// ── OFFER/PRIVACY MODALS ──────────
+window.addEventListener("keydown",e=>{ if(e.key==="Escape"){closeProd();closeDrawer();closeSize();closeInfo();} });
 
-    const sizeModal = $("sizeModal");
-    const sizeOverlay = $("sizeOverlay");
-    const closeSize = $("closeSize");
-
-    function openSizeGuide() {
-      sizeModal.classList.add("is-open");
-      document.body.classList.add("overflow-hidden");
-    }
-    function closeSizeGuide() {
-      sizeModal.classList.remove("is-open");
-      document.body.classList.remove("overflow-hidden");
-    }
-
-    sizeOverlay.addEventListener("click", closeSizeGuide);
-    closeSize.addEventListener("click", closeSizeGuide);
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && sizeModal.classList.contains("is-open")) closeSizeGuide();
-    });
-    window.openSizeGuide = openSizeGuide;
-
-    function initReveal() {
-      const els = Array.from(document.querySelectorAll(".reveal"));
-      if (!("IntersectionObserver" in window)) {
-        els.forEach(el => el.classList.add("is-in"));
-        return;
-      }
-
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add("is-in");
-            io.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.12 });
-
-      els.forEach((el, idx) => {
-        if (!el.classList.contains("delay-1") && !el.classList.contains("delay-2") && !el.classList.contains("delay-3")) {
-          const mod = idx % 4;
-          if (mod === 1) el.classList.add("delay-1");
-          if (mod === 2) el.classList.add("delay-2");
-          if (mod === 3) el.classList.add("delay-3");
-        }
-        io.observe(el);
-      });
-    }
-
-    $("cartBtn").addEventListener("click", () => { openDrawer(); renderCart(); });
-    $("closeDrawer").addEventListener("click", closeDrawer);
-    $("drawerOverlay").addEventListener("click", closeDrawer);
-    $("drawerCheckout").addEventListener("click", goCheckout);
-    $("clearCart").addEventListener("click", clearCart);
-
-    window.addToCart = addToCart;
-    window.removeFromCart = removeFromCart;
-    window.changeQty = changeQty;
-
-    renderProducts();
-    initCarousels();
-    renderCartBadge();
-    renderCart();
-    initReveal();
-  </script>
-
+// INIT
+renderGrid(); badge(); renderCart(); initReveal();
+</script>
 </body>
-
 </html>

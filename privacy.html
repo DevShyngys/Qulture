@@ -1,159 +1,112 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QULTURE — Политика конфиденциальности</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>QULTURE — Политика конфиденциальности</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+*{border-radius:0!important;}
+:root{
+  --px:'Press Start 2P',monospace;
+  --vt:'VT323',monospace;
+  --green:#1a7a1a;
+  --red:#cc2200;
+  --bg:#f5f5f5;
+  --surface:#fff;
+  --surface2:#f8f8f8;
+  --border:#e8e8e8;
+  --text:#111;
+  --text2:#888;
+  --text3:#bbb;
+  --shadow:rgba(0,0,0,0.08);
+  --shadow-lg:rgba(0,0,0,0.16);
+  --overlay:rgba(0,0,0,0.45);
+}
+[data-theme="dark"]{
+  --bg:#0d0d0d;
+  --surface:#141414;
+  --surface2:#1a1a1a;
+  --border:#252525;
+  --text:#f0f0f0;
+  --text2:#777;
+  --text3:#444;
+  --shadow:rgba(0,0,0,0.3);
+  --shadow-lg:rgba(0,0,0,0.5);
+  --overlay:rgba(0,0,0,0.8);
+}
+html,body{width:100%;min-height:100vh;background:var(--bg);font-family:var(--px);color:var(--text);overflow-x:hidden;transition:background .3s,color .3s;}
 
-  <link rel="icon" type="image/png" href="favicon.png" />
-  <link rel="apple-touch-icon" href="favicon.png" />
+body::after{
+  content:'';position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:0;
+  background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.12) 3px,rgba(0,0,0,0.12) 4px);
+  transition:opacity .3s;
+}
+[data-theme="dark"] body::after{opacity:1;}
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap');
-    body { font-family: 'Inter', sans-serif; background:#000; color:#fff; }
-    .mono { font-family: 'JetBrains Mono', monospace; }
-  </style>
+header{position:sticky;top:0;z-index:100;background:var(--bg);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;transition:background .3s,border-color .3s;}
+.hdr-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+.hdr-logo img{height:24px;object-fit:contain;}
+.hdr-logo span{font-family:var(--px);font-size:12px;color:var(--text);letter-spacing:1px;text-transform:uppercase;}
+.hdr-nav{display:flex;align-items:center;gap:16px;}
+.nav-link{font-family:var(--px);font-size:7px;color:var(--text2);text-decoration:none;letter-spacing:1px;text-transform:uppercase;transition:color .15s;}
+.nav-link:hover{color:var(--text);}
+
+.doc-container{max-width:860px;margin:40px auto;padding:0 24px;}
+.doc-title{font-family:var(--px);font-size:14px;color:var(--text);letter-spacing:2px;margin-bottom:32px;line-height:1.5;}
+.doc-box{background:var(--surface);border:1px solid var(--border);padding:24px 32px;box-shadow:0 4px 20px var(--shadow);transition:background .3s,border-color .3s;}
+.doc-section{margin-bottom:32px;}
+.doc-h2{font-family:var(--px);font-size:8px;color:var(--text);margin-bottom:16px;letter-spacing:1px;line-height:1.6;}
+.doc-p{font-family:var(--vt);font-size:18px;color:var(--text2);line-height:1.6;letter-spacing:1px;margin-bottom:12px;}
+
+footer{border-top:1px solid var(--border);background:var(--surface);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:60px;transition:background .3s,border-color .3s;}
+.ft-copy{font-family:var(--vt);font-size:15px;color:var(--text3);letter-spacing:2px;}
+.ft-links{display:flex;gap:14px;}
+.ft-links a{font-family:var(--vt);font-size:15px;color:var(--text3);text-decoration:none;letter-spacing:1px;transition:color .15s;}
+.ft-links a:hover{color:var(--text);}
+</style>
 </head>
-
-<body class="selection:bg-white selection:text-black">
-
-  <!-- HEADER -->
-  <header class="sticky top-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4">
-      <div class="flex items-center justify-between gap-3">
-        <!-- Brand -->
-        <a href="/" class="flex items-center gap-3 min-w-0">
-          <img
-            src="logo.png"
-            alt="QULTURE logo"
-            class="h-9 sm:h-10 w-auto object-contain"
-          />
-          <span class="text-lg sm:text-2xl font-bold tracking-tighter truncate">
-            QULTURE
-          </span>
-        </a>
-
-        <!-- Right side -->
-        <div class="flex items-center gap-2 sm:gap-3">
-          <div class="hidden sm:block mono text-[11px] uppercase tracking-widest text-gray-400">
-            Юридическая информация
-          </div>
-
-          <a
-            href="/"
-            class="mono text-[11px] uppercase tracking-widest border border-white/20 px-3 sm:px-4 py-2 rounded-lg hover:border-white transition whitespace-nowrap"
-          >
-            На главную
-          </a>
-        </div>
-      </div>
-
-      <!-- Mobile subtitle -->
-      <div class="sm:hidden mt-2 mono text-[10px] uppercase tracking-widest text-gray-500">
-        Юридическая информация
-      </div>
+<body>
+<header>
+  <a href="/" class="hdr-logo">
+    <img src="logo.png" alt="QULTURE LOGO">
+    <span>QULTURE</span>
+  </a>
+  <div class="hdr-nav">
+    <a href="/" class="nav-link">НА ГЛАВНУЮ</a>
+    <a href="offer.html" class="nav-link">ОФЕРТА</a>
+  </div>
+</header>
+<main class="doc-container">
+  <h1 class="doc-title">ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ</h1>
+  <div class="doc-box">
+    <div class="doc-section">
+      <h2 class="doc-h2">1. Сбор информации</h2>
+      <p class="doc-p">При оформлении заказа через WhatsApp мы можем запрашивать ваше имя, номер телефона и адрес для осуществления доставки.</p>
     </div>
-  </header>
-
-  <!-- MAIN -->
-  <main class="py-8 sm:py-12">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6">
-      <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-400 mb-3 sm:mb-4">
-        Документ
-      </div>
-
-      <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tighter leading-tight mb-6 sm:mb-8">
-        Политика обработки персональных данных
-      </h1>
-
-      <div class="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-7 md:p-10 text-gray-200">
-        <div class="mono text-[10px] sm:text-[11px] uppercase tracking-widest text-gray-500 mb-5 sm:mb-6">
-          Политика конфиденциальности
-        </div>
-
-        <div class="space-y-8 sm:space-y-10 text-[15px] sm:text-base leading-relaxed">
-
-  <section>
-    <h2 class="text-base sm:text-lg md:text-xl font-bold tracking-tight mb-3 sm:mb-4">
-      1. Общие положения
-    </h2>
-    <p>
-      Настоящая Политика определяет порядок обработки персональных данных пользователей бренда QULTURE
-      (ИП МУХАМБЕТ).
-    </p>
-  </section>
-
-  <section>
-    <h2 class="text-base sm:text-lg md:text-xl font-bold tracking-tight mb-3 sm:mb-4">
-      2. Сбор данных
-    </h2>
-    <p>
-      Мы собираем данные, необходимые для доставки товара и выдачи чека:
-      имя, телефон (WhatsApp) и адрес доставки.
-    </p>
-  </section>
-
-  <section>
-    <h2 class="text-base sm:text-lg md:text-xl font-bold tracking-tight mb-3 sm:mb-4">
-      3. Цель сбора
-    </h2>
-    <p>
-      Ваши данные используются исключительно для исполнения заказа,
-      организации доставки и отправки электронного фискального чека
-      согласно законодательству РК.
-    </p>
-  </section>
-
-  <section>
-    <h2 class="text-base sm:text-lg md:text-xl font-bold tracking-tight mb-3 sm:mb-4">
-      4. Защита и согласие
-    </h2>
-    <p>
-      Мы не передаем ваши данные третьим лицам, кроме служб доставки и платежных систем.
-      Оформляя заказ, вы даете согласие ИП МУХАМБЕТ на обработку данных в соответствии
-      с Законом РК «О персональных данных и их защите».
-    </p>
-  </section>
-
-  <section>
-    <h2 class="text-base sm:text-lg md:text-xl font-bold tracking-tight mb-3 sm:mb-4">
-      5. Реквизиты
-    </h2>
-    <div class="rounded-xl border border-white/10 bg-black/40 p-4 sm:p-5 text-[15px] sm:text-base">
-      <p><span class="mono text-gray-400">Продавец:</span> ИП МУХАМБЕТ (торговое наименование QULTURE)</p>
-      <p class="mt-2"><span class="mono text-gray-400">ИИН:</span> 060803552206</p>
-      <p class="mt-2"><span class="mono text-gray-400">Адрес:</span> РК, г. Алматы, ул. Досмухамедова, 20А</p>
-      <p class="mt-2"><span class="mono text-gray-400">Телефон:</span> +7 747 112-61-37</p>
+    <div class="doc-section">
+      <h2 class="doc-h2">2. Использование данных</h2>
+      <p class="doc-p">Ваши данные используются ИСКЛЮЧИТЕЛЬНО для:<br>- Подтверждения и сборки заказа<br>- Передачи курьерской службе (СДЭК/Yandex/др.)<br>- Обратной связи по статусу доставки</p>
     </div>
-  </section>
-
-</div>
-
-      </div>
-
-      <!-- Buttons -->
-      <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 sm:items-center sm:justify-between">
-        <a href="/offer" class="mono text-[11px] uppercase tracking-widest border border-white/20 px-4 py-3 sm:py-2 rounded-lg hover:border-white transition text-center">
-          Публичная оферта
-        </a>
-        <a href="/" class="mono text-[11px] uppercase tracking-widest border border-white/20 px-4 py-3 sm:py-2 rounded-lg hover:border-white transition text-center">
-          На главную
-        </a>
-      </div>
+    <div class="doc-section">
+      <h2 class="doc-h2">3. Защита информации</h2>
+      <p class="doc-p">Мы не продаем, не обмениваем и не передаем ваши личные данные сторонним компаниям, за исключением транспортных компаний, доставляющих ваш заказ.</p>
+      <p class="doc-p">Оформляя заказ, вы даете согласие на обработку ваших персональных данных в указанных целях.</p>
     </div>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="py-8 sm:py-10 border-t border-white/10">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row justify-between items-center gap-3 mono text-[10px] uppercase tracking-widest text-gray-600">
-      <div>© 2026 QULTURE.KZ</div>
-      <div class="flex gap-6">
-        <a href="/privacy" class="hover:text-white transition-colors">Политика</a>
-        <a href="/offer" class="hover:text-white transition-colors">Оферта</a>
-      </div>
-    </div>
-  </footer>
-
+  </div>
+</main>
+<footer>
+  <div class="ft-copy">© 2026 QULTURE.KZ</div>
+  <div class="ft-links">
+    <a href="privacy.html">PRIVACY</a>
+    <a href="offer.html">ОФЕРТА</a>
+  </div>
+</footer>
+<script>
+  let theme = localStorage.getItem("qulture_theme") || "light";
+  document.documentElement.setAttribute("data-theme", theme);
+</script>
 </body>
 </html>
