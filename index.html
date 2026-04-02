@@ -73,17 +73,22 @@ body::after{
 header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:54px;transition:background .3s,border-color .3s;}
 .hdr-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text);}
 .hdr-logo img{width:32px;height:32px;object-fit:contain;}
-.hdr-logo span{font-family:var(--px);font-size:10px;letter-spacing:1px;}
+.hdr-logo span{font-family:var(--px);font-size:9x;letter-spacing:1px;}
 .hdr-nav{display:flex;align-items:center;gap:12px;}
-.hdr-nav a,.hdr-nav button{font-family:var(--px);font-size:6px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;background:none;border:none;cursor:pointer;transition:color .15s;}
+.hdr-nav a,.hdr-nav button{font-family:var(--px);font-size:7px;letter-spacing:.5px;text-transform:uppercase;color:var(--text2);text-decoration:none;background:none;border:none;cursor:pointer;transition:color .15s;}
 .hdr-nav a:hover,.hdr-nav button:hover{color:var(--text);}
-.btn-wa{background:var(--text)!important;color:var(--bg)!important;padding:7px 12px!important;font-size:6px!important;}
-.btn-cart{border:1.5px solid var(--border)!important;padding:7px 12px!important;color:var(--text2)!important;font-size:6px!important;}
+.btn-wa{background:var(--text)!important;color:var(--bg)!important;padding:7px 12px!important;font-size:7px!important;}
+.btn-cart{border:1.5px solid var(--border)!important;padding:7px 12px!important;color:var(--text2)!important;font-size:7px!important;}
 /* theme toggle */
 .theme-btn{width:32px;height:18px;background:var(--border);border:1.5px solid var(--border)!important;position:relative;cursor:pointer;flex-shrink:0;}
 .theme-btn::after{content:'';position:absolute;top:2px;left:2px;width:10px;height:10px;background:var(--text);transition:transform .2s;}
 [data-theme="dark"] .theme-btn::after{transform:translateX(12px);}
-@media(max-width:500px){.hdr-logo span{display:none;}.hdr-nav{gap:7px;}}
+@media(max-width:500px){
+  .hdr-logo span{display:none;}
+  .hdr-nav{gap:7px;}
+  /* Hide text links on very small mobile to avoid clutter */
+  .hdr-nav a[href^="#"]{display:none;}
+}
 
 /* ── SECTIONS ───────────────────── */
 .section{padding:40px 24px;border-top:1px solid var(--border);position:relative;z-index:1;transition:border-color .3s;}
@@ -93,7 +98,7 @@ header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom
 /* ── PRODUCT GRID ───────────────── */
 .drop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;width:100%;}
 .tile-wrap{display:flex;flex-direction:column;gap:10px;}
-.tile-drop-ext{font-family:var(--px);font-size:6px;font-weight:700;color:var(--text);letter-spacing:.5px;text-transform:uppercase;line-height:1.7;}
+.tile-drop-ext{font-family:var(--px);font-size:8px;font-weight:700;color:var(--text);letter-spacing:.5px;text-transform:uppercase;line-height:1.7;}
 
 /* ── TILE ───────────────────────── */
 .tile{position:relative;background:var(--surface);border:none;overflow:hidden;cursor:pointer;box-shadow:0 2px 12px var(--shadow);transition:box-shadow .2s,transform .2s,background .3s;display:flex;flex-direction:column;height:100%;}
@@ -102,8 +107,8 @@ header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom
 .tile-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
 .tile:hover .tile-img img{transform:scale(1.05);}
 .tile-info{flex-grow:1;padding:12px 14px;border-top:1px solid var(--border);background:var(--surface);transition:background .3s,border-color .3s;display:flex;flex-direction:column;justify-content:space-between;}
-.tile-drop-label{font-family:var(--px);font-size:5px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;padding-top:2px;flex-shrink:0;}
-.tile-name{font-family:var(--px);font-size:6px;color:var(--text);line-height:1.9;text-transform:uppercase;margin-bottom:6px;word-break:break-word;}
+.tile-drop-label{font-family:var(--px);font-size:7px;color:var(--text3);letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;padding-top:2px;flex-shrink:0;}
+.tile-name{font-family:var(--px);font-size:7px;color:var(--text);line-height:1.9;text-transform:uppercase;margin-bottom:6px;word-break:break-word;}
 .tile-price-row{display:flex;align-items:center;gap:8px;margin-top:auto;}
 .tile-old{font-family:var(--vt);font-size:15px;color:var(--text3);text-decoration:line-through;letter-spacing:1px;}
 .tile-price{font-family:var(--vt);font-size:18px;color:var(--green);letter-spacing:2px;}
@@ -119,7 +124,7 @@ header{position:sticky;top:0;z-index:100;background:var(--surface);border-bottom
 /* ── ACCORDION ──────────────────── */
 .accordion{max-width:860px;margin:0 auto;}
 .acc-item{border-bottom:1px solid var(--border);transition:border-color .3s;}
-.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 0;background:none;border:none;cursor:pointer;font-family:var(--px);font-size:7px;color:var(--text);letter-spacing:.5px;text-transform:uppercase;text-align:left;transition:color .15s;}
+.acc-trigger{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 0;background:none;border:none;cursor:pointer;font-family:var(--px);font-size:9px;color:var(--text);letter-spacing:.5px;text-transform:uppercase;text-align:left;transition:color .15s;}
 .acc-trigger:hover{color:var(--text2);}
 .acc-icon{font-size:14px;transition:transform .25s;flex-shrink:0;margin-left:12px;}
 .acc-item.open .acc-icon{transform:rotate(45deg);}
@@ -155,33 +160,37 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
 .pm-bar .wdots{display:flex;gap:5px;}
 .wdot{width:10px;height:10px;border:1px solid var(--border);}
 .wdot.r{background:#ff5f57;}.wdot.y{background:#ffbd2e;}.wdot.g{background:#28ca41;}
-.pm-title{font-family:var(--px);font-size:6px;color:var(--text3);letter-spacing:1px;}
-.pm-close{font-family:var(--px);font-size:6px;color:var(--text2);background:none;border:1px solid var(--border);padding:6px 10px;cursor:pointer;transition:color .15s,border-color .15s;}
+.pm-title{font-family:var(--px);font-size:7px;color:var(--text3);letter-spacing:1px;text-transform:uppercase;}
+.pm-close{font-family:var(--px);font-size:7px;color:var(--text2);background:none;border:1px solid var(--border);padding:8px 14px;cursor:pointer;transition:color .15s,border-color .15s;min-height:36px;display:flex;align-items:center;}
 .pm-close:hover{color:var(--text);border-color:var(--text2);}
-.pm-body{display:grid;grid-template-columns:1fr;overflow-y:auto;}
-@media(min-width:580px){.pm-body{grid-template-columns:1fr 1fr;max-height:calc(100dvh - 80px);overflow-y:hidden;}}
+.pm-body{display:grid;grid-template-columns:1fr;overflow-y:auto;flex:1;min-height:0;}
+@media(min-width:580px){.pm-body{grid-template-columns:1fr 1fr;overflow-y:hidden;}}
 .pm-img{min-height:300px;background:var(--surface2);}
 @media(min-width:580px){.pm-img{min-height:500px;}}
 .pm-info{padding:24px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;}
-.pm-name{font-family:var(--px);font-size:8px;color:var(--text);line-height:2;text-transform:uppercase;}
+.pm-name{font-family:var(--px);font-size:9px;color:var(--text);line-height:2;text-transform:uppercase;}
 .pm-note{font-family:var(--vt);font-size:18px;color:var(--text2);letter-spacing:2px;}
 .pm-prices{display:flex;flex-direction:column;gap:4px;}
 .pm-old{font-family:var(--vt);font-size:17px;color:var(--text3);text-decoration:line-through;letter-spacing:2px;}
 .pm-price{font-family:var(--px);font-size:11px;color:var(--green);letter-spacing:1px;}
 .pm-desc{font-family:var(--vt);font-size:17px;color:var(--text2);line-height:1.6;letter-spacing:1px;border-top:1px solid var(--border);padding-top:12px;}
 .pm-desc p{margin-bottom:8px;}
-.pm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:auto;border-top:1px solid var(--border);padding-top:14px;}
-.size-guide-btn{font-family:var(--px);font-size:5px;color:var(--text2);border:1px solid var(--border);background:none;padding:6px 10px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:color .15s,border-color .15s;width:fit-content;}
+.pm-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--surface);border-top:1px solid var(--border);padding:14px 20px;flex-shrink:0;}
+@media(min-width:580px){
+  .pm-actions{display:flex;justify-content:flex-end;}
+  .pm-actions .pbtn{min-width:200px;}
+}
+.size-guide-btn{font-family:var(--px);font-size:7px;color:var(--text2);border:1px solid var(--border);background:none;padding:10px 14px;cursor:pointer;letter-spacing:.5px;text-transform:uppercase;transition:color .15s,border-color .15s;width:fit-content;min-height:36px;display:inline-flex;align-items:center;}
 .size-guide-btn:hover{color:var(--text);border-color:var(--text2);}
 
 /* ── BUTTONS ────────────────────── */
-.pbtn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--px);font-size:7px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:13px 16px;cursor:pointer;transition:background .15s,color .15s;border:2px solid transparent;}
+.pbtn{display:inline-flex;align-items:center;justify-content:center;font-family:var(--px);font-size:8px;letter-spacing:1px;text-transform:uppercase;text-decoration:none;padding:13px 16px;cursor:pointer;transition:background .15s,color .15s;border:2px solid transparent;min-height:44px;}
 .pbtn-dark{background:var(--text);color:var(--bg);border-color:var(--text);}
 .pbtn-dark:hover{opacity:.85;}
 .pbtn-outline{background:transparent;color:var(--text2);border-color:var(--border);}
 .pbtn-outline:hover{color:var(--text);border-color:var(--text2);}
 
-.sz-opt{font-family:var(--px);font-size:7px;color:var(--text2);background:transparent;border:1px solid var(--border);padding:10px 14px;cursor:pointer;transition:border-color .15s,color .15s;letter-spacing:1px;}
+.sz-opt{font-family:var(--px);font-size:8px;color:var(--text2);background:transparent;border:1px solid var(--border);padding:12px 18px;cursor:pointer;transition:border-color .15s,color .15s;letter-spacing:1px;min-height:44px;}
 .sz-opt.active{border-color:var(--text);color:var(--text);}
 .sz-opt:hover{color:var(--text);border-color:var(--text2);}
 
@@ -200,21 +209,21 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
 #drOverlay{position:absolute;inset:0;background:var(--overlay);}
 .dr-inner{position:absolute;right:0;top:0;height:100%;width:min(380px,100vw);background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;box-shadow:-4px 0 24px var(--shadow-lg);transition:background .3s,border-color .3s;}
 .dr-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);flex-shrink:0;transition:border-color .3s;}
-.dr-title{font-family:var(--px);font-size:8px;color:var(--text);letter-spacing:1px;}
+.dr-title{font-family:var(--px);font-size:9px;color:var(--text);letter-spacing:1px;text-transform:uppercase;}
 .dr-body{flex:1;overflow-y:auto;padding:14px 16px;}
 .dr-foot{padding:14px 16px;border-top:1px solid var(--border);flex-shrink:0;transition:border-color .3s;}
-.dr-total{display:flex;justify-content:space-between;font-family:var(--px);font-size:7px;color:var(--text2);margin-bottom:12px;}
+.dr-total{display:flex;justify-content:space-between;font-family:var(--px);font-size:9px;color:var(--text2);margin-bottom:12px;}
 .dr-total span:last-child{color:var(--text);}
 .cart-item{background:var(--surface2);padding:12px;margin-bottom:8px;transition:background .3s;}
-.ci-name{font-family:var(--px);font-size:6px;color:var(--text);line-height:1.8;margin-bottom:4px;}
+.ci-name{font-family:var(--px);font-size:7px;color:var(--text);line-height:1.8;margin-bottom:4px;text-transform:uppercase;}
 .ci-price{font-family:var(--vt);font-size:15px;color:var(--text2);letter-spacing:1px;}
 .ci-ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
 .qty-wrap{display:flex;align-items:center;gap:6px;}
 .qbtn{font-family:var(--px);font-size:9px;color:var(--text2);background:none;border:1.5px solid var(--border);width:28px;height:28px;cursor:pointer;transition:border-color .15s,color .15s;}
 .qbtn:hover{border-color:var(--text2);color:var(--text);}
 .qval{font-family:var(--vt);font-size:17px;color:var(--text);width:28px;text-align:center;}
-.ci-total{font-family:var(--px);font-size:7px;color:var(--text);}
-.ci-rm{font-family:var(--px);font-size:5px;color:var(--text3);background:none;border:none;cursor:pointer;transition:color .15s;}
+.ci-total{font-family:var(--px);font-size:9px;color:var(--text);}
+.ci-rm{font-family:var(--px);font-size:8px;color:var(--text3);background:none;border:none;cursor:pointer;transition:color .15s;padding:4px;}
 .ci-rm:hover{color:var(--red);}
 .cart-empty{font-family:var(--vt);font-size:17px;color:var(--text3);border:1px solid var(--border);padding:18px;text-align:center;letter-spacing:1px;}
 
@@ -226,13 +235,13 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
 .sz-bar{display:flex;align-items:center;justify-content:space-between;padding:7px 12px;background:var(--surface2);border-bottom:1px solid var(--border);flex-shrink:0;transition:background .3s,border-color .3s;}
 .sz-body{padding:18px;overflow-y:auto;}
 .sz-table{width:100%;border-collapse:collapse;font-family:var(--vt);font-size:17px;color:var(--text);}
-.sz-table th{font-family:var(--px);font-size:5px;color:var(--text2);padding:8px 6px;border-bottom:1px solid var(--border);text-align:left;letter-spacing:.5px;}
+.sz-table th{font-family:var(--px);font-size:7px;color:var(--text2);padding:8px 6px;border-bottom:1px solid var(--border);text-align:left;letter-spacing:.5px;}
 .sz-table td{padding:7px 6px;border-bottom:1px solid var(--surface2);letter-spacing:1px;}
 .sz-table td:first-child{color:var(--text2);}
 .sz-note{font-family:var(--vt);font-size:14px;color:var(--text3);margin-top:12px;line-height:1.6;letter-spacing:1px;}
 
 /* ── TOAST ──────────────────────── */
-.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;z-index:9000;background:var(--text);color:var(--bg);font-family:var(--px);font-size:6px;letter-spacing:1px;padding:12px 18px;transition:opacity .2s,transform .2s;box-shadow:0 4px 16px var(--shadow-lg);}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(14px);opacity:0;pointer-events:none;z-index:9000;background:var(--text);color:var(--bg);font-family:var(--px);font-size:7px;letter-spacing:1px;padding:14px 22px;transition:opacity .2s,transform .2s;box-shadow:0 4px 16px var(--shadow-lg);}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 
 /* ── REVEAL ─────────────────────── */
@@ -382,6 +391,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
       <div class="pm-img" id="pmImg" style="min-height:300px;"></div>
       <div class="pm-info" id="pmInfo"></div>
     </div>
+    <div class="pm-actions" id="pmActions"></div>
   </div>
 </div>
 
@@ -465,10 +475,10 @@ const ALL_PRODUCTS = [
     name:"T-SHIRT SGIN (WHITE)",
     price:13000, originalPrice:20000, note:"Oversize / Unisex",
     isPreSale: true,
-    sizes:["Custom M-L","Custom L-XL"],
+    sizes:["M","L","XL"],
     thumb:"images/T-SHIRT_SGIN01.png",
-    images:["images/T-SHIRT_SGIN01.png", "images/tshirttt.png"],
-    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: Custom M-L / Custom L-XL\n\nПринт:\nТехнология: качественная шелкография.\nЭффект: винтажный стиль с потертостями. Принт мягкий, не стоит колом.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
+    images:["images/T-SHIRT_SGIN01.png"],
+    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: M / L / XL\n\nПринт:\nТехнология: качественная шелкография.\nЭффект: винтажный стиль с потертостями. Принт мягкий, не стоит колом.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
     conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
     preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
   },
@@ -477,10 +487,10 @@ const ALL_PRODUCTS = [
     name:"SWEATSHIRT SGIN (BLACK)",
     price:16000, originalPrice:30000, note:"Oversize / Unisex",
     isPreSale: true,
-    sizes:["Custom M-L","Custom L-XL"],
+    sizes:["M","L","XL"],
     thumb:"images/SWEATSHIRT_SGIN01.png",
     images:["images/SWEATSHIRT_SGIN01.png"],
-    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: Custom M-L / Custom L-XL\n\nПринт:\nТехнология: качественная шелкография.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
+    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: M / L / XL\n\nПринт:\nТехнология: качественная шелкография.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
     conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
     preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
   }
@@ -530,8 +540,8 @@ window.changeQty = function(id,d){
   it.qty+=d; if(it.qty<=0){ removeFromCart(id); return; }
   saveCart(c); renderCart();
 };
-function openDrawer(){ $("drawer").style.display="block"; document.body.style.overflow="hidden"; }
-function closeDrawer(){ $("drawer").style.display="none"; document.body.style.overflow=""; }
+function openDrawer(){ toggleScroll(true); $("drawer").style.display="block"; }
+function closeDrawer(){ toggleScroll(false); $("drawer").style.display="none"; }
 function renderCart(){
   const c=loadCart(), w=$("cartItems");
   w.innerHTML=c.length
@@ -583,8 +593,8 @@ $("checkoutBtn").addEventListener("click",checkout);
 $("clearBtn").addEventListener("click",()=>{saveCart([]);renderCart();});
 
 // ── SIZE MODAL ────────────────────
-window.openSizeGuide = function(){ $("sizeModal").classList.add("open"); document.body.style.overflow="hidden"; };
-function closeSize(){ $("sizeModal").classList.remove("open"); document.body.style.overflow=""; }
+window.openSizeGuide = function(){ toggleScroll(true); $("sizeModal").classList.add("open"); };
+function closeSize(){ toggleScroll(false); $("sizeModal").classList.remove("open"); }
 $("szClose").addEventListener("click",closeSize);
 $("szOverlay").addEventListener("click",closeSize);
 
@@ -594,9 +604,9 @@ window.openInfoModal = function(id, type) {
   $("imTitle").textContent = type.toUpperCase() + ".TXT";
   $("imBody").textContent = p[type + "Text"];
   $("infoModal").style.display = "block";
-  document.body.style.overflow = "hidden";
+  toggleScroll(true);
 };
-window.closeInfo = function() { $("infoModal").style.display = "none"; document.body.style.overflow = ""; };
+window.closeInfo = function() { $("infoModal").style.display = "none"; toggleScroll(false); };
 $("imClose").addEventListener("click", closeInfo);
 $("imOverlay").addEventListener("click", closeInfo);
 
@@ -617,7 +627,7 @@ function openModal(id){
       <button class="car-arrow car-prev" id="cPrev">‹</button>
       <button class="car-arrow car-next" id="cNext">›</button>
       <div class="carousel-track" id="cTrack">
-        ${imgs.map((s,i)=>`<div class="carousel-slide"><img src="${s}" alt="${esc(p.name)} ${i+1}" loading="lazy"></div>`).join("")}
+        ${imgs.map((s,i)=>`<div class="carousel-slide"><img src="${s}" alt="${esc(p.name)} ${i+1}" ${i===0?'fetchpriority="high"':'loading="lazy"'}></div>`).join("")}
       </div>
     </div>`;
   $("pmInfo").innerHTML=`
@@ -625,7 +635,7 @@ function openModal(id){
     ${p.note?`<div class="pm-note">${esc(p.note)}</div>`:""}
     ${p.sizes?`
     <div style="margin-top:14px;margin-bottom:8px;">
-      <div style="font-family:var(--px);font-size:6px;color:var(--text3);margin-bottom:8px;letter-spacing:1px;">ВЫБЕРИТЕ РАЗМЕР:</div>
+      <div style="font-family:var(--px);font-size:7px;color:var(--text3);margin-bottom:8px;letter-spacing:1px;">ВЫБЕРИТЕ РАЗМЕР:</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;">
         ${p.sizes.map((sz,idx)=>`<button class="sz-opt ${idx===0?'active':''}" onclick="selectSize(this, '${sz}')">${sz}</button>`).join("")}
       </div>
@@ -641,13 +651,14 @@ function openModal(id){
       ${p.originalPrice?`<div class="pm-old">${fmt(p.originalPrice)}</div>`:""}
       <div class="pm-price">${fmt(p.price)}</div>
     </div>`:""}
-    ${p.description?`<div class="pm-desc">${prettyHtml(p.description)}</div>`:""}
-    <div class="pm-actions">
-      <button onclick="addToCart('${p.id}')" class="pbtn pbtn-dark">▶ В КОРЗИНУ</button>
-      <button onclick="buyNow('${p.id}')" class="pbtn pbtn-outline">WHATSAPP</button>
-    </div>`;
+    ${p.description?`<div class="pm-desc">${prettyHtml(p.description)}</div>`:""}`;
+  
+  $("pmActions").innerHTML=`
+    <button onclick="addToCart('${p.id}')" class="pbtn pbtn-dark">▶ В КОРЗИНУ</button>
+    <button onclick="buyNow('${p.id}')" class="pbtn pbtn-outline">WHATSAPP</button>
+  `;
   if(p.sizes) currentSize = p.sizes[0]; else currentSize = "";
-  $("prodModal").classList.add("open"); document.body.style.overflow="hidden";
+  $("prodModal").classList.add("open"); toggleScroll(true);
   initCarousel(imgs.length);
 }
 
@@ -674,7 +685,7 @@ window.buyNow = function(id) {
   ].join("\n");
   window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank","noopener,noreferrer");
 };
-function closeProd(){ $("prodModal").classList.remove("open"); document.body.style.overflow=""; }
+function closeProd(){ $("prodModal").classList.remove("open"); toggleScroll(false); }
 $("pmClose").addEventListener("click",closeProd);
 $("pmOverlay").addEventListener("click",closeProd);
 
@@ -696,7 +707,7 @@ function renderGrid(){
   g.innerHTML=ALL_PRODUCTS.map(p=>{
     if(p.mystery) return `
       <div class="tile-wrap">
-        <div style="font-family:var(--px);font-size:7px;letter-spacing:1px;visibility:hidden;">PRE-SALE</div>
+        <div style="font-family:var(--px);font-size:8px;letter-spacing:1px;visibility:hidden;">PRE-SALE</div>
         <div class="tile mystery">
           <div class="mystery-inner"><div class="mq">?</div><div class="mystery-label">COMING SOON</div></div>
           <div class="tile-info">
@@ -735,6 +746,24 @@ document.querySelectorAll(".acc-trigger").forEach(btn=>{
     if(!wasOpen) item.classList.add("open");
   });
 });
+// ── UTILS ────────────────────────
+let scrollPos = 0;
+function toggleScroll(lock) {
+  if (lock) {
+    scrollPos = window.pageYOffset;
+    document.body.style.overflow = "hidden";
+    document.body.style.position = "fixed";
+    document.body.style.top = `-${scrollPos}px`;
+    document.body.style.width = "100%";
+  } else {
+    document.body.style.removeProperty("overflow");
+    document.body.style.removeProperty("position");
+    document.body.style.removeProperty("top");
+    document.body.style.removeProperty("width");
+    window.scrollTo(0, scrollPos);
+  }
+}
+
 // ── REVEAL ────────────────────────
 function initReveal(){
   const els=document.querySelectorAll(".reveal");
