@@ -181,6 +181,10 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
 .pbtn-outline{background:transparent;color:var(--text2);border-color:var(--border);}
 .pbtn-outline:hover{color:var(--text);border-color:var(--text2);}
 
+.sz-opt{font-family:var(--px);font-size:7px;color:var(--text2);background:transparent;border:1px solid var(--border);padding:10px 14px;cursor:pointer;transition:border-color .15s,color .15s;letter-spacing:1px;}
+.sz-opt.active{border-color:var(--text);color:var(--text);}
+.sz-opt:hover{color:var(--text);border-color:var(--text2);}
+
 /* ── CAROUSEL ───────────────────── */
 .carousel{position:relative;width:100%;height:100%;}
 .carousel-track{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;}
@@ -451,6 +455,7 @@ const ALL_PRODUCTS = [
     id:"q1", drop:"DROP 01", dropSub:"YOU'RE RUNNING OUT OF TIME",
     name:'T-SHIRT\n"YOU\'RE RUNNING\nOUT OF TIME"',
     price:15000, originalPrice:20000, note:"Oversize / Unisex",
+    sizes:["Custom M-L","Custom L-XL"],
     thumb:"images/boy.jpg",
     images:["images/boy.jpg","images/girl.jpg","images/tshirt_new.jpg","images/mmmm.png","images/macro2.png","images/macro.png","images/sostavnik.png"],
     description:"Характеристики:\n• Состав: 95% Хлопок / 5% Эластан (190 г/м²).\n• Принт: Износостойкая шелкография.\n• Крой: Авторский силуэт QULTURE.\n• Размеры: Custom M-L / Custom L-XL\n\nПроизводство:\nHandmade in Kazakhstan. Каждая вещь кроится и шьётся вручную в локальном цеху."
@@ -460,8 +465,9 @@ const ALL_PRODUCTS = [
     name:"T-SHIRT SGIN (WHITE)",
     price:13000, originalPrice:20000, note:"Oversize / Unisex",
     isPreSale: true,
-    thumb:"images/T-SHIRT_SGIN.png",
-    images:["images/T-SHIRT_SGIN.png"],
+    sizes:["Custom M-L","Custom L-XL"],
+    thumb:"images/T-SHIRT_SGIN01.png",
+    images:["images/T-SHIRT_SGIN01.png", "images/tshirttt.png"],
     description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: Custom M-L / Custom L-XL\n\nПринт:\nТехнология: качественная шелкография.\nЭффект: винтажный стиль с потертостями. Принт мягкий, не стоит колом.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
     conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
     preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
@@ -471,8 +477,9 @@ const ALL_PRODUCTS = [
     name:"SWEATSHIRT SGIN (BLACK)",
     price:16000, originalPrice:30000, note:"Oversize / Unisex",
     isPreSale: true,
-    thumb:"images/SWEATSHIRT_SGIN.png",
-    images:["images/SWEATSHIRT_SGIN.png"],
+    sizes:["Custom M-L","Custom L-XL"],
+    thumb:"images/SWEATSHIRT_SGIN01.png",
+    images:["images/SWEATSHIRT_SGIN01.png"],
     description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: Custom M-L / Custom L-XL\n\nПринт:\nТехнология: качественная шелкография.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
     conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
     preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
@@ -511,8 +518,10 @@ function showToast(msg){ const t=$("toast"); t.textContent=msg; t.classList.add(
 
 window.addToCart = function(id){
   const p=ALL_PRODUCTS.find(x=>x.id===id); if(!p||p.mystery) return;
-  const c=loadCart(), ex=c.find(x=>x.id===id);
-  if(ex) ex.qty++; else c.push({id,name:p.name,price:p.price,qty:1});
+  const sz = p.sizes ? currentSize : "";
+  const cartId = sz ? id + "_" + sz : id;
+  const c=loadCart(), ex=c.find(x=>x.id===cartId);
+  if(ex) ex.qty++; else c.push({id:cartId, refId:id, name:p.name, size:sz, price:p.price, qty:1});
   saveCart(c); openDrawer(); renderCart(); showToast("✓ ADDED TO CART");
 };
 window.removeFromCart = function(id){ saveCart(loadCart().filter(x=>x.id!==id)); renderCart(); };
@@ -529,7 +538,11 @@ function renderCart(){
     ? c.map(i=>`
       <div class="cart-item">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px;">
-          <div><div class="ci-name">${esc(i.name)}</div><div class="ci-price">${fmt(i.price)}</div></div>
+          <div>
+            <div class="ci-name">${esc(i.name)}</div>
+            ${i.size ? `<div style="font-family:var(--px);font-size:5px;color:var(--text2);margin-bottom:4px;">РАЗМЕР: ${i.size}</div>` : ""}
+            <div class="ci-price">${fmt(i.price)}</div>
+          </div>
           <button class="ci-rm" onclick="removeFromCart('${i.id}')">✕</button>
         </div>
         <div class="ci-ctrl">
@@ -542,9 +555,20 @@ function renderCart(){
 }
 function buildMsg(){
   const c=loadCart(); if(!c.length) return null;
-  const l=["QULTURE — Заявка заказа",""];
-  c.forEach((i,n)=>l.push(`${n+1}) ${i.name} — ${i.qty} шт. — ${fmt(i.price*i.qty)}`));
-  l.push("",`Итого: ${fmt(total(c))}`,"","Размер(ы): ","Город: ","Доставка: ");
+  const l=["Здравствуйте! Хочу оформить заказ.","\nЗаказ:"];
+  c.forEach((i)=>l.push(`- ${i.name} ${i.size ? '('+i.size+') ' : ''}— ${i.qty} шт. — ${fmt(i.price*i.qty)}`));
+  const sizes = [...new Set(c.map(i=>i.size||""))].filter(x=>x).join(", ");
+  l.push(
+    "",
+    "Итого: " + fmt(total(c)),
+    "",
+    "— Размер: " + (sizes || ""),
+    "— Город:",
+    "— Адрес (улица, дом, кв, подъезд):",
+    "— Номер телефона:",
+    "— ФИО (для регионов):",
+    "— Индекс (для регионов):"
+  );
   return encodeURIComponent(l.join("\n"));
 }
 function checkout(){
@@ -599,6 +623,14 @@ function openModal(id){
   $("pmInfo").innerHTML=`
     <div class="pm-name">${esc(p.name)}</div>
     ${p.note?`<div class="pm-note">${esc(p.note)}</div>`:""}
+    ${p.sizes?`
+    <div style="margin-top:14px;margin-bottom:8px;">
+      <div style="font-family:var(--px);font-size:6px;color:var(--text3);margin-bottom:8px;letter-spacing:1px;">ВЫБЕРИТЕ РАЗМЕР:</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        ${p.sizes.map((sz,idx)=>`<button class="sz-opt ${idx===0?'active':''}" onclick="selectSize(this, '${sz}')">${sz}</button>`).join("")}
+      </div>
+    </div>
+    `:""}
     <div style="display:flex; gap:8px; flex-wrap:wrap;">
       <button class="size-guide-btn" onclick="openSizeGuide()">▶ SIZE GUIDE</button>
       ${p.conceptText?`<button class="size-guide-btn" onclick="openInfoModal('${p.id}', 'concept')">▶ CONCEPT</button>`:""}
@@ -612,11 +644,36 @@ function openModal(id){
     ${p.description?`<div class="pm-desc">${prettyHtml(p.description)}</div>`:""}
     <div class="pm-actions">
       <button onclick="addToCart('${p.id}')" class="pbtn pbtn-dark">▶ В КОРЗИНУ</button>
-      <a href="https://wa.me/${WA}?text=${encodeURIComponent("QULTURE — хочу заказать: "+p.name)}" target="_blank" rel="noopener noreferrer" class="pbtn pbtn-outline">WHATSAPP</a>
+      <button onclick="buyNow('${p.id}')" class="pbtn pbtn-outline">WHATSAPP</button>
     </div>`;
+  if(p.sizes) currentSize = p.sizes[0]; else currentSize = "";
   $("prodModal").classList.add("open"); document.body.style.overflow="hidden";
   initCarousel(imgs.length);
 }
+
+let currentSize = "";
+window.selectSize = function(btn, sz){
+  document.querySelectorAll(".sz-opt").forEach(b=>b.classList.remove("active"));
+  btn.classList.add("active");
+  currentSize = sz;
+};
+
+window.buyNow = function(id) {
+  const p=ALL_PRODUCTS.find(x=>x.id===id); if(!p) return;
+  const sz = p.sizes ? currentSize : "";
+  const msg=[
+    "Здравствуйте! Хочу оформить заказ.",
+    "\nЗаказ: " + p.name,
+    "",
+    "— Размер: " + sz,
+    "— Город:",
+    "— Адрес (улица, дом, кв, подъезд):",
+    "— Номер телефона:",
+    "— ФИО (для регионов):",
+    "— Индекс (для регионов):"
+  ].join("\n");
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`,"_blank","noopener,noreferrer");
+};
 function closeProd(){ $("prodModal").classList.remove("open"); document.body.style.overflow=""; }
 $("pmClose").addEventListener("click",closeProd);
 $("pmOverlay").addEventListener("click",closeProd);
