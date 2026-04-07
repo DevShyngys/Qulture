@@ -264,16 +264,15 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
 
   <div class="ticker" aria-hidden="true">
     <span class="ticker-inner">
-      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — SGIN COMING &nbsp;|&nbsp;
+      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — THE 5 VICES OF MAN PRE-SALE &nbsp;|&nbsp;
       LIMITED PRE-ORDER &nbsp;|&nbsp; VIA WHATSAPP ONLY &nbsp;|&nbsp; YOU'RE RUNNING OUT OF TIME &nbsp;|&nbsp;
-      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — SGIN COMING &nbsp;|&nbsp;
+      ★ QULTURE DROP 01 &nbsp;|&nbsp; HANDMADE IN KAZAKHSTAN &nbsp;|&nbsp; DROP 02 — THE 5 VICES OF MAN PRE-SALE &nbsp;|&nbsp;
       LIMITED PRE-ORDER &nbsp;|&nbsp; VIA WHATSAPP ONLY &nbsp;|&nbsp; YOU'RE RUNNING OUT OF TIME &nbsp;|&nbsp;
     </span>
   </div>
 
   <header>
     <a href="#" class="hdr-logo">
-      <img src="logo.png" alt="QULTURE">
       <span>QULTURE</span>
     </a>
     <nav class="hdr-nav">
@@ -404,19 +403,7 @@ footer{border-top:1px solid var(--border);background:var(--surface);padding:18px
         <div style="display:flex;align-items:center;gap:6px;"><div class="wdot r"></div><div class="wdot y"></div><span class="pm-title">SIZE_GUIDE.TXT</span></div>
         <button class="pm-close" id="szClose">ЗАКРЫТЬ</button>
       </div>
-      <div class="sz-body">
-        <table class="sz-table">
-          <thead><tr><th>ПАРАМЕТР</th><th>Custom M-L</th><th>Custom L-XL</th></tr></thead>
-          <tbody>
-            <tr><td>Ширина груди</td><td>59 см</td><td>63 см</td></tr>
-            <tr><td>Длина изделия</td><td>67 см</td><td>70 см</td></tr>
-            <tr><td>Ширина плеча</td><td>17 см</td><td>18 см</td></tr>
-            <tr><td>Ширина низа</td><td>58 см</td><td>61 см</td></tr>
-            <tr><td>Длина рукава</td><td>22 см</td><td>24 см</td></tr>
-          </tbody>
-        </table>
-        <p class="sz-note">* Допуск ±1–2 см (ручной пошив).</p>
-        <p class="sz-note">* M-L = L на футболке, L-XL = XL.</p>
+      <div class="sz-body" id="szBody">
       </div>
     </div>
   </div>
@@ -468,31 +455,39 @@ const ALL_PRODUCTS = [
     sizes:["Custom M-L","Custom L-XL"],
     thumb:"images/boy.jpg",
     images:["images/boy.jpg","images/girl.jpg","images/tshirt_new.jpg","images/mmmm.png","images/macro2.png","images/macro.png","images/sostavnik.png"],
-    description:"Характеристики:\n• Состав: 95% Хлопок / 5% Эластан (190 г/м²).\n• Принт: Износостойкая шелкография.\n• Крой: Авторский силуэт QULTURE.\n• Размеры: Custom M-L / Custom L-XL\n\nПроизводство:\nHandmade in Kazakhstan. Каждая вещь кроится и шьётся вручную в локальном цеху."
+    description:"Характеристики:\n• Состав: 95% Хлопок / 5% Эластан (190 г/м²).\n• Принт: Износостойкая шелкография.\n• Крой: Авторский силуэт QULTURE.\n• Размеры: Custom M-L / Custom L-XL\n\nПроизводство:\nHandmade in Kazakhstan. Каждая вещь кроится и шьётся вручную в локальном цеху.",
+    sizeTable: {
+      cols: ["Custom M-L", "Custom L-XL"],
+      rows: [
+        ["Ширина груди", "59 см", "63 см"],
+        ["Длина изделия", "67 см", "70 см"],
+        ["Ширина плеча", "17 см", "18 см"],
+        ["Ширина низа", "58 см", "61 см"],
+        ["Длина рукава", "22 см", "24 см"]
+      ],
+      note: "* Допуск ±1–2 см (ручной пошив).\n* M-L = L на футболке, L-XL = XL."
+    }
   },
   {
-    id:"s1", drop:"DROP 02", dropSub:"SGIN",
-    name:"T-SHIRT SGIN (WHITE)",
+    id:"v1", drop:"DROP 02", dropSub:"PRE-SALE",
+    name:"T-SHIRT\n\"THE 5 VICES\nOF MAN\"",
     price:13000, originalPrice:20000, note:"Oversize / Unisex",
     isPreSale: true,
     sizes:["M","L","XL"],
-    thumb:"images/T-SHIRT_SGIN01.png",
-    images:["images/T-SHIRT_SGIN01.png"],
-    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: M / L / XL\n\nПринт:\nТехнология: качественная шелкография.\nЭффект: винтажный стиль с потертостями. Принт мягкий, не стоит колом.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
-    conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
-    preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
-  },
-  {
-    id:"s2", drop:"DROP 02", dropSub:"SGIN",
-    name:"SWEATSHIRT SGIN (BLACK)",
-    price:16000, originalPrice:30000, note:"Oversize / Unisex",
-    isPreSale: true,
-    sizes:["M","L","XL"],
-    thumb:"images/SWEATSHIRT_SGIN01.png",
-    images:["images/SWEATSHIRT_SGIN01.png"],
-    description:"Крой и база:\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок. Плотная ткань, которая держит форму «коробки»\nРазмеры: M / L / XL\n\nПринт:\nТехнология: качественная шелкография.\n\nВажно (Предзаказ):\nЭто предзаказ. Каждая вещь печатается вручную, поэтому текстура принта и потертости могут немного отличаться от фото. Двух абсолютно одинаковых футболок не будет.\n\nСрок готовности: до 4-х недель",
-    conceptText:"Все текстовые и графические элементы, представленные на изделиях бренда, являются объектами художественного самовыражения и интеллектуальной собственности.\n\nИспользование аббревиатур носит исключительно концептуальный характер и не направлено на оскорбление чувств граждан, государственных институтов или нарушение норм общественной морали.\n\nБренд не несет ответственности за субъективную интерпретацию визуального контента потребителем. Приобретая данную продукцию, вы подтверждаете понимание авторской концепции. 18+",
-    preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Принты в стиле «vintage/distressed» намеренно имеют неоднородную структуру. Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
+    thumb:"images/vices_back.jpg",
+    images:["images/vices_back.jpg", "images/vices_front.jpg"],
+    description:"Крой и база:\n\nОверсайз кроп: укороченный силуэт с широким телом и спущенным плечом.\nМатериал: 100% хлопок(240g) \nПлотная ткань, которая держит форму «коробки»\nРазмеры: M / L / XL\n\nПринт: качественная шелкография.\n\nСрок готовности: до 4-х недель",
+    sizeTable: {
+      cols: ["M", "L", "XL"],
+      rows: [
+        ["Длина изделия", "67 см", "69 см", "71 см"],
+        ["Ширина груди", "62 см", "64 см", "66 см"],
+        ["Длина рукава", "23 см", "24 см", "25 см"],
+        ["Ширина плеча", "60 см", "62 см", "64 см"]
+      ],
+      note: "* Допуск ±1–2 см (ручной пошив)."
+    },
+    preOrderText:"Условия предзаказа и публичная оферта:\n\nВизуальное соответствие: Изображения товара являются цифровой визуализацией (мокапом). Продавец оставляет за собой право на незначительные изменения в деталях принта, фурнитуры и кроя в процессе оптимизации производства.\n\nХарактеристики печати: Наличие микротрещин, пропусков краски или эффекта выцветания является заложенным дизайнерским решением, а не производственным браком.\n\nВозврат: Возврат изделий, приобретенных по предзаказу, осуществляется согласно законодательству РК, однако просим учитывать, что индивидуальные особенности художественного принта не являются основанием для признания товара ненадлежащего качества."
   }
 ];
 
@@ -593,7 +588,22 @@ $("checkoutBtn").addEventListener("click",checkout);
 $("clearBtn").addEventListener("click",()=>{saveCart([]);renderCart();});
 
 // ── SIZE MODAL ────────────────────
-window.openSizeGuide = function(){ toggleScroll(true); $("sizeModal").classList.add("open"); };
+window.openSizeGuide = function(id){
+  const p = ALL_PRODUCTS.find(x => x.id === id);
+  if (!p || !p.sizeTable) return;
+  const t = p.sizeTable;
+  $("szBody").innerHTML = `
+    <table class="sz-table">
+      <thead><tr><th>ПАРАМЕТР</th>${t.cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
+      <tbody>
+        ${t.rows.map(r => `<tr>${r.map(d => `<td>${d}</td>`).join("")}</tr>`).join("")}
+      </tbody>
+    </table>
+    ${t.note ? t.note.split("\n").map(n => `<p class="sz-note">${n}</p>`).join("") : ""}
+  `;
+  toggleScroll(true);
+  $("sizeModal").classList.add("open");
+};
 function closeSize(){ toggleScroll(false); $("sizeModal").classList.remove("open"); }
 $("szClose").addEventListener("click",closeSize);
 $("szOverlay").addEventListener("click",closeSize);
@@ -642,7 +652,7 @@ function openModal(id){
     </div>
     `:""}
     <div style="display:flex; gap:8px; flex-wrap:wrap;">
-      <button class="size-guide-btn" onclick="openSizeGuide()">▶ SIZE GUIDE</button>
+      <button class="size-guide-btn" onclick="openSizeGuide('${p.id}')">▶ SIZE GUIDE</button>
       ${p.conceptText?`<button class="size-guide-btn" onclick="openInfoModal('${p.id}', 'concept')">▶ CONCEPT</button>`:""}
       ${p.preOrderText?`<button class="size-guide-btn" onclick="openInfoModal('${p.id}', 'preOrder')">▶ PRE-ORDER</button>`:""}
     </div>
